@@ -1,0 +1,1 @@
+INSERT INTO `obstenant-default`.`c_configuration` (`name`, `enabled`, `value`, `module`, `description`) VALUES ('MyaccountLogin', '1', '{\"socialLogin\":false,\"secondaryLogin\":\"email\"}', 'Login', 'it is used to login with social websites/Email/Phone.');

@@ -1,0 +1,33 @@
+package org.mifosplatform.logistics.onetimesale.service;
+
+import java.util.List;
+
+import org.mifosplatform.logistics.item.data.ItemData;
+import org.mifosplatform.logistics.onetimesale.data.AllocationDetailsData;
+import org.mifosplatform.logistics.onetimesale.data.OneTimeSaleData;
+
+public interface OneTimeSaleReadPlatformService {
+
+	List<ItemData> retrieveItemData();
+
+	List<OneTimeSaleData> retrieveClientOneTimeSalesData(Long clientId);
+
+	List<OneTimeSaleData> retrieveOnetimeSalesForInvoice(Long clientId);
+
+	OneTimeSaleData retrieveSingleOneTimeSaleDetails(Long saleId);
+
+	List<AllocationDetailsData> retrieveAllocationDetails(Long orderId);
+
+	AllocationDetailsData retrieveAllocationDetailsBySerialNo(String serialNo);
+	
+	List<AllocationDetailsData> retrieveUnAllocationDetails(Long orderId, Long clientId);
+
+	List<OneTimeSaleData> retrivePairedItemOfaItem(String serialNo);
+
+	List<OneTimeSaleData> retrieveClientOneTimeSalesDataForActivation(Long clientId);
+
+	List<OneTimeSaleData> retrieveItemDetailsForInvoice(Long clientId, String serialNo);
+	
+	
+
+}

@@ -1,0 +1,1 @@
+INSERT IGNORE INTO  `c_configuration` (`name`, `enabled`, `value`, `module`, `description`) VALUES ('isPrepaidservice', '0', '{"prepaid"="true"}', 'orders', 'it is used to check the customer has the balance for prepaid service');

@@ -1,0 +1,1 @@
+--Alter table  b_network_element add `is_group_supported` char(1) NOT NULL DEFAULT 'N'

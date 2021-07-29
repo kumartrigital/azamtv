@@ -1,0 +1,20 @@
+CREATE TABLE if not exists `m_jv_transactions` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `office_id` bigint(10) NOT NULL,
+  `client_id` bigint(10) NOT NULL,
+  `jv_date` datetime NOT NULL,
+  `start_date` datetime,
+  `end_date` datetime,
+  `jv_description` varchar(50) NOT NULL,
+  `ref_id` int(10) DEFAULT NULL,
+  `trans_amount` decimal(24,4) DEFAULT NULL,
+  `trans_type` varchar(50) NOT NULL,
+  `createdby_id` bigint(20) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `lastmodified_date` datetime DEFAULT NULL,
+  `lastmodifiedby_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_mjvt_jvcid` (`createdby_id`),
+  KEY `idx_mjvt_jvdate` (`jv_date`),
+  KEY `idx_mjvt_clientid` (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;

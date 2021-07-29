@@ -1,0 +1,3 @@
+INSERT IGNORE INTO `stretchy_report` VALUES
+ (null,'STBCount','Table',NULL,'Client','select \"TotalSTBs\",count(0) as cnt from b_item_detail a , b_item_master b where a.item_master_id=b.id and item_code=\"STB\" union all select \"AssignedSTBs\",count(0) as cnt from b_item_detail a , b_item_master b where a.item_master_id=b.id and item_code=\"STB\" and a.client_id is not null union all select \"ActiveSTBs\",count(0) as cnt from b_item_detail a , b_item_master b where a.item_master_id=b.id and item_code=\"STB\" and a.client_id in 
+(select distinct client_id  from b_orders where order_status=1)','STBCount',0,1);

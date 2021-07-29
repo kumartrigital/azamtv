@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UTS REPORT" pageWidth="612" pageHeight="760" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6fad43d2-0244-4322-8657-2cc8e26ba0e3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Sat Apr 18 17:01:41 IST 2015"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F5F5F5">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F5F5F5">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#D9C3C3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFF8F8"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#FDF5E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#FFE9BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFF9EF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0FFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TH" mode="Opaque" backcolor="#F5F5F5">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1" uuid="7f5f4db1-2aee-480f-b2cb-30a5582e1fb4">
+		<parameter name="table_param1" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT  bc.id AS Id,
+bc.order_id as orderId,
+round((bc.netcharge_amount+ifnull(bcx.tax_amount,0)),2) AS Amount,
+       (CASE
+        WHEN bc.priceline_id = 0 AND bc.charge_type = 'NRC' THEN btm.item_description
+        WHEN bc.priceline_id = -1 AND bc.charge_type = 'NRC' THEN concat('ST','-',ph.property_code)
+        ELSE pm.plan_description
+      END) AS Description,
+     (CASE
+      WHEN bc.priceline_id >=1 THEN bo.active_date
+      WHEN bc.priceline_id=0 AND bc.charge_type='NRC' AND bos.device_mode='NEWSALE' THEN bos.sale_date
+      ELSE ph.transaction_date
+      END) As Activation,
+    if((bo.user_action='DISCONNECTION'), bo.end_date,null) AS Disconnection,
+concat(date_format(bc.charge_start_date,'%d/%m/%y'),'-',date_format(bc.charge_end_date,'%d/%m/%y')) AS Period
+    FROM b_invoice  bi JOIN
+         b_charge bc ON bi.id = bc.invoice_id and bi.client_id=bc.client_id
+        LEFT JOIN b_charge_tax bcx ON bc.id=bcx.charge_id and bcx.invoice_id=bi.id
+        LEFT JOIN b_onetime_sale bos  ON bc.order_id = bos.id
+       LEFT JOIN b_item_master btm  ON btm.id = bos.item_id
+       LEFT JOIN b_orders bo ON  bc.order_id=bo.id AND bc.client_id = bo.client_id
+       LEFT JOIN b_plan_master pm ON bo.plan_id = pm.id
+       LEFT JOIN b_property_history ph  ON bc.order_id=ph.id
+ WHERE bi.id =$P{table_param1}
+GROUP BY bc.id]]>
+		</queryString>
+		<field name="Id" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="orderId" class="java.lang.Integer"/>
+		<field name="Amount" class="java.lang.Double">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Description" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Activation" class="java.sql.Timestamp"/>
+		<field name="Disconnection" class="java.sql.Timestamp"/>
+		<field name="Period" class="java.lang.String"/>
+		<group name="Id">
+			<groupExpression><![CDATA[$F{Id}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="param1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="realPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+    i.id AS invoiceId,
+    i.invoice_date AS invoiceDate,
+    i.invoice_amount as totalInvoiceAmount,
+    mc.id as clientId,
+    mc.account_no as accountNo,
+    mc.display_name as displayName,
+    mc.external_id as nationalId,
+    cd.address_no as addressNo,
+    cd.city AS city,
+    cd.state AS state,
+    cd.country AS country,
+    cd.zip AS zip
+FROM
+    b_invoice i
+    JOIN m_client mc ON (mc.id=i.client_id)
+    LEFT JOIN  b_client_address cd  ON (mc.id=cd.client_id and cd.address_key ='PRIMARY')
+    WHERE i.id=$P{param1}]]>
+	</queryString>
+	<field name="invoiceId" class="java.lang.Integer"/>
+	<field name="invoiceDate" class="java.sql.Timestamp"/>
+	<field name="totalInvoiceAmount" class="java.lang.Double"/>
+	<field name="clientId" class="java.lang.Long"/>
+	<field name="accountNo" class="java.lang.String"/>
+	<field name="displayName" class="java.lang.String"/>
+	<field name="nationalId" class="java.lang.String"/>
+	<field name="addressNo" class="java.lang.String"/>
+	<field name="city" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="state" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="country" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="zip" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="variable1" class="java.lang.String"/>
+	<title>
+		<band height="306" splitType="Stretch">
+			<staticText>
+				<reportElement x="468" y="70" width="104" height="26" uuid="8fe5b5ef-339a-462f-8578-4503d68db125"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="150" width="100" height="20" uuid="d3b210ea-79d5-4573-96bc-66fb4a608c4d"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CustomerNo :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="468" y="150" width="104" height="20" uuid="7a316edb-1bdf-458e-83b2-a37f82cd08c2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="338" y="170" width="130" height="20" uuid="b38e6e54-83b3-427a-bba6-24fc813a8c3d"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Details :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="469" y="170" width="104" height="20" uuid="23a9af09-fded-4b24-b40c-12a1d3989d2b"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{addressNo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="237" width="571" height="69" uuid="f8f263b4-1a5e-4290-8cc8-f9e876a117fc"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="265" width="573" height="1" uuid="e7e850cd-7c0e-42f4-ab0e-6a237fb241a0"/>
+			</line>
+			<line>
+				<reportElement x="215" y="237" width="1" height="69" uuid="1b03cca4-98da-475d-9ada-46965eee6d8f"/>
+			</line>
+			<staticText>
+				<reportElement x="22" y="245" width="98" height="20" uuid="57cf17de-be47-44de-bbde-04748296f846"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice  TO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="419" y="237" width="1" height="69" uuid="2d446cbf-abdf-4cef-89fd-bf3ddfcdf69c"/>
+			</line>
+			<staticText>
+				<reportElement x="238" y="245" width="100" height="20" uuid="cd11679f-01b0-4584-ac85-3fd2e45a6445"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inovice Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="246" width="80" height="20" uuid="ecb86920-de08-448e-ad7c-aa15764e5a05"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Project]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="5" y="286" width="210" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{displayName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement x="226" y="286" width="193" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoiceDate}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="354" y="96" width="218" height="48" uuid="06baca96-2e03-464b-b7cb-52e1214b6f4a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="354" y="96" width="114" height="20" uuid="a4f962c1-870e-481e-ad5f-c2f273160694"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="96" width="102" height="20" uuid="9c50a3a0-aaac-4180-a19b-dc1e002db7c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice #]]></text>
+			</staticText>
+			<line>
+				<reportElement x="469" y="96" width="1" height="48" uuid="3ceac0b2-4cd6-4d47-a535-5e6ceb17427e"/>
+			</line>
+			<line>
+				<reportElement x="354" y="116" width="218" height="1" uuid="4db074ae-a1ee-4879-90dc-19f46fe4074f"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="469" y="116" width="100" height="20" uuid="533ad510-075b-4dd1-9480-89346e30d787"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoiceId}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement x="358" y="117" width="114" height="20" uuid="9f1ffe82-53ea-4976-8f8b-40fc22e3b74c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoiceDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="439" y="286" width="133" height="20" uuid="b9cd6163-053a-4f45-87c6-e74258902c27"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[IPTV]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="368" y="190" width="204" height="25" uuid="052a2667-4261-49c1-bd97-870a9fa1a3d9"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city}+ "," +$F{state}+ "," + $F{country} +" " +$F{zip}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="76" width="211" height="20" uuid="6b9f764f-501d-4f72-9e89-20595f9acd91"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Open Billing System
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="96" width="185" height="74" uuid="d8841e3f-f8f2-4824-8aff-30677f36a770"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<text><![CDATA[Kondapur,Hyderabad
+Andhra Pradesh,India 30214
+Tel: 858 935 8804
+info@openbillingsystem.com
+
+]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement stretchType="RelativeToBandHeight" x="5" y="46" width="119" height="24" uuid="889fbb11-d922-4982-8443-bff538840007"/>
+				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="61" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 11" style="table 11" x="1" y="10" width="571" height="50" uuid="2c251718-355f-4b4b-b2ba-786f9ee3e4b3"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 1" uuid="275db502-97e9-4c27-aac0-dcd1c3c8ee6c">
+						<datasetParameter name="table_param1">
+							<datasetParameterExpression><![CDATA[$P{param1}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="48" uuid="7bd04bcf-c39c-467e-ba77-7fd7ed1de066">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="48" height="30" uuid="618ecc15-5151-4cbc-91fc-e3b88774457d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[S.NO.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="2" y="0" width="46" height="20" uuid="219d70a9-e5d9-4236-a1a5-f7c90382e16c"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="125" uuid="8d39ca30-e676-41c8-ba54-2aae14659167">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="125" height="30" uuid="4271be7d-fdc9-4f37-8def-f56ca704c266"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Description]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField>
+								<reportElement x="10" y="0" width="115" height="20" uuid="1b9be5cd-8f01-4aa4-a0d9-1ff37b80d0ad"/>
+								<textElement textAlignment="Justified" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Description}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="6d29c354-2337-428b-84f4-6ef42603620d">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="2adbc36d-ee1a-4005-9003-3e41ecb137c9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Period]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="dd/MM/yy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="100" height="20" uuid="55f9da36-ce17-4da2-b3ff-1a7aa85d6926"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Period}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="95" uuid="12292409-4a54-4556-bed2-b70354ddfae7">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="95" height="30" uuid="9226e8ed-74ae-4ed0-aa38-fc1174e18553"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Activation]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="2" y="0" width="93" height="20" uuid="d61a41d2-37aa-4c00-b27c-b1fefe8f853c"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Activation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="103" uuid="4b155aa7-f079-4ce5-86bc-fc1eb0f12544">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="103" height="30" uuid="d213b544-bdf2-41f7-8fce-21a866a98353"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Disconnection]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="103" height="20" uuid="1ce82f50-0d23-4f04-a735-32cc79e9fd3c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Disconnection}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="98" uuid="b20862e9-ae0a-4444-b210-57a0d757fe4f">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="98" height="30" uuid="94ec7958-e790-4221-841c-3bb43ec661f6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true" isPdfEmbedded="false"/>
+								</textElement>
+								<text><![CDATA[Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="98" height="20" uuid="0344b5b9-e3ef-4d77-ba44-f75ecf43b2dd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="25">
+			<staticText>
+				<reportElement x="439" y="0" width="42" height="22" uuid="a48f216a-3c83-4329-b5b5-9efa9845c914"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total :]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="483" y="2" width="89" height="20" uuid="7e740b76-e333-4302-ba79-7fd7f96e8c24"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalInvoiceAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

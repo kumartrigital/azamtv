@@ -1,0 +1,1573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OBSSTATEMENT" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="22700e9f-8f76-4e4d-a2ff-14e867330990">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="288"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Invoice DataSet" uuid="0565a855-e95a-4e17-9fbf-6f30b8ef4fc6">
+		<parameter name="Invoicetable_param1" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT  bm.id as billId,
+        bc.id AS chargeId,
+        bc.order_id as orderId,
+       (CASE
+        WHEN bc.priceline_id = 0 AND bc.charge_type = 'NRC' THEN btm.item_description
+        WHEN bc.priceline_id = -1 AND bc.charge_type = 'NRC' THEN concat('ST','-',ph.property_code)
+        ELSE pm.plan_description
+      END) AS package,
+      concat(DATE_FORMAT(bc.charge_start_date,'%d/%m/%y'),' - ',DATE_FORMAT(bc.charge_end_date,'%d/%m/%y')) AS period,
+       (CASE
+        WHEN bc.priceline_id = 0 AND bc.order_id=bos.id AND bc.charge_type = 'NRC' THEN bos.quantity
+        ELSE concat(DATEDIFF(bc.charge_end_date,bc.charge_start_date)+1,' days') END ) as days,
+       bc.netcharge_amount as chargeAmount,
+       bcx.tax_amount as taxAmount,
+      (bc.netcharge_amount + ifnull(bcx.tax_amount,0)) as totalChageAmount,
+       m.account_no as accountNo,
+       m.display_name as displayName,
+       m.email as email
+FROM  b_bill_master bm  JOIN
+       b_charge bc ON bm.id = bc.bill_id AND bm.client_id = bc.client_id
+       JOIN b_invoice bi ON bm.id=bi.bill_id and bi.id=bc.invoice_id
+       JOIN m_client m ON m.id=bi.client_id AND bm.client_id=m.id AND m.id=bc.client_id
+       LEFT JOIN b_charge_tax bcx ON bm.id=bcx.bill_id AND bcx.charge_id=bc.id
+       LEFT JOIN b_onetime_sale bos  ON bc.order_id = bos.id
+       LEFT JOIN b_item_master btm  ON btm.id = bos.item_id
+       LEFT JOIN b_orders bo ON  bc.order_id=bo.id AND bm.client_id = bo.client_id
+       LEFT JOIN b_plan_master pm ON bo.plan_id = pm.id
+       LEFT JOIN b_property_history ph  ON bc.order_id=ph.id where bm.id=$P{Invoicetable_param1}]]>
+		</queryString>
+		<field name="billId" class="java.lang.Integer"/>
+		<field name="chargeId" class="java.lang.Integer"/>
+		<field name="orderId" class="java.lang.Integer"/>
+		<field name="package" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="period" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="days" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="chargeAmount" class="java.lang.Double"/>
+		<field name="taxAmount" class="java.lang.Double"/>
+		<field name="totalChageAmount" class="java.lang.Double"/>
+		<field name="accountNo" class="java.lang.String"/>
+		<field name="displayName" class="java.lang.String"/>
+		<field name="email" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<variable name="totalInvoice" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{totalChageAmount}]]></variableExpression>
+			<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="dataset1" uuid="d5489eb0-7352-4cc2-8884-2600cff00cdb"/>
+	<subDataset name="Payment DataSet" uuid="fcdda585-11b9-413b-bdda-30dde8bf499e">
+		<parameter name="pay_param1" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+    bm.id AS billNO,
+    bp.id AS refNo,
+    mcv.code_value as payMode,
+   (CASE
+   WHEN bp.ref_id IS NOT NULL THEN
+    concat(TRIM('Payment'from mcv.code_value),'-Payment Cancelled','-',DATE_FORMAT(bp.payment_date,'%d-%M-%y') )
+    ELSE concat('Payment received through','-',TRIM('Payment' from    mcv.code_value),'-',DATE_FORMAT(bp.payment_date,'%d-%M-%y') )
+     END)AS details,
+   (CASE
+   WHEN bp.ref_id IS NOT NULL THEN 'DEBIT'
+  ELSE 'CREDIT ' END) As transaction,
+   round(bp.amount_paid,2) AS amount,
+    bp.remarks AS remarks,
+    m.account_no as accountNo,
+    m.display_name as displayName,
+    m.email as email
+FROM
+    b_bill_master bm
+        JOIN
+    b_payments bp ON bm.id=bp.bill_id AND bp.client_id = bm.client_id
+       join
+     m_client m ON m.id=bp.client_id and bm.client_id=m.id
+        LEFT JOIN
+    m_code_value mcv ON bp.paymode_id = mcv.id where bm.id=$P{pay_param1}]]>
+		</queryString>
+		<field name="billNO" class="java.lang.Integer"/>
+		<field name="refNo" class="java.lang.Integer"/>
+		<field name="payMode" class="java.lang.String"/>
+		<field name="details" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="transaction" class="java.lang.String"/>
+		<field name="amount" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="remarks" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="accountNo" class="java.lang.String"/>
+		<field name="displayName" class="java.lang.String"/>
+		<field name="email" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<variable name="totalPay" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+			<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="Adjustment Dataset" uuid="eeea2421-4f58-4698-9b9f-fd2b7a5234dd">
+		<parameter name="adjustment_param1" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select
+    bm.id as billNO,
+    ba.id as refNo,
+    concat(mcv.code_value,'-',DATE_FORMAT(ba.adjustment_date,'%d-%M-%y'))as details,
+    ba.adjustment_type as type,
+    ba.adjustment_date as adjustementDate,
+    if((ba.adjustment_type='DEBIT'),(0-ba.adjustment_amount),ba.adjustment_amount) as amount,
+    ba.remarks as remarks,
+    m.account_no as accountNo,
+    m.display_name as displayName,
+    m.email as email
+from
+    b_bill_master bm
+        join
+    b_adjustments ba ON bm.id=ba.bill_id and ba.client_id = bm.client_id
+         join
+     m_client m ON m.id=ba.client_id and bm.client_id=m.id
+        left join
+    m_code_value mcv ON ba.adjustment_code = mcv.id where bm.id=$P{adjustment_param1}]]>
+		</queryString>
+		<field name="billNO" class="java.lang.Integer"/>
+		<field name="refNo" class="java.lang.Integer"/>
+		<field name="details" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="type" class="java.lang.String"/>
+		<field name="adjustementDate" class="java.sql.Timestamp"/>
+		<field name="amount" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="remarks" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="accountNo" class="java.lang.String"/>
+		<field name="displayName" class="java.lang.String"/>
+		<field name="email" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<variable name="adjustmentSum" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+			<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="Deposit&amp;Refund DataSet" uuid="c1abaece-1f90-4204-9c4c-6764c006a037">
+		<parameter name="deposit_param1" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[select
+    bm.id as billNO,
+    bdr.id as refNo,
+    bdr.transaction_type as type,
+    concat(bdr.description,'-',DATE_FORMAT( bdr.transaction_date,'%d-%M-%y'))as details,
+    bdr.transaction_date as  transactionDate,
+   (case when bdr.description in('Deposit','Payment Towards Refund Entry') then bdr.debit_amount
+	     when bdr.description in ('Refund','Refund Adjustment towards Service Balance') then -(bdr.credit_amount)
+        end) AS amount,
+    m.account_no as accountNo,
+    m.display_name as displayName,
+    m.email as email
+from
+    b_bill_master bm
+        join
+    b_deposit_refund bdr ON bm.id=bdr.bill_id and bdr.client_id = bm.client_id
+         join
+     m_client m ON m.id=bdr.client_id and bm.client_id=m.id where bm.id=$P{deposit_param1}]]>
+		</queryString>
+		<field name="billNO" class="java.lang.Integer"/>
+		<field name="refNo" class="java.lang.Integer"/>
+		<field name="type" class="java.lang.String"/>
+		<field name="details" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="transactionDate" class="java.sql.Timestamp"/>
+		<field name="amount" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="accountNo" class="java.lang.String"/>
+		<field name="displayName" class="java.lang.String"/>
+		<field name="email" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<variable name="Deposit&amp;RefundSum" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="param1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="realPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select billId as billId,
+billNo as billNo,
+clientId as clientId,
+billDate as billDate,
+dueDate as dueDate,
+previousBalance as previousBalance,
+chargesAmount as chargesAmount,
+adjustmentAmount as adjustmentAmount,
+taxAmount as taxAmount,
+paidAmount as paidAmount,
+depositRefundAmount as depositRefundAmount,
+dueAmount as dueAmount,
+Description as Description,
+discountAmount as discountAmount,
+addressId as addressId,
+addressKey as addressKey,
+addressNo as addressNo,
+street as street,
+address as address,
+accountNo as accountNo,
+externalId as externalId,
+status as status,
+activationDate as activationDate,
+officeId as officeId,
+firstname as firstname,
+middlename as middlename,
+lastname as lastname,
+displayName as displayName,
+emailId as emailId,
+imageKey as imageKey,
+categoryType as categoryType,
+officeName as officeName,
+oa.contact_person as line_1,
+oa.address_name as line_2,
+oa.city as officeCity,
+oa.state as officeState,
+oa.country as officeCountry,
+oa.zip as officeZip,
+oa.phone_number as phoneNumber,
+email_id as officeEmail
+from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]]>
+	</queryString>
+	<field name="billId" class="java.lang.Integer"/>
+	<field name="billNo" class="java.lang.String"/>
+	<field name="clientId" class="java.lang.Long"/>
+	<field name="billDate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dueDate" class="java.sql.Timestamp"/>
+	<field name="previousBalance" class="java.lang.Double"/>
+	<field name="chargesAmount" class="java.lang.Double"/>
+	<field name="adjustmentAmount" class="java.lang.Double"/>
+	<field name="taxAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paidAmount" class="java.lang.Double"/>
+	<field name="depositRefundAmount" class="java.lang.Double"/>
+	<field name="dueAmount" class="java.lang.Double"/>
+	<field name="Description" class="java.lang.String"/>
+	<field name="discountAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="addressId" class="java.lang.Integer"/>
+	<field name="addressKey" class="java.lang.String"/>
+	<field name="addressNo" class="java.lang.String"/>
+	<field name="street" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accountNo" class="java.lang.String"/>
+	<field name="externalId" class="java.lang.String"/>
+	<field name="status" class="java.lang.Integer"/>
+	<field name="activationDate" class="java.sql.Date"/>
+	<field name="officeId" class="java.lang.Long"/>
+	<field name="firstname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="middlename" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lastname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="displayName" class="java.lang.String"/>
+	<field name="emailId" class="java.lang.String"/>
+	<field name="imageKey" class="java.lang.String"/>
+	<field name="categoryType" class="java.lang.Integer"/>
+	<field name="officeName" class="java.lang.String"/>
+	<field name="line_1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="line_2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="officeCity" class="java.lang.String"/>
+	<field name="officeState" class="java.lang.String"/>
+	<field name="officeCountry" class="java.lang.String"/>
+	<field name="officeZip" class="java.lang.String"/>
+	<field name="phoneNumber" class="java.lang.String"/>
+	<field name="officeEmail" class="java.lang.String"/>
+	<background>
+		<band height="555">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="555" uuid="dcaaea79-bd3b-45f9-aca7-65aaaeb07709"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</background>
+	<title>
+		<band height="39" splitType="Stretch">
+			<frame>
+				<reportElement mode="Transparent" x="0" y="0" width="802" height="39" uuid="46d853d1-945c-4594-a086-7ad8769a0180"/>
+				<staticText>
+					<reportElement x="339" y="10" width="134" height="24" uuid="3cb9b5ca-62fc-4ebb-8ba0-ea65dfe08a54"/>
+					<textElement textAlignment="Center">
+						<font fontName="DejaVu Sans" size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[STATEMENT]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="175" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() == 1? new Boolean(true) : new Boolean(false)]]></printWhenExpression>
+			<line>
+				<reportElement x="0" y="122" width="802" height="1" uuid="b4a9e321-949d-43f0-bc7d-dc72962a2f78"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<frame>
+				<reportElement x="0" y="0" width="802" height="124" uuid="2bd58ac0-e3ef-4ddc-946f-e4443561fd3a"/>
+				<textField>
+					<reportElement x="98" y="31" width="182" height="59" uuid="d081b944-525f-41a9-9b96-ba1d2f07e840"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="98" y="11" width="171" height="20" uuid="326e56bb-50a9-468f-a392-9cc55b1d278e"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{displayName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="24" y="11" width="74" height="20" uuid="1c9e7c5d-ea23-4756-9d69-13a5a836b10a"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Name      :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="24" y="31" width="74" height="20" uuid="7380ea96-fe8c-4c13-bfc7-533fcb683a94"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Address  :]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="0" width="802" height="1" uuid="2c0a7cb1-7447-4c64-ae6d-72d8b6dd854a"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="24" y="103" width="74" height="20" uuid="3bd451c6-102d-4a47-b276-0d20de2a9997"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Branch    :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="98" y="104" width="171" height="20" uuid="2a2adab7-caf1-4ddb-939d-ffe10da1a9c5"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{officeName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="595" y="11" width="207" height="20" uuid="002fefcb-90e0-45f1-8745-c47f28165125"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{line_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="595" y="31" width="207" height="18" uuid="ac95592d-fa6f-41bb-9d65-3635125c4cd4"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{line_2} +"," +$F{officeCity}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="595" y="49" width="207" height="19" uuid="8b6233ba-7091-4de4-a5a4-4a5efac0402f"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{officeState}+"," +$F{officeCountry}+" "+$F{officeZip}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="595" y="68" width="144" height="18" uuid="d8dd2784-5050-4acd-8ba5-cd34a42168c4"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tel: "+$F{phoneNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="595" y="86" width="157" height="17" uuid="7e21488d-0921-4e5f-9d3d-d1b097389470"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{officeEmail}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<image>
+				<reportElement x="379" y="14" width="187" height="37" uuid="60d559cf-e32a-44b1-b30c-bb8afb8cdcf0"/>
+				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="657" y="152" width="88" height="18" uuid="5992303f-e7e8-42d8-824d-069bb7a94874"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{billDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="519" y="152" width="138" height="18" uuid="4740baad-d245-4db0-8570-8a4f15d5ae93"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Statement Date     :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="657" y="135" width="72" height="18" uuid="00bf7018-bec7-4ac0-8e05-5a07d95bb956"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{billId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="519" y="134" width="138" height="18" uuid="7e644d47-fdc5-460f-b062-1735058d6633"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Statement No        :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="134" width="103" height="19" uuid="14eda0e8-a728-45ba-8784-cc45c42718bd"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[User Id         :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="153" width="103" height="18" uuid="38510cf4-fee5-4a5c-b41d-d10f4fccf69a"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Account No  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="128" y="135" width="182" height="18" uuid="4432236f-c397-4ad5-ac1a-2e6d560db69c"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{emailId} !=null) ? $F{emailId} : $F{accountNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="153" width="152" height="18" uuid="23330963-a002-46ba-8ef1-4e50591362d7"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accountNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($F{chargesAmount}.doubleValue() !=0)]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="802" height="50" isRemoveLineWhenBlank="true" uuid="1453ce5b-983e-4789-9468-c61f37bb6bc3">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()>=1)]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Invoice DataSet" uuid="9b99f025-7259-493b-b614-35080430d7a5">
+						<datasetParameter name="Invoicetable_param1">
+							<datasetParameterExpression><![CDATA[$P{param1}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="347" uuid="cb226591-94d1-4745-80f4-b82ce7afac35">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="137" y="0" width="89" height="30" uuid="d84a51d2-77a4-44aa-b8ba-aaa479a6e114"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Account No  :]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="226" y="0" width="121" height="30" uuid="922aafc8-c190-4711-aa45-83c3c7439f1d"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{accountNo}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="10" y="0" width="104" height="30" uuid="6abdd3e4-e0d1-4101-bcc6-acaeb24246d4"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Invoice Charges ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:column width="69" uuid="2df615dc-d5da-4543-be4e-8c16375190f3">
+							<jr:columnHeader style="table" height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="69" height="20" uuid="2204118f-c8f7-4c4b-8ec7-2ad52172958b"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Txn. No.]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="10" y="0" width="59" height="20" uuid="e1d3eb2a-de86-471e-92ba-b573ad26390c"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{chargeId}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="145" uuid="e108deb0-c910-4c86-a47f-ae6b44c31c01">
+							<jr:columnHeader style="table" height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="12" y="1" width="101" height="19" uuid="a387a24c-75b6-46dd-8e33-ebb2c452ec25"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Period]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="20" rowSpan="1">
+								<textField pattern="dd/MM/yyyy">
+									<reportElement x="12" y="0" width="133" height="20" uuid="100a9690-7299-4264-9603-8ae2511e4b26"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{period}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="133" uuid="a4aac604-5c42-40f5-b759-ed0cec3ba09e">
+							<jr:columnHeader style="table" height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="15" y="0" width="95" height="20" uuid="13dd74b3-3a1e-4dc5-a1df-f081aa8ea47f"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Package]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="12" y="0" width="121" height="20" uuid="58ecdcdb-34ee-4673-a207-38e2c62161f1"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{package}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+					<jr:column width="106" uuid="fde5683f-29a7-48b4-9679-f8fea27aa3be">
+						<jr:columnHeader style="table" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="15" y="0" width="70" height="20" uuid="e70d8b78-50f9-4ecf-a25b-c6245c56aebf"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Sans" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Quantity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="15" y="0" width="91" height="20" uuid="ec6e7aba-871e-4a08-8d09-ef2f3f1ee1ec"/>
+								<textElement>
+									<font fontName="DejaVu Sans"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{days}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="348" uuid="53a21167-ce79-4829-b816-e7d29ff3dfbe">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="30" y="0" width="87" height="30" uuid="cd2deb87-38ad-44c2-8e4b-5f2c2031f330"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[User Name  :]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="117" y="0" width="230" height="30" uuid="682ed916-db9d-4a31-a128-b1d047333322"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{email} !=null) ? $F{email} : $F{displayName}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:columnGroup width="348" uuid="5149f831-6887-481f-91f8-8269b87143b4">
+							<jr:tableFooter height="23" rowSpan="1">
+								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+									<reportElement x="214" y="8" width="127" height="15" uuid="1016c9c0-1b87-4092-8261-8ad949f85a23"/>
+									<textElement>
+										<font fontName="DejaVu Sans" isBold="false"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{totalInvoice}]]></textFieldExpression>
+								</textField>
+								<staticText>
+									<reportElement x="117" y="8" width="97" height="15" uuid="20007390-7ba6-4886-be28-d5a4fd776d7a"/>
+									<textElement>
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Total Invoices   :]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:column width="107" uuid="b9f9b67b-116f-4391-bdec-492c7a87f16b">
+								<jr:columnHeader style="table" height="20" rowSpan="1">
+									<staticText>
+										<reportElement x="16" y="1" width="71" height="19" uuid="3a83df84-3443-4fc4-8b11-39787e66e992"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" size="10" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Amount]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
+									<textField isBlankWhenNull="true">
+										<reportElement x="16" y="0" width="91" height="20" uuid="e11cec7b-7bf8-4c3f-a0e5-32673f7d7039"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{chargeAmount}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="125" uuid="fd9b1ec8-033e-439a-9565-9e6cad94e147">
+								<jr:columnHeader style="table" height="20" rowSpan="1">
+									<staticText>
+										<reportElement x="25" y="0" width="72" height="20" uuid="e493f649-18c0-4535-81c7-8505e8c6d725"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" size="10" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Tax *]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
+									<textField isBlankWhenNull="true">
+										<reportElement x="25" y="0" width="100" height="20" uuid="1e457f45-3203-4d69-a921-015d5bfd6607"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA[($F{taxAmount} !=null) ? $F{taxAmount} : "0.00"]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="116" uuid="d4ade6d9-148e-4845-88ad-206c02b19088">
+								<jr:columnHeader style="table" height="20" rowSpan="1">
+									<staticText>
+										<reportElement x="16" y="1" width="75" height="19" uuid="8b60f860-15e1-4fda-b089-3554fb523f51"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" size="10" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Total]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
+									<textField>
+										<reportElement x="12" y="0" width="97" height="20" uuid="61fc6573-f341-4900-ae1e-21f99280306d"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{totalChageAmount}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<frame>
+				<reportElement x="1" y="0" width="802" height="50" uuid="67cb04db-9f04-42b2-bb84-abf1a6145713"/>
+			</frame>
+		</band>
+		<band height="79">
+			<printWhenExpression><![CDATA[new Boolean($F{paidAmount}.doubleValue()!=0)]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 4" style="table 4" x="0" y="29" width="802" height="50" isRemoveLineWhenBlank="true" uuid="05f0b208-a008-4610-bbc7-da9f623a4824">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()>=1)]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Payment DataSet" uuid="22b6faa4-2e39-4ddf-8d9f-6afae487ad3b">
+						<datasetParameter name="pay_param1">
+							<datasetParameterExpression><![CDATA[$P{param1}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="302" uuid="5dac73d4-6fc8-481a-844b-509bb1cc9b52">
+						<jr:tableHeader height="31" rowSpan="1">
+							<staticText>
+								<reportElement x="129" y="0" width="86" height="31" uuid="c8259ca3-c1c4-4a6a-8dcf-dff23c184516"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Account No  :]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="26" y="0" width="65" height="31" uuid="7f3786e3-5012-4749-9823-e4fae0ba6a8f"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Payments]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="215" y="0" width="87" height="31" uuid="c897df98-266a-4074-a9cf-48ed7158b782"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{accountNo}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:column width="66" uuid="f73212ab-55c0-492c-8db7-738a64222507">
+							<jr:columnHeader style="table_TD" height="22" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="66" height="22" uuid="22400f75-df0a-4f3e-9142-b55c39e32fdf"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[RefNo]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="5" y="0" width="61" height="20" uuid="1d816df2-31cf-437d-9f89-bedca8fe6fa5"/>
+									<textElement textAlignment="Justified">
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{refNo}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="236" uuid="405f640f-ebc1-4e4c-933f-e7dc2a19972a">
+							<jr:columnHeader style="table_TD" height="22" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="236" height="22" uuid="61b608db-f2f4-403e-8d58-c3c940d3453d"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Details]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="5" y="0" width="231" height="20" uuid="cc2f0c44-7ab2-4803-b771-b658a387fc93"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{details}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+					<jr:column width="79" uuid="a5fce0ad-ce99-4551-853d-8653f25bb277">
+						<jr:columnHeader style="table_TD" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="79" height="22" uuid="cb3971a9-4761-487a-bc78-247a92bfa291"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Sans" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Polarity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="13" y="0" width="55" height="20" uuid="64d2c292-b969-4dc4-ada2-0fa9c0bf0756"/>
+								<textElement>
+									<font fontName="DejaVu Sans"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{transaction}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="108" uuid="e5bd2c9f-f521-484f-812c-58a995d0a49f">
+						<jr:columnHeader style="table_TD" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="108" height="22" uuid="3c6b9aa2-b897-43fc-81ca-5adaa4fe1486"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Sans" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="12" y="0" width="96" height="20" uuid="61d9c802-a529-41f3-b685-af2b95924847"/>
+								<textElement>
+									<font fontName="DejaVu Sans"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="312" uuid="fc09acc2-5a0c-438e-9a09-622902423dfb">
+						<jr:tableHeader height="31" rowSpan="1">
+							<textField>
+								<reportElement x="88" y="1" width="212" height="30" uuid="b0eca32e-a83c-4ae1-a801-9d0e24d2395a"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{email} !=null) ? $F{email} : $F{displayName}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="0" y="0" width="88" height="31" uuid="ca32ab99-edaf-4e34-af1e-f96eeb6d2aa0"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[User Name  :]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnGroup width="312" uuid="a1227298-513f-4a92-a171-dcaa61a9e611">
+							<jr:tableFooter height="24" rowSpan="1">
+								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+									<reportElement x="145" y="8" width="136" height="15" uuid="0311d13c-c2b9-4191-8b02-ece551a9ded0"/>
+									<textElement>
+										<font fontName="DejaVu Sans" isBold="false"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{totalPay}]]></textFieldExpression>
+								</textField>
+								<staticText>
+									<reportElement x="34" y="8" width="111" height="15" uuid="f63c137f-e65f-4aa4-909f-d2114da2bd52"/>
+									<textElement>
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Total Payments   :]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:column width="65" uuid="9c17dc68-5831-4566-a278-e518ed1f0498">
+								<jr:columnHeader style="table_TD" height="22" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="65" height="22" uuid="10a69f3d-d3a3-45ac-93a0-86e5902dbaa1"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Tax *]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+									<textField isBlankWhenNull="true">
+										<reportElement x="5" y="0" width="60" height="20" uuid="704de339-5424-4b27-bb74-0f5270c6922d"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA["0.00"]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="103" uuid="a903d6e4-53d4-4245-854c-fd52ef503150">
+								<jr:columnHeader style="table_TD" height="22" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="103" height="22" uuid="23d1d1dd-1686-48a6-9666-75e7ec998c6c"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Total]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+									<textField>
+										<reportElement x="6" y="0" width="97" height="20" uuid="75e4713f-c754-4e07-95f6-5e44df614477"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="144" uuid="048900ca-4b7a-406e-9b2e-0c310c1f493c">
+								<jr:columnHeader style="table_TD" height="22" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="143" height="22" uuid="b03b6165-580e-468d-a481-67a82ce43626"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Remarks]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+									<textField>
+										<reportElement x="5" y="0" width="138" height="20" uuid="3773d6c9-4c95-4a3e-bb1e-49dab5135529"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<frame>
+				<reportElement x="1" y="0" width="802" height="79" uuid="e757c296-df27-4c5f-a399-d5946c6ee65e"/>
+				<staticText>
+					<reportElement x="1" y="9" width="420" height="20" uuid="2a3dbd4c-0208-4fdf-b65c-43b7ba1987f5"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Payments/Adjustments/Discounts/Deposits/RefundsOtherCharges]]></text>
+				</staticText>
+			</frame>
+		</band>
+		<band height="50">
+			<printWhenExpression><![CDATA[new Boolean($F{adjustmentAmount}.doubleValue()!=0)]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 6" style="table 6" x="0" y="0" width="802" height="50" isRemoveLineWhenBlank="true" uuid="e3cb921f-7f02-4480-9868-0e643f79126c">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()>=1)]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Adjustment Dataset" uuid="12abb2f4-b7f8-4552-b299-31a159a99764">
+						<datasetParameter name="adjustment_param1">
+							<datasetParameterExpression><![CDATA[$P{param1}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="342" uuid="071adccf-d623-466d-98fe-85b415b3efdf">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="26" y="0" width="83" height="30" uuid="3eed55aa-f168-4bc7-b1eb-6b48c8a135c5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Adjustments]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="136" y="0" width="87" height="30" uuid="7ae4cc4c-78f4-4854-aa7d-65b5f5306c24"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Account No  :]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="223" y="0" width="119" height="30" uuid="24a2e00e-c95b-43a6-8a0a-43bd261b3ccf"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{accountNo}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:column width="68" uuid="e664538c-3857-434a-ab83-d2d2068a5866">
+							<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="68" height="24" uuid="fd6a4fda-dc7c-4180-86a6-079d0f3ab02b"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[RefNo]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 6_TD" height="22" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement x="5" y="0" width="63" height="20" uuid="7394c673-aaa1-48e2-8d49-d76fb203f457"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{refNo}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="184" uuid="3b23b08b-dbfd-45a5-9721-f460320aab5d">
+							<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="184" height="24" uuid="65f10381-8c1f-45b5-8b5d-fa772204adb5"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Details]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 6_TD" height="22" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement x="5" y="0" width="179" height="20" uuid="a799dbe1-81bd-41be-9518-3549ce89a01f"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{details}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="d6474b8f-8ecc-41d3-af8a-2c64715e31ca">
+							<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="24" uuid="5c67fca0-55fe-41af-a4c3-10aa8ff8dbca"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Polarity]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 6_TD" height="22" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement x="14" y="0" width="76" height="20" uuid="a2e22cfc-6918-44a0-ab09-cb97ebcd08c4"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+					<jr:column width="104" uuid="3b8eb695-307d-4254-b35f-6e91c7d6e181">
+						<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="104" height="24" uuid="3ce5beb8-1366-413e-8d98-267a04f1675a"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Sans" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="22" rowSpan="1">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="5" y="0" width="99" height="20" uuid="2da644fe-14ea-4064-8e8d-13cae8773d98"/>
+								<textElement>
+									<font fontName="DejaVu Sans"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="355" uuid="6626bcb1-e82e-4018-983b-634fd6e75caf">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="30" y="0" width="82" height="30" uuid="0f70ff59-8d16-412a-ae70-339aeba78734"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[User Name  :]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="112" y="0" width="198" height="30" uuid="783f0ba0-b74c-4680-a33a-c41668fabd8b"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{email} !=null) ? $F{email} : $F{displayName}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:column width="76" uuid="a8294df7-ee6b-4889-8d4d-eda810654e65">
+							<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="76" height="24" uuid="f035007f-23f5-4af7-807a-8b051ddf1738"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Tax *]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 6_TD" height="22" rowSpan="1">
+								<textField>
+									<reportElement x="5" y="0" width="71" height="20" uuid="62a41618-e969-4720-af42-e83dd4cf31df"/>
+									<textFieldExpression><![CDATA["0.00"]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:columnGroup width="279" uuid="95a576d3-dd89-4684-88ae-d6e00cbfec4e">
+							<jr:tableFooter height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="5" width="123" height="15" uuid="265f331c-4171-45f2-bbbb-a6cedaec91ea"/>
+									<textElement>
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Total Adjustments : 	]]></text>
+								</staticText>
+								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+									<reportElement x="123" y="5" width="148" height="15" uuid="a48c0231-9b0d-4de3-aa91-e0357de82514"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{adjustmentSum}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:column width="123" uuid="dfa02468-09dc-4f24-9df8-6f30edf73458">
+								<jr:tableFooter height="0" rowSpan="1"/>
+								<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="123" height="24" uuid="bdda606d-5ea5-4182-b416-7f0e13692837"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Total]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 6_TD" height="22" rowSpan="1">
+									<textField pattern="#,##0.00" isBlankWhenNull="true">
+										<reportElement x="5" y="0" width="118" height="20" uuid="dc4fb2e6-678d-4acc-9788-dda42b8f8ab1"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="156" uuid="5f4cac7d-0eae-4f38-a4c5-e2362bdb5086">
+								<jr:tableFooter height="0" rowSpan="1"/>
+								<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="153" height="24" uuid="b6f16ed6-2e19-4457-8dd4-046aead4d75e"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Remarks]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 6_TD" height="22" rowSpan="1">
+									<textField isBlankWhenNull="true">
+										<reportElement x="5" y="0" width="148" height="20" uuid="5988a11c-e0d6-41fe-933d-ba228aed2cfd"/>
+										<textElement>
+											<font fontName="DejaVu Sans"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<frame>
+				<reportElement x="1" y="0" width="802" height="50" uuid="370649a4-bafe-43b1-8c1e-4f0b6f195963"/>
+			</frame>
+		</band>
+		<band height="50">
+			<printWhenExpression><![CDATA[new Boolean($F{depositRefundAmount}.doubleValue()!=0)]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 6" style="table 6" x="0" y="0" width="802" height="50" isRemoveLineWhenBlank="true" uuid="a9431dba-dbc7-4e0d-a06c-07b86af3e913">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()>=1)]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Deposit&amp;Refund DataSet" uuid="28e0f2a7-3721-4bd4-bad0-4ea0a4222c1c">
+						<datasetParameter name="deposit_param1">
+							<datasetParameterExpression><![CDATA[$P{param1}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="360" uuid="0ff942af-b62d-4f78-a22e-2dd9044e4fe8">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="20" y="0" width="122" height="30" uuid="143b9b29-7451-42a3-8632-4f9cc3867f08"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Deposits&Refunds]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="167" y="0" width="87" height="30" uuid="7efb9bcd-1ab6-49fc-96f8-4099429b1071"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Account No  :]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="254" y="0" width="106" height="30" uuid="ab9ee707-cc8e-4f02-b846-b259ea9650ef"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{accountNo}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:column width="68" uuid="421d84e7-735d-4665-9efb-73fa54c31d6d">
+							<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="68" height="24" uuid="b4c3f175-bb3b-479a-8438-7d294000872d"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[RefNo]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement x="5" y="0" width="63" height="20" uuid="59005c47-7e3f-4e6d-bd4e-93f696819980"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{refNo}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="292" uuid="285543bd-edc4-4640-8b44-c59da9d10f67">
+							<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="227" height="24" uuid="154ddb28-bfda-4e58-9e4a-487e99fed744"/>
+									<textElement textAlignment="Center">
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Details]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement x="5" y="0" width="287" height="20" uuid="0a75a997-872d-4a02-a357-3bd80b1d611e"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{details}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+					<jr:column width="129" uuid="50f89a69-93b9-4280-b6e9-0286f71a9cd2">
+						<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="104" height="24" uuid="87a62bec-4aaf-4a20-86be-43f00bf791ed"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Sans" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="16" y="0" width="113" height="20" uuid="5fe4bfa3-598e-4afc-9603-58250f4a8e41"/>
+								<textElement>
+									<font fontName="DejaVu Sans"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="312" uuid="763b4b58-b491-4bc7-ad5b-d137b009c656">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="82" height="30" uuid="e62a445a-e994-487b-98ed-671eec8829a1"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[User Name  :]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="82" y="0" width="198" height="30" uuid="32a2f3f9-d567-4ffa-9a0f-590ede77bd58"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="11" isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{email} !=null) ? $F{email} : $F{displayName}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:columnGroup width="312" uuid="70f97893-0812-4c58-8257-73caf4df85d3">
+							<jr:tableFooter height="27" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="5" width="153" height="13" uuid="74aab904-35f1-4ad3-89f7-122d45fd78a0"/>
+									<textElement>
+										<font fontName="DejaVu Sans" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Total Deposits&Refunds : 	]]></text>
+								</staticText>
+								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+									<reportElement x="153" y="5" width="159" height="13" uuid="c86cf8e4-5620-4847-995a-57fb229fa0d9"/>
+									<textElement>
+										<font fontName="DejaVu Sans"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{Deposit&RefundSum}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:column width="312" uuid="1c2d03de-64fe-43fc-8b64-11c53b05b737">
+								<jr:tableFooter height="0" rowSpan="1"/>
+								<jr:columnHeader style="table_TD" height="24" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="153" height="24" uuid="f702695d-8075-4ecd-8019-f0a4dc7bb743"/>
+										<textElement textAlignment="Center">
+											<font fontName="DejaVu Sans" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Remarks]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 6_TD" height="20" rowSpan="1"/>
+							</jr:column>
+						</jr:columnGroup>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<frame>
+				<reportElement x="1" y="0" width="802" height="50" uuid="7d89aa48-fe29-4dfe-958c-98cc90b73dfe"/>
+			</frame>
+		</band>
+	</detail>
+	<summary>
+		<band height="58">
+			<line>
+				<reportElement x="-1" y="57" width="802" height="1" uuid="1b1ce458-3e5e-42b3-b7a6-9f94af14aed9"/>
+			</line>
+			<frame>
+				<reportElement x="0" y="0" width="803" height="52" uuid="b8f83be4-cecb-4275-b597-3dc085b227aa"/>
+				<staticText>
+					<reportElement x="13" y="7" width="107" height="20" uuid="227acce8-58a1-4989-956a-e331a02a0c12"/>
+					<textElement>
+						<font fontName="DejaVu Sans" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Previous Due]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="140" y="7" width="118" height="20" uuid="d3de77b4-85cb-496a-8937-a2a0eb059d31"/>
+					<textElement>
+						<font fontName="DejaVu Sans" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Payments Received]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="295" y="7" width="108" height="20" uuid="747f548a-dfa5-4faa-8c7e-a01c20cc5a51"/>
+					<textElement>
+						<font fontName="DejaVu Sans" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Adjustments]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="549" y="7" width="108" height="20" uuid="edf8b515-dc4a-45c6-a7ed-70d23418fcc7"/>
+					<textElement>
+						<font fontName="DejaVu Sans" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Current Charges]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="683" y="7" width="108" height="20" uuid="110a6ec4-5db4-4c9c-ae96-8814b0751a59"/>
+					<textElement>
+						<font fontName="DejaVu Sans" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Amount Due]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="13" y="27" width="107" height="20" uuid="1ca34088-8cd3-43ef-a6f8-e751758a5c2c"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{previousBalance}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="140" y="27" width="118" height="20" uuid="3746c24b-7cd7-461b-b305-26456a96a5cf"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{paidAmount}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="295" y="27" width="108" height="20" uuid="5fb15532-a1d9-4de8-90fa-7ff5bd0f668b"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{adjustmentAmount}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="549" y="27" width="108" height="20" uuid="2f689d21-d898-46fa-ac35-ca15eba69383"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{chargesAmount} + $F{taxAmount}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+					<reportElement x="683" y="27" width="118" height="20" uuid="c9b95a69-df37-4d32-8bc0-87ae8f7e236b"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dueAmount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="422" y="7" width="108" height="20" uuid="2cb5f41a-9390-4bbc-b4d8-e3c4d254ba56"/>
+					<textElement>
+						<font fontName="DejaVu Sans" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Deposit&Refunds]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="422" y="27" width="108" height="20" uuid="cbff0bff-31c1-4492-b582-d7f1e524c400"/>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{depositRefundAmount}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_Letter" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e6045c4a-2ff0-4d18-8176-669ff7afb2d9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="param1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select first_name as fName , last_name as lName , mobile_number as mNumber,nin_number as nin ,bvn_number as bvn ,bank_name as bankName ,account_no as accountNumber from b_lease_details where mobile_number =$P{param1}]]>
+	</queryString>
+	<field name="fName" class="java.lang.String"/>
+	<field name="mNumber" class="java.lang.String"/>
+	<field name="nin" class="java.lang.String"/>
+	<field name="accountNumber" class="java.lang.String"/>
+	<field name="bankName" class="java.lang.String"/>
+	<field name="bvn" class="java.lang.String"/>
+	<title>
+		<band height="76">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="30" uuid="e32e3537-8040-4ce4-a002-e1c389a30d3a"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECODER LEASE AGREEMENT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="657">
+			<staticText>
+				<reportElement x="0" y="-20" width="572" height="670" uuid="d504ada0-e2c1-4c97-b26a-c6fa055fed26"/>
+				<text><![CDATA[THIS  LEASE  AGREEMENT is made the date on section 11 of this agreement, BETWEEN MOREPLEX TV Ltd, a limited liability company duly incorporated under the laws of the Federal Republic of Nigeria, with registered office address at NO 15B KUDIRAT ABIOLA WAY, IKEJA, LAGOS  NIGERIA (hereinafter called ‘COMPANY’ and shall for the sake of this agreement be referred to as ‘The Company’ which expression shall where the context permits include its successors-in-title, privies and assigns) of the first part; AND
+		 with address_____________________________________________________________________________________________ (hereinafter referred to as  “The Customer” which expression shall where the context permits include its successors-in-title, privies and assigns) of the other part.
+WHEREAS 
+    1. The Company is the owner and operator of a Direct –To – Home Satellite platform known as MOREPLEX TV and is desirous of maintaining and smoothly operating same and to give out its Decoders to interested customers for lease The Customer  has presented to the company his  willingness  in taking the company’s products for lease and capacity to pay the agreed total sum in the manner as in Section 11 of this agreement.
+    2. Parties have agreed and as such willfully, without duress entered into this agreement. 
+    3. The company reserves the right to make adjustment on this agreement from time to time to the benefit of both parties.
+    NOW THIS AGREEMENT WITNESSES AS FOLLOWS. 
+    1. QUALIFICATION 
+The Customer haven been qualified through an online verification process with the payment of  non-refundable fee of N1,000.00 (One thousand Naira ) ONLY   as Processing / logistic fee. The company will issue a decoder to customer with terms of payment as stated in section 11 below. All payments shall be made to the designated account numbers as provided by the company.
+The customer agrees to be responsible for payments until paid in full and will forfeit any discount given should  Customer default.
+The Customer shall indemnify and hold harmless the company from any and all fines, damages, losses, costs and expenses(including reasonable attorneys’ fees) incurred by the Company as a breach of this agreement by the Customer
+    2. THE COMPANY COVENANTS AS FOLLOWS
+i. The company shall make available to the customer lease agreement and other necessary forms (if any) at the company’s head office, or the dealer offices, or online  .
+ii. The Company shall try to make the process swift and ensure that customer  takes delivery of their products  in their different locations especially for the online customers.
+iii. The company shall be available at all times to offer technical advice and consultation on issues relating to the content and subject matter of this agreement.
+iv. The customer agrees and accepts that online acknowledgement, or scanned document/signature, or electronic signature for this agreement, which is adopted to make the process swift, is legally binding on customer. 
+ CUSTOMER  COVENANTS AS FOLLOW:
+    i. The Customer shall read the Lease agreement and any other form /forms   thoroughly and provide the CORRECT details needed therein.
+    ii. The Customer shall provide His/her bank details, including the BVN and the NIN numbers.
+    iii. The Customer shall provide Valid means of identification
+    iv. The Customer shall make available any proof of capacity for example,  a copy of the office I.D cards for the working class customers  , a copy of Business registration certificate  for the business class customers, a reliable guarantor and  verifiable addresses . 
+    v. The Customer   shall provide functional phone lines , email addresses and verifiable address and agrees to readily update any that changes.
+    vi. The Customer shall give the Company unrestrained access to his/her accounts ONLY for the purpose of RECOVERY of the agreed sum  for the stipulated number of months  agreed by parties which includes but not limited to writing /signing  a debit note or order to his/her bank / banks.
+    vii. The Customer  shall report faulty set top boxes within 2 days of discovery of such fault to the company  or to the  nearest Company’s  Dealer, whereas the company shall not be responsible for any willful, careless, negligent act or omission occasioning the fault or damage to the set top boxes while in the custody of the Customer.
+    viii. Set up boxes already worked on or whose warranties have been broken or removed shall not be received or accepted by the company and as such shall not be replaced. ]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="656" width="100" height="1" uuid="06ae85e0-b284-4c90-b60a-c4d374c0ab2d"/>
+			</break>
+			<textField>
+				<reportElement x="7" y="39" width="100" height="30" uuid="60a5c621-af2f-4d11-b227-181750d4aafa"/>
+				<textFieldExpression><![CDATA[$F{fName}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="622">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="580" uuid="5efb3576-e3f6-4c8d-acf6-21d9a76fa71d"/>
+				<text><![CDATA[     
+    3. DELIVERY
+Unless the parties agree otherwise, all products ordered by the Customer shall be sent to the Customer within a day before the expected date of delivery depending on the customers location but not later than 5 working days ,  except for unforeseen logistic related   issues which  goes beyond the Company’s  control  of which the Customer will be duly notified.
+
+Where the Customer designates an agent, a common carrier or representative (recipient) for delivery of ordered products and such products are passed to such recipient, the risk of loss and damages to the product shall pass to the Customer upon delivery of such product to the recipient designated by him/her.
+
+All claims for non-conforming deliveries must be made in writing to the company or to the nearest Dealer   within ten (10) days of the passing of the risk of loss and damages, as described above. Any claim not made within such period shall be deemed waived and released. The customer shall be responsible for any shipping charges to deliver the decoder to the customer.
+    4. LIMITED WARRANTY
+The Customer acknowledges that all components of the products are being manufactured for the Company by subcontractors or other entities other than the Company. Company extends to the Customer the warranties as to such components provided by such other entities to the Company for the length of time that such warranty remains valid for the company. There shall not be implied warranties
+    5. LIMITATION ON LIABILITIES
+The Company’s liability arising out of the manufacture, sale or supplying of the products or their use or disposition, whether based upon warranty, contract, tort or otherwise, shall not exceed the actual purchase price paid by the Customer for the product.
+
+In no event shall the Company be liable to the Customer or any other person or entity for special, incidental or consequential damages (including but not limited to loss of data or use damages) arising out of the manufacture, sale or supply of the products, even if the Company has been advised of the possibility of such damages or losses. 
+    6. FORCE MAJEURE
+Neither the Company nor the Customer shall be liable in damages, or shall be subject to termination of this agreement by the other party, for any delay or default in performing any obligation hereunder if that delay or default is due to any cause beyond the reasonable control and without fault of negligence of that party. 
+    7. INDEMNIFICATION
+The Customer hereby agrees to indemnify, defend and hold harmless the company, its affiliates and all officers, directors, employees and agents thereof (hereinafter referred to as ‘indemnities’) from all liabilities, claims, damages, losses, cost, expenses, demands, suits and actions(including without limitation  to attorneys’ fees and settlement costs) (collectively, ‘Damages’) arising out of or related to damage or injury to property or persons, or to any representations of the Customer not authorized hereunder. 
+
+    8. TERM
+The term of this agreement shall commence from the execution date or a date as may be agreed by the parties and subject to termination on a later date by either party pursuant to the provisions herein.
+    9. TERMINATION
+This agreement automatically terminates once the Customer   finishes his/her payment of the agreed sum of which the company acknowledges same. 
+    10. GOVERNING LAW AND JURISDICTION
+This agreement and any dispute or claim about it or its subject matter is governed by and construed in accordance with the laws of the Federal Republic of Nigeria.]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="612" width="100" height="1" uuid="e27c7a4c-8ec3-4b53-9368-e65d5d5d2648"/>
+			</break>
+		</band>
+		<band height="510">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="510" uuid="dab1a9ac-89e4-4c31-a7ff-0010cd3c4030"/>
+				<text><![CDATA[
+    11. INFORMATION & PAYMENT TERMS
+    
+Customer Name:
+Customer Phone Number:
+NIN: 				
+BVN:
+Bank Name:
+Bank Account Number:
+Effective Date(Today’s date):
+Total Amount: N16,000.00
+Discounted Price: N12,000.00
+Monthly Lease Payment: N1000.00
+Late Payment charges: N100 per month
+Instalment Payment Due: On the  monthly anniversary of the activation date.
+Default: After 30 days of nonpayment.
+Customer will own decoder after payment of N12,000.00. This excludes the non-refundable N1,000 processing fee and any penalty for late payment.
+In a case where customer defaults, Customer hereby has authorized Moreplex TV Ltd to collect from the above stated bank or any other bank in the world where customer has funds to settle all outstanding amount.
+
+IN WITNESS WHEREOF the parties have executed and affixed their common seals to this agreement the day and year first above written.
+
+SIGNED, SEALED AND DELIVERED BY THE WITHIN NAMED COMPANY   
+Moreplex Director’s Name:
+Moreplex Director’s Signature:
+
+SIGNED, SEALED AND DELIVERED BY THE WITHIN NAMED CUSTOMER 
+Customer Name:
+Customer Signature: 
+Date:
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="87" y="35" width="100" height="14" uuid="9c051477-16fc-4d56-945b-b9e1a96055f3"/>
+				<textFieldExpression><![CDATA[$F{fName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="47" width="100" height="19" uuid="cae265b1-9ac1-4c48-8c8d-8ebef506c159"/>
+				<textFieldExpression><![CDATA[$F{mNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="58" width="100" height="21" uuid="584ff9bf-d5ce-4dcc-bf0a-31af8d044d24"/>
+				<textFieldExpression><![CDATA[$F{nin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="339" width="100" height="21" uuid="d679890c-0c9c-4ceb-8605-87c48a69d3ec"/>
+				<textFieldExpression><![CDATA[$F{fName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="361" width="100" height="30" uuid="d9f9eb79-c71b-4038-ad97-fe0ebd92251f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="105" width="100" height="15" uuid="754b7865-d253-498c-b2df-9cc65ed4bd78"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="82" width="90" height="23" uuid="5eb38489-9e93-4134-82ad-4cc9b573c954"/>
+				<textFieldExpression><![CDATA[$F{bankName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="93" width="100" height="17" uuid="5c1ff170-f479-4ad9-b92b-697f30bb3cac"/>
+				<textFieldExpression><![CDATA[$F{accountNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="68" width="100" height="30" uuid="45641635-f360-4789-bebf-47872fc5923a"/>
+				<textFieldExpression><![CDATA[$F{bvn}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

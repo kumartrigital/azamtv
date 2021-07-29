@@ -1,0 +1,37 @@
+package org.mifosplatform.celcom.api;
+
+public class CelcomApiConstants {
+
+	public static final String READCLIENT_OPCODE = "COB_OP_CUST_CUSTOMER_RETRIEVAL";
+	public static final String CREATECLIENT_OPCODE = "COB_OP_CUST_CREATE_SUBSCRIBER";
+	public static final String CREATECLIENTSIMPLEACTIVATION_OPCODE = "COB_OP_CUST_ACTIVATE_SERVICE";
+	public static final String CREATEOFFICE_OPCODE = "COB_OP_CUST_CREATE_COMPANY";
+	public static final String READPLAN_OPCODE="COB_OP_CUST_SEARCH_PLAN";
+	public static final String BILLPLAN_OPCODE = "COB_OP_CUST_BILL_PLANS";
+	public static final String ADD_PLAN="COB_OP_CUST_ADD_PLAN";
+	public static final String SUSPEND_CLIENTSERVICE_OPCODE = "COB_OP_CUST_SUSPEND_SERVICE";
+	public static final String TERMINATE_CLIENTSERVICE_OPCODE = "COB_OP_CUST_TERMINATE_SERVICE";
+	public static final String REACVTIVATE_CLIENTSERVICE_OPCODE = "COB_OP_CUST_REACTIVATE_SERVICE";
+	public static final String CANCEL_PLAN="COB_OP_CUST_CANCEL_PLAN";
+	public static final String PAYMENTS_OPCODE = "COB_OP_PYMT_COLLECT_PAYMENT";
+	public static final String ADJUSTMENTS_OPCODE = "COB_OP_AR_ACCOUNT_ADJUSTMENT";
+	public static final String CHANGE_PLAN="COB_OP_CUST_CHANGE_PLAN";
+	public static final String RENEWAL_PLAN = "COB_OP_CUST_RENEW_PLAN";
+	public static final String SWAP_DEVICE="COB_OP_CUST_UPDATE_SERVICE";
+	public static final String CREATE_AGREEMENT = "COB_OP_CUST_ADD_PARTNER_AGREEMENT";
+	public static final String UPDATEOFFICE_OPCODE = "COB_OP_CUST_UPDATE_CUSTOMER";
+	public static final String DELETE_AGREEMENT = "COB_OP_CUST_CANCEL_PARTNER_AGREEMENT";
+	public static final String UPDATECLIENT_OPCODE = "COB_OP_CUST_UPDATE_CUSTOMER";
+	public static final String READOFFICE_OPCODE = "COB_OP_CUST_CUSTOMER_RETRIEVAL";
+	public static final String OFFICEPAYMENTS_OPCODE = "COB_OP_PYMT_COLLECT_PAYMENT";
+	public static final String OFFICEADJUSTMENTS_OPCODE = "COB_OP_AR_ACCOUNT_ADJUSTMENT";
+	public static final String BILLDETAILS_OPCODE = "COB_OP_AR_GET_BILL_DETAILS";
+	public static final String CANCELPAYMENTS_OPCODE = "COB_OP_PYMT_PAYMENT_REVERSAL";
+	public static final String LCOMOVEMENT_OPCODE = "COB_OP_CUST_LCO_MOVEMENT";
+	public static final String CANCELPAYMENTSOFFICE_OPCODE = "COB_OP_PYMT_PAYMENT_REVERSAL" ;
+	public static final String UPDATE_CREDIT_LIMIT_OPCODE = "COB_OP_CUST_SET_CREDIT_LIMIT"; // Hemanth
+	public static final String BILL_ADJUSTMENT_OPCODE = "COB_OP_AR_BILL_ADJUSTMENT";
+	public static final String UTILS_BCAST_CONFIG_OPCODE = "COB_OP_UTILS_BCAST_CONFIG";
+	public static final String UTILSS_BCASTS_CONFIG_OPCODE = "COB_OP_UTILS_BCAST_CONFIG";
+	
+}
