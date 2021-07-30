@@ -240,5 +240,21 @@ public class BillingMasterApiResourse {
 		response.header("Content-Type", "application/pdf");
 		return response.build();
 	}
+	
+	
+	@GET
+	@Path("/itemsale/{id}/")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response printItemsale(@PathParam("id") final Long id) {
+
+		String printFileName = this.billWritePlatformService.generateItemsalePdf(id);
+		final File file = new File(printFileName);
+
+		final ResponseBuilder response = Response.ok(file);
+		response.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+		response.header("Content-Type", "application/pdf");
+		return response.build();
+	}
 
 }

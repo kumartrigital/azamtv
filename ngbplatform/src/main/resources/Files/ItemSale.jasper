@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ItemSale" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9495978-800b-4f0f-ba59-e035f4983f4d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Sat Apr 18 17:01:41 IST 2015"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F5F5F5">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F5F5F5">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#D9C3C3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFF8F8"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#FDF5E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#FFE9BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFF9EF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0FFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TH" mode="Opaque" backcolor="#F5F5F5">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1" uuid="7f5f4db1-2aee-480f-b2cb-30a5582e1fb4">
+		<parameter name="table_param1" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[select its.id as itemsale_id,its.purchase_date as requestedDate,
+		(select item_description from
+ b_item_master where id = its.item_id) as item,
+ (select name from m_office where id = its.purchase_from)
+as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice,
+   its.order_quantity as orderdQuantity,its.received_quantity as
+              receivedQuantity, its.status as status,charge_amount as total_amount,
+              unit_price as unit_price from b_itemsale its  where its.id='1']]>
+		</queryString>
+		<field name="itemsale_id" class="java.lang.Integer"/>
+		<field name="requestedDate" class="java.sql.Timestamp"/>
+		<field name="item" class="java.lang.String"/>
+		<field name="fromOffice" class="java.lang.String"/>
+		<field name="toOffice" class="java.lang.String"/>
+		<field name="orderdQuantity" class="java.lang.String"/>
+		<field name="receivedQuantity" class="java.lang.String"/>
+		<field name="status" class="java.lang.String"/>
+		<field name="total_amount" class="java.math.BigDecimal"/>
+		<field name="unit_price" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="param1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="realPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select its.id as itemsale_id,its.purchase_date as requestedDate,
+		(select item_description from
+ b_item_master where id = its.item_id) as item,
+ (select name from m_office where id = its.purchase_from)
+as fromOffice,
+(select address_name from b_office_address where office_id=its.purchase_from) as mso_Address,
+(select city from b_office_address where office_id=its.purchase_from) as mso_city,
+(select state from b_office_address where office_id=its.purchase_from) as mso_state,
+(select country from b_office_address where office_id=its.purchase_from) as mso_country,
+(select zip from b_office_address where office_id=its.purchase_from) as mso_zip,
+(select phone_number from b_office_address where office_id=its.purchase_from) as mso_phone_number,
+(select email_id from b_office_address where office_id=its.purchase_from) as mso_email_id,
+(select name from m_office where id = its.purchase_by) as toOffice,
+   its.order_quantity as orderdQuantity,its.received_quantity as
+              receivedQuantity, its.status as status,charge_amount as total_amount,
+              unit_price as unit_price from b_itemsale its  where its.id='1']]>
+	</queryString>
+	<field name="itemsale_id" class="java.lang.Integer"/>
+	<field name="requestedDate" class="java.sql.Timestamp"/>
+	<field name="item" class="java.lang.String"/>
+	<field name="fromOffice" class="java.lang.String"/>
+	<field name="toOffice" class="java.lang.String"/>
+	<field name="orderdQuantity" class="java.lang.String"/>
+	<field name="receivedQuantity" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="total_amount" class="java.math.BigDecimal"/>
+	<field name="unit_price" class="java.math.BigDecimal"/>
+	<field name="mso_Address" class="java.lang.String"/>
+	<field name="mso_city" class="java.lang.String"/>
+	<field name="mso_state" class="java.lang.String"/>
+	<field name="mso_country" class="java.lang.String"/>
+	<field name="mso_zip" class="java.lang.Integer"/>
+	<field name="mso_phone_number" class="java.lang.Integer"/>
+	<field name="mso_email_id" class="java.lang.String"/>
+	<variable name="total_amount1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_amount}]]></variableExpression>
+	</variable>
+	<variable name="total_amount2" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{total_amount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="248" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="175" width="553" height="69" uuid="1541ae79-5b18-40c6-8566-6bea54cfd945"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="38" y="179" width="98" height="20" uuid="2784318c-67c9-4450-9b0e-cfba699eabab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Purchase To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="179" width="98" height="20" uuid="4d32701d-e054-4207-b835-526ac81ca74c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Purchase Date]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="209" width="555" height="1" uuid="64778f08-9fd1-4c35-bffe-11587fc1f7ab">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="10" width="170" height="20" uuid="dfc05fd7-8343-4547-b27e-a910868f1032"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item Sale Receipt
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="215" width="131" height="23" uuid="2363682a-9515-4fee-b4e6-62a902408914">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9fda9778-ac0d-405c-85b6-32c0f4e8a5de"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{toOffice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="217" width="119" height="23" uuid="40c00cc4-b8c9-4816-bbcf-9053cb9eeb3d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{requestedDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="179" width="80" height="20" uuid="41dbe276-0588-472e-8e80-a188f6001278"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Project]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="219" width="133" height="20" uuid="60999aa5-6a2e-40b8-8f29-8d3db475655c"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[AzamTv]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="336" y="30" width="218" height="48" uuid="a8266bcc-9372-43f1-adc4-a75c141f71f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="337" y="32" width="114" height="20" uuid="78f7233b-0161-4824-9606-d350ebd4bacd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="32" width="102" height="20" uuid="e4a3fd32-840f-4c19-886f-683e449af13c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item Sale #]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="361" y="54" width="91" height="23" uuid="f68408fc-8c34-4c92-9979-affb419f244b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{requestedDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="468" y="55" width="84" height="23" uuid="2085f10d-1642-4494-8b20-bf8250d17a5f"/>
+				<textFieldExpression><![CDATA[$F{itemsale_id}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="452" y="29" width="1" height="48" uuid="2ce457a2-76a8-4157-88ce-b801aff3f6fa"/>
+			</line>
+			<line>
+				<reportElement x="337" y="51" width="218" height="1" uuid="b5b71e75-b2b9-49f5-82f5-2df98ba2ec31"/>
+			</line>
+			<staticText>
+				<reportElement x="55" y="67" width="114" height="20" uuid="161184d5-a953-4de1-aa58-22adb88c82cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Address :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="47" width="330" height="85" uuid="16c2b261-d1b1-4fe0-9518-45263bebdb51"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="77" width="91" height="23" uuid="a931b126-d2b2-4f6b-a033-144959415e83">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mso_state}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="76" width="91" height="23" uuid="9e50954a-428a-493d-88ec-b5344128577d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mso_country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="47" width="91" height="23" uuid="0e89d273-ec5a-43e0-8a44-72c14838503f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mso_city}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="76" width="91" height="23" uuid="a9538f4e-11df-48dd-97f4-6109ca235a3a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mso_zip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="110" width="105" height="23" uuid="acac0226-ff55-4097-b9a0-58dd2b86b22b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mso_phone_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="109" width="166" height="23" uuid="19678919-8718-4b6a-9b7b-b02386e97ee5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mso_email_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="46" width="91" height="23" uuid="726a8984-1a9f-42c1-ac3c-19dc21d0eedb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60b8f3b4-ed36-485e-a86c-2652e5910a1d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mso_Address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="47" width="15" height="20" uuid="3af5c4b6-b7e8-4ad4-a50a-0e84b1a47339"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="57" height="20" uuid="d0a8b54a-c518-482b-8c1f-6c5cc5c833e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tel:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 11" style="table 11" x="0" y="10" width="559" height="50" uuid="b608f28a-859b-48db-932c-2037cf6854b5"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 1" uuid="5844b7c7-064c-4784-a585-d287f21ec4b0">
+						<datasetParameter name="table_param1">
+							<datasetParameterExpression><![CDATA[$P{param1}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="48" uuid="38e497d9-9384-47de-b824-d02819fcb8c9">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="48" height="30" uuid="cbfff0b4-d96c-46c9-8698-fe2cd18afa1b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[S.NO.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="2" y="0" width="46" height="20" uuid="4a149269-39e0-4f30-bccc-dff3f5dad3dc"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="125" uuid="0d38cb6b-64c3-49ff-a9f1-a44d4f1e5469">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="125" height="30" uuid="198082db-6176-4807-b0a4-a6e08cb7b8af"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ Purchased From]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="125" height="28" uuid="211515e3-3cc8-4f89-9582-76b4ebded606"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fromOffice}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="8e891626-4aa9-4088-8bfc-faa89e9d6c13">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="283320ad-a720-482c-94d5-bee7d9a3f25f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ Unit Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="100" height="28" uuid="0dace585-02f1-4c11-aa3b-5ccc980d11eb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{unit_price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="95" uuid="b1791c83-5325-4b3d-8c2a-255b310303c3">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="95" height="30" uuid="e5629aea-207f-4fec-bc72-abaf4279db26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Item]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="95" height="28" uuid="9d9c9d51-7cb6-44b9-8025-e4c615dbdb85"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{item}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="103" uuid="ec7b6376-603f-4ce1-9258-275ae2dfd9da">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="103" height="30" uuid="2a1da250-b6d6-48d2-9773-5673a0433b9b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Order Quantity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="103" height="20" uuid="f1a44feb-eb39-472d-b87a-eb72675a43b8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{orderdQuantity}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="98" uuid="8141e35d-ba96-47a7-a464-d33f8f5e6a5a">
+						<jr:columnHeader style="table 11_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="98" height="30" uuid="377b5682-c7b6-47ae-8750-c6822b6aeeb3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true" isPdfEmbedded="false"/>
+								</textElement>
+								<text><![CDATA[Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="98" height="28" uuid="822f2643-4271-420f-8cca-95baf48eaabe"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{total_amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<line>
+				<reportElement x="215" y="-73" width="1" height="69" uuid="2223c838-9c40-4e9a-a737-32743f1e8b3f"/>
+			</line>
+			<line>
+				<reportElement x="381" y="-73" width="1" height="69" uuid="91560a92-2c21-457e-b0f1-20417009cd58"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="360" y="0" width="119" height="27" uuid="4909eab6-94f0-4c4f-a5cf-fcb044b18a45"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Total Item Price :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="479" y="7" width="74" height="23" uuid="4b44d18b-a81b-4238-9a4d-74301c3b7581"/>
+				<textFieldExpression><![CDATA[$F{total_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

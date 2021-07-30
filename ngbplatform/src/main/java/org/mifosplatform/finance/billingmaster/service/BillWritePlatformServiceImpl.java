@@ -354,7 +354,58 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
     }
 
 
-	
+	@Transactional
+    @Override
+    public String generateItemsalePdf(final Long id)  {
+        
+        final String fileLocation = FileUtils.MIFOSX_BASE_DIR ;
+        /** Recursively create the directory if it does not exist **/
+        if (!new File(fileLocation).isDirectory()) {
+            new File(fileLocation).mkdirs();
+        }
+        final String PaymentDetailsLocation = fileLocation + File.separator +"PaymentPdfFiles";
+        if (!new File(PaymentDetailsLocation).isDirectory()) {
+             new File(PaymentDetailsLocation).mkdirs();
+        }
+        final String printPaymentLocation = PaymentDetailsLocation +File.separator +id+"_"+DateUtils.getLocalDateOfTenant()+".pdf";
+        final Integer itemsaleid = Integer.valueOf(id.toString());
+        try {
+            
+            final String jpath = fileLocation+File.separator+"jasper";
+            final MifosPlatformTenant tenant = ThreadLocalContextUtil.getTenant();
+            final String jasperfilepath =jpath+File.separator+"ItemSale"+tenant.getTenantIdentifier()+".jasper";
+            File destinationFile=new File(jasperfilepath);
+              if(!destinationFile.exists()){
+                File sourceFile=new File(this.getClass().getClassLoader().getResource("Files/ItemSale.jasper").getFile());
+                FileUtils.copyFileUsingApacheCommonsIO(sourceFile,destinationFile);
+              }
+            final Connection connection = this.dataSource.getConnection();
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("param1", id);
+            parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
+            /* This realPath parameter holds the location path of company image #rakesh# */
+            parameters.put("realPath",this.getClass().getClassLoader().getResource("Files").getFile());
+           final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfilepath, parameters, connection);
+           JasperExportManager.exportReportToPdfFile(jasperPrint,printPaymentLocation);
+           connection.close();
+           System.out.println("Filling report successfully...");
+           
+           }catch (final DataIntegrityViolationException ex) {
+             LOGGER.error("Filling report failed...\r\n" + ex.getLocalizedMessage());
+             System.out.println("Filling report failed...");
+             ex.printStackTrace();
+           } catch (final JRException  | JRRuntimeException e) {
+            LOGGER.error("Filling report failed...\r\n" + e.getLocalizedMessage());
+            System.out.println("Filling report failed...");
+             e.printStackTrace();
+          } catch (final Exception e) {
+            LOGGER.error("Filling report failed...\r\n" + e.getLocalizedMessage());
+            System.out.println("Filling report failed...");
+            e.printStackTrace();
+        }
+        return printPaymentLocation;    
+    }
+
 
 	@Transactional
 	@Override
