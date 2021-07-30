@@ -114,8 +114,10 @@ public final class Client extends AbstractPersistable<Long> {
     
     @Column(name = "login", length = 100)
     private String login;
+    
     @Column(name = "password", length = 100)
     private String password;
+    
     @Column(name = "group_Id", length = 100)
     private Long groupId;
 

@@ -12,21 +12,27 @@ import org.mifosplatform.infrastructure.core.data.CommandProcessingResultBuilder
 import org.mifosplatform.infrastructure.core.exception.PlatformDataIntegrityException;
 import org.mifosplatform.infrastructure.core.service.DateUtils;
 import org.mifosplatform.infrastructure.security.service.PlatformSecurityContext;
+import org.mifosplatform.organisation.monetary.domain.ApplicationCurrency;
+import org.mifosplatform.organisation.monetary.domain.ApplicationCurrencyRepository;
 import org.mifosplatform.organisation.officepayments.domain.OfficePayments;
 import org.mifosplatform.organisation.officepayments.domain.OfficePaymentsRepository;
 import org.mifosplatform.organisation.officepayments.exception.PaymentOfficeDetailsNotFoundException;
+import org.json.JSONObject;
 import org.mifosplatform.cms.journalvoucher.domain.JournalVoucher;
 import org.mifosplatform.cms.journalvoucher.domain.JournalVoucherDetails;
 import org.mifosplatform.cms.journalvoucher.domain.JournalvoucherDetailsRepository;
 import org.mifosplatform.cms.journalvoucher.domain.JournalvoucherRepository;
 import org.mifosplatform.crm.service.CrmServices;
 import org.mifosplatform.finance.chargeorder.domain.BillItem;
+import org.mifosplatform.finance.clientbalance.data.ConverationDetails;
 import org.mifosplatform.finance.clientbalance.domain.ClientBalance;
+import org.mifosplatform.finance.clientbalance.service.ClientBalanceWritePlatformService;
 import org.mifosplatform.finance.creditdistribution.domain.CreditDistribution;
 import org.mifosplatform.finance.creditdistribution.domain.CreditDistributionRepository;
 import org.mifosplatform.finance.officebalance.domain.OfficeBalance;
 import org.mifosplatform.finance.officebalance.domain.OfficeBalanceRepository;
 import org.mifosplatform.finance.payments.domain.Payment;
+import org.mifosplatform.finance.payments.exception.CurrencyDetailsNotFoundException;
 import org.mifosplatform.finance.payments.exception.PaymentDetailsNotFoundException;
 import org.mifosplatform.finance.payments.exception.ReceiptNoDuplicateException;
 import org.mifosplatform.organisation.officepayments.serialization.OfficePaymentsCommandFromApiJsonDeserializer;
@@ -54,6 +60,8 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 	private final JournalvoucherRepository journalvoucherRepository;
 	private final JournalvoucherDetailsRepository journalvoucherDetailsRepository;
 	private final ConfigurationRepository configurationRepository;
+	private final ApplicationCurrencyRepository applicationCurrencyRepository;
+	private final ClientBalanceWritePlatformService clientBalanceWritePlatformService;
 
 	@Autowired
 	public OfficePaymentsWritePlatformServiceImpl(final PlatformSecurityContext context,
@@ -63,7 +71,9 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 			final CreditDistributionRepository creditDistributionRepository,
 			final JournalvoucherRepository journalvoucherRepository,
 			final JournalvoucherDetailsRepository journalvoucherDetailsRepository,
-			final ConfigurationRepository configurationRepository) {
+			final ConfigurationRepository configurationRepository,
+			final ApplicationCurrencyRepository applicationCurrencyRepository,
+			final ClientBalanceWritePlatformService clientBalanceWritePlatformService) {
 
 		this.context = context;
 		this.officePaymentsRepository = officePaymentsRepository;
@@ -74,6 +84,8 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 		this.journalvoucherRepository = journalvoucherRepository;
 		this.journalvoucherDetailsRepository = journalvoucherDetailsRepository;
 		this.configurationRepository = configurationRepository;
+		this.applicationCurrencyRepository = applicationCurrencyRepository;
+		this.clientBalanceWritePlatformService = clientBalanceWritePlatformService;
 	}
 
 	/*
@@ -91,6 +103,39 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 			this.fromApiJsonDeserializer.validateForCreate(command.json());
 			this.crmServices.createOfficePayment(command);
 			final OfficePayments officePayments = OfficePayments.fromJson(command);
+
+			ApplicationCurrency applicationCurrency = applicationCurrencyRepository
+					.findOneByCode(command.stringValueOfParameterName("currencyCode"));
+
+			if (applicationCurrency == null) {
+				throw new CurrencyDetailsNotFoundException(command.stringValueOfParameterName("currencyCode"));
+			}
+			officePayments.setCurrencyId(applicationCurrency);
+
+			ApplicationCurrency basecurrency = applicationCurrencyRepository.findOneByCode("NGN");
+
+			if (!basecurrency.getCode().equals(applicationCurrency.getCode())) {
+
+				ConverationDetails conversionChargesValue = clientBalanceWritePlatformService.conversionDetails(
+						basecurrency.getId(), officePayments.getCurrencyId().getId(), officePayments.getAmountPaid());
+
+				officePayments.setAmountPaid(conversionChargesValue.getConveratedAmount());
+
+				JSONObject conversionObject = new JSONObject();
+
+				try {
+					conversionObject.put("baseCurrency", "NGN");
+					conversionObject.put("conversionCurrency", officePayments.getCurrencyId().getCode());
+					conversionObject.put("ConverationRate", conversionChargesValue.getConverationRate());
+					conversionObject.put("amount", conversionChargesValue.getPrice());
+					conversionObject.put("conversionAmount", conversionChargesValue.getConveratedAmount());
+
+					officePayments.setConversionCharges(conversionObject.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
 			this.officePaymentsRepository.save(officePayments);
 
 			final String collectorName = command.stringValueOfParameterNamed("collectorName");
@@ -109,68 +154,35 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 				this.journalvoucherDetailsRepository.saveAndFlush(journalVoucherDetails);
 			}
 
-/*			Configuration isPaywizard = configurationRepository
-					.findOneByName(ConfigurationConstants.PAYWIZARD_INTEGRATION);
+			if (collectionBy != null) {
+				OfficeBalance officeBalance = this.officeBalanceRepository.findOneByOfficeId(collectionBy);
 
-			if (null != isPaywizard && isPaywizard.isEnabled()) {
-				if (collectionBy != null) {
-					OfficeBalance officeBalance = this.officeBalanceRepository.findOneByOfficeId(collectionBy);
+				if (officeBalance != null) {
+					officeBalance.updateBalance("CREDIT", officePayments.getAmountPaid());
 
-					if (officeBalance != null) {
-						officeBalance.updateBalance("CREDIT", officePayments.getAmountPaid());
+				} else if (officeBalance == null) {
 
-					} else if (officeBalance == null) {
-
-						BigDecimal balance = BigDecimal.ZERO.subtract(officePayments.getAmountPaid());
-						officeBalance = OfficeBalance.create(collectionBy, balance);
-					}
-					this.officeBalanceRepository.saveAndFlush(officeBalance);
+					BigDecimal balance = BigDecimal.ZERO.subtract(officePayments.getAmountPaid());
+					officeBalance = OfficeBalance.create(collectionBy, balance);
 				}
+				this.officeBalanceRepository.saveAndFlush(officeBalance);
+			}
 
-				if (officePayments.getOfficeId() != null) {
-					OfficeBalance officeBalances = this.officeBalanceRepository
-							.findOneByOfficeId(officePayments.getOfficeId());
+			if (officePayments.getOfficeId() != null) {
+				OfficeBalance officeBalances = this.officeBalanceRepository
+						.findOneByOfficeId(officePayments.getOfficeId());
 
-					if (officeBalances != null) {
-						officeBalances.updateBalance("DEBIT", officePayments.getAmountPaid());
+				if (officeBalances != null) {
+					officeBalances.updateBalance("CREDIT", officePayments.getAmountPaid());
 
-					} else if (officeBalances == null) {
+				} else if (officeBalances == null) {
 
-						BigDecimal balance = officePayments.getAmountPaid();
-						officeBalances = OfficeBalance.create(officePayments.getOfficeId(), balance);
-					}
-					this.officeBalanceRepository.saveAndFlush(officeBalances);
+					BigDecimal balance = BigDecimal.ZERO.subtract(officePayments.getAmountPaid());
+					officeBalances = OfficeBalance.create(officePayments.getOfficeId(), balance);
 				}
-			} else {*/
-				/* office payment's Balance update in office balance table*/
-				if(collectionBy != null){
-					OfficeBalance officeBalance =this.officeBalanceRepository.findOneByOfficeId(collectionBy);
-					
-					if(officeBalance != null){
-						officeBalance.updateBalance("CREDIT",officePayments.getAmountPaid());  
-					
-					}else if(officeBalance == null){
-						
-		                    BigDecimal balance=BigDecimal.ZERO.subtract(officePayments.getAmountPaid());
-		                    officeBalance =OfficeBalance.create(collectionBy,balance);
-					}
-					this.officeBalanceRepository.saveAndFlush(officeBalance);
-				}
-				
-				if(officePayments.getOfficeId() != null){
-					OfficeBalance officeBalances =this.officeBalanceRepository.findOneByOfficeId(officePayments.getOfficeId());
-					
-					if(officeBalances != null){
-						officeBalances.updateBalance("CREDIT",officePayments.getAmountPaid());
-					
-					}else if(officeBalances == null){
-						
-		                    BigDecimal balance=BigDecimal.ZERO.subtract(officePayments.getAmountPaid());
-		                    officeBalances =OfficeBalance.create(officePayments.getOfficeId(),balance);
-					}
-					this.officeBalanceRepository.saveAndFlush(officeBalances);
-				}
-		//}
+				this.officeBalanceRepository.saveAndFlush(officeBalances);
+			}
+			// }
 
 			return new CommandProcessingResultBuilder().withCommandId(command.commandId())
 					.withEntityId(officePayments.getId()).withOfficeId(command.entityId()).build();
@@ -208,34 +220,34 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 			final OfficePayments cancelPay = new OfficePayments(officePayments.getofficeId(),
 					officePayments.getAmountPaid(), DateUtils.getLocalDateOfTenant(), officePayments.getRemarks(),
 					officePayments.getPaymodeId(), officePayments.getReceiptNo(), officePayments.isWallet(),
-					officePayments.getId(),officePayments.getCollectionBy());
+					officePayments.getId(), officePayments.getCollectionBy());
 			cancelPay.cancelPayment(command);
 			this.officePaymentsRepository.save(cancelPay);
 			officePayments.cancelPayment(command);
 			this.officePaymentsRepository.save(officePayments);
-			final OfficeBalance officeBalance = officeBalanceRepository.findOneByOfficeId(officePayments.getOfficeId());	
-			BigDecimal initialBalance = officeBalance.getBalanceAmount(); 
-			
-			if(officeBalance.getBalanceAmount().intValue()<0)  
-			{	
-				officeBalance.updateBalance("DEBIT",officePayments.getAmountPaid());
+			final OfficeBalance officeBalance = officeBalanceRepository.findOneByOfficeId(officePayments.getOfficeId());
+			BigDecimal initialBalance = officeBalance.getBalanceAmount();
+
+			if (officeBalance.getBalanceAmount().intValue() < 0) {
+				officeBalance.updateBalance("DEBIT", officePayments.getAmountPaid());
 				initialBalance = officeBalance.getBalanceAmount().add(initialBalance.abs());
 				officeBalance.setBalanceAmount(initialBalance);
 				this.officeBalanceRepository.saveAndFlush(officeBalance);
 
-			}else {
-				officeBalance.updateBalance("DEBIT",officePayments.getAmountPaid());	
-			    this.officeBalanceRepository.saveAndFlush(officeBalance);
+			} else {
+				officeBalance.updateBalance("DEBIT", officePayments.getAmountPaid());
+				this.officeBalanceRepository.saveAndFlush(officeBalance);
 			}
-			final OfficeBalance collectedByOfficeBalance = officeBalanceRepository.findOneByOfficeId(officePayments.getCollectionBy());	
-			if(collectedByOfficeBalance != null)
-				collectedByOfficeBalance.updateBalance("DEBIT",officePayments.getAmountPaid());
+			final OfficeBalance collectedByOfficeBalance = officeBalanceRepository
+					.findOneByOfficeId(officePayments.getCollectionBy());
+			if (collectedByOfficeBalance != null)
+				collectedByOfficeBalance.updateBalance("DEBIT", officePayments.getAmountPaid());
 			this.officeBalanceRepository.saveAndFlush(collectedByOfficeBalance);
 
 			return new CommandProcessingResult(cancelPay.getId(), officeBalance.getofficeId());
 
 		} catch (DataIntegrityViolationException exception) {
-			System.out.println("Exception Message ::" +exception+"Get Message ::" +exception.getClass());
+			System.out.println("Exception Message ::" + exception + "Get Message ::" + exception.getClass());
 			handleDataIntegrityIssues(command, exception);
 			return CommandProcessingResult.empty();
 		}

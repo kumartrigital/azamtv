@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.mifosplatform.billing.currency.domain.CountryCurrency;
 import org.mifosplatform.billing.currency.domain.CountryCurrencyRepository;
+import org.mifosplatform.finance.clientbalance.data.ConverationDetails;
 import org.mifosplatform.finance.clientbalance.domain.ClientBalance;
 import org.mifosplatform.finance.clientbalance.domain.ClientBalanceRepository;
 import org.mifosplatform.finance.clientbalance.serialization.ClientBalanceCommandFromApiJsonDeserializer;
@@ -15,70 +16,93 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public  class ClientBalanceWritePlatformServiceImpl implements ClientBalanceWritePlatformService{
+public class ClientBalanceWritePlatformServiceImpl implements ClientBalanceWritePlatformService {
 
 	private final PlatformSecurityContext context;
-	 private final ClientBalanceCommandFromApiJsonDeserializer fromApiJsonDeserializer;
+	private final ClientBalanceCommandFromApiJsonDeserializer fromApiJsonDeserializer;
 	private ClientBalanceRepository clientBalanceRepository;
 	private CountryCurrencyRepository countryCurrencyRepository;
 
 	@Autowired
-	 public ClientBalanceWritePlatformServiceImpl(final PlatformSecurityContext context,
-			 final ClientBalanceRepository clientBalanceRepository,final ClientBalanceCommandFromApiJsonDeserializer fromApiJsonDeserializer,
-			 final CountryCurrencyRepository countryCurrencyRepository)
-	{
-		 this.context=context;
-		 this.fromApiJsonDeserializer=fromApiJsonDeserializer;
-		 this.clientBalanceRepository=clientBalanceRepository;
-		 this.countryCurrencyRepository=countryCurrencyRepository;
+	public ClientBalanceWritePlatformServiceImpl(final PlatformSecurityContext context,
+			final ClientBalanceRepository clientBalanceRepository,
+			final ClientBalanceCommandFromApiJsonDeserializer fromApiJsonDeserializer,
+			final CountryCurrencyRepository countryCurrencyRepository) {
+		this.context = context;
+		this.fromApiJsonDeserializer = fromApiJsonDeserializer;
+		this.clientBalanceRepository = clientBalanceRepository;
+		this.countryCurrencyRepository = countryCurrencyRepository;
 	}
 
 	@Override
 	public CommandProcessingResult addClientBalance(JsonCommand command) {
-		try
-		{
-		context.authenticatedUser();
-		   this.fromApiJsonDeserializer.validateForCreate(command.json());
-		final ClientBalance clientBalance = ClientBalance.fromJson(command);
-		this.clientBalanceRepository.save(clientBalance);
+		try {
+			context.authenticatedUser();
+			this.fromApiJsonDeserializer.validateForCreate(command.json());
+			final ClientBalance clientBalance = ClientBalance.fromJson(command);
+			this.clientBalanceRepository.save(clientBalance);
 			return new CommandProcessingResult(clientBalance.getId());
 
-	} catch (DataIntegrityViolationException dve) {
-		 handleCodeDataIntegrityIssues(command, dve);
-		return  CommandProcessingResult.empty();
+		} catch (DataIntegrityViolationException dve) {
+			handleCodeDataIntegrityIssues(command, dve);
+			return CommandProcessingResult.empty();
+		}
 	}
-}
-		private void handleCodeDataIntegrityIssues(JsonCommand command,
-			DataIntegrityViolationException dve) {
 
-	        Throwable realCause = dve.getMostSpecificCause();
-	        throw new PlatformDataIntegrityException("error.msg.cund.unknown.data.integrity.issue",
-	                "Unknown data integrity issue with resource: " + realCause.getMessage());
-		
-		}
-	
-		
+	private void handleCodeDataIntegrityIssues(JsonCommand command, DataIntegrityViolationException dve) {
+
+		Throwable realCause = dve.getMostSpecificCause();
+		throw new PlatformDataIntegrityException("error.msg.cund.unknown.data.integrity.issue",
+				"Unknown data integrity issue with resource: " + realCause.getMessage());
+
+	}
+
 	@Override
-	public BigDecimal conversion( Long baseCurrency,Long conversionCurrency,BigDecimal price) {
-		try
-		{
-		BigDecimal conversionPrice = price;
-		/*if(conversionCurrency>baseCurrency||conversionCurrency<baseCurrency) {*/
-		if(!baseCurrency.equals(conversionCurrency)) {
-		CountryCurrency countryCurrency = this.countryCurrencyRepository.findByCurrencyAndBaseCurrency(conversionCurrency,baseCurrency);
-		BigDecimal conversionRate = countryCurrency.getConversionRate();
-		conversionPrice = conversionPrice.multiply(conversionRate);
-		
+	public BigDecimal conversion(Long baseCurrency, Long conversionCurrency, BigDecimal price) {
+		try {
+			BigDecimal conversionPrice = price;
+			/* if(conversionCurrency>baseCurrency||conversionCurrency<baseCurrency) { */
+			if (!baseCurrency.equals(conversionCurrency)) {
+				CountryCurrency countryCurrency = this.countryCurrencyRepository
+						.findByCurrencyAndBaseCurrency(conversionCurrency, baseCurrency);
+				BigDecimal conversionRate = countryCurrency.getConversionRate();
+				conversionPrice = conversionPrice.multiply(conversionRate);
+
+			}
+
+			return conversionPrice;
+		} catch (Exception e) {
+			throw new PlatformDataIntegrityException("please do create currencyexchange", e.getMessage());
 		}
-		
-		return conversionPrice;
-	}catch(Exception e){
-        throw new PlatformDataIntegrityException("please do create currencyexchange", e.getMessage());
-    }
-		
-	
-		
+
+	}
+
+	@Override
+	public ConverationDetails conversionDetails(Long baseCurrency, Long conversionCurrency, BigDecimal price) {
+		try {
+
+			ConverationDetails details = new ConverationDetails();
+			details.setBaseCurrency(baseCurrency);
+			details.setConversionCurrency(conversionCurrency);
+			details.setPrice(price);
+
+			BigDecimal conversionPrice = price;
+			/* if(conversionCurrency>baseCurrency||conversionCurrency<baseCurrency) { */
+			if (!baseCurrency.equals(conversionCurrency)) {
+				CountryCurrency countryCurrency = this.countryCurrencyRepository
+						.findByCurrencyAndBaseCurrency(conversionCurrency, baseCurrency);
+				BigDecimal conversionRate = countryCurrency.getConversionRate();
+				conversionPrice = conversionPrice.multiply(conversionRate);
+				details.setConverationRate(conversionRate);
+				details.setConveratedAmount(conversionPrice);
+			}
+
+			return details;
+		} catch (Exception e) {
+			throw new PlatformDataIntegrityException("please do create currencyexchange", e.getMessage());
+		}
+
+	}
+
 }
-}	

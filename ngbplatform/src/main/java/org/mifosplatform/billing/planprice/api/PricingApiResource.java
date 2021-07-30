@@ -140,7 +140,8 @@ public class PricingApiResource {
 	    		}
 	    		
 	    		PricingData newPricingData= new PricingData(serviceData,currencydata,chargeCode, datas,discountMasterDatas,serviceData.get(0).getPlanCode(), planId,pricingData,
-	    					            priceRegionData,glRealatedData,contractPeriods,serviceData.get(0).getIsPrepaid(),serviceData.get(0).getCurrencyId(),serviceData.get(0).getCurrencyCode(),serviceData.get(0).getChargeOwner());
+	    					            priceRegionData,glRealatedData,contractPeriods,serviceData.get(0).getIsPrepaid(),serviceData.get(0).getCurrencyId(),serviceData.get(0).getCurrencyCode(),
+	    					            serviceData.get(0).getChargeOwner());
 	    		newPricingData.setDuration(this.planReadPlatformService.retrievePlanData(planId).getDuration());
 	    		return newPricingData;
 	    }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UTS REPORT" pageWidth="612" pageHeight="760" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6fad43d2-0244-4322-8657-2cc8e26ba0e3">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -332,7 +332,7 @@ FROM
 				</textElement>
 				<text><![CDATA[Total    :]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="ï¿½ #,##0.00" isBlankWhenNull="true">
 				<reportElement x="482" y="321" width="90" height="20" uuid="7e740b76-e333-4302-ba79-7fd7f96e8c24"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11"/>
@@ -344,7 +344,7 @@ FROM
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Open Billing System
+				<text><![CDATA[Next Generation Billing System
 ]]></text>
 			</staticText>
 			<rectangle>

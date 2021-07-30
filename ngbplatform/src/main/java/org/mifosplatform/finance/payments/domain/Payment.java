@@ -67,11 +67,12 @@ public class Payment extends AbstractAuditableCustom<AppUser, Long> {
 	@Column(name = "payment_source")
 	private String paymentSource;
 
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name = "currency_Id") private ApplicationCurrency currencyId;
-	 */
+	@Column(name = "conversion_charges")
+	private String conversionCharges;
+
+	@OneToOne
+	@JoinColumn(name = "currency_Id")
+	private ApplicationCurrency currencyId;
 
 	public Payment() {
 	}
@@ -219,10 +220,27 @@ public class Payment extends AbstractAuditableCustom<AppUser, Long> {
 	public void setReceiptNo(String receiptNo) {
 		this.receiptNo = receiptNo;
 	}
-	/*
-	 * public ApplicationCurrency getCurrencyId() { return currencyId; }
-	 * 
-	 * public void setCurrencyId(ApplicationCurrency currencyId) { this.currencyId =
-	 * currencyId; }
-	 */
+
+	public ApplicationCurrency getCurrencyId() {
+		return currencyId;
+	}
+
+	public void setCurrencyId(ApplicationCurrency currencyId) {
+		this.currencyId = currencyId;
+	}
+
+	public String getConversionCharges() {
+		return conversionCharges;
+	}
+
+	public void setConversionCharges(String conversionCharges) {
+		this.conversionCharges = conversionCharges;
+	}
+
+	public void setAmountPaid(BigDecimal amountPaid) {
+		this.amountPaid = amountPaid;
+	}
+
+	
+	
 }

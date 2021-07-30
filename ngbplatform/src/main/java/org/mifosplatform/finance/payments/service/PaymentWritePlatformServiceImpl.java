@@ -13,11 +13,14 @@ import java.util.Properties;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mifosplatform.billing.currency.domain.CountryCurrencyRepository;
 import org.mifosplatform.crm.service.CrmServices;
 import org.mifosplatform.finance.chargeorder.domain.BillItem;
 import org.mifosplatform.finance.chargeorder.domain.BillItemRepository;
+import org.mifosplatform.finance.clientbalance.data.ConverationDetails;
 import org.mifosplatform.finance.clientbalance.domain.ClientBalance;
 import org.mifosplatform.finance.clientbalance.domain.ClientBalanceRepository;
+import org.mifosplatform.finance.clientbalance.service.ClientBalanceWritePlatformService;
 import org.mifosplatform.finance.creditdistribution.domain.CreditDistribution;
 import org.mifosplatform.finance.creditdistribution.domain.CreditDistributionRepository;
 import org.mifosplatform.finance.depositandrefund.domain.DepositAndRefund;
@@ -102,6 +105,7 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 	private final ClientBillProfileInfoRepository clientBillProfileInfoRepository;
 	private final FromJsonHelper fromJsonHelper;
 	private final ApplicationCurrencyRepository applicationCurrencyRepository;
+	private final ClientBalanceWritePlatformService clientBalanceWritePlatformService;
 
 	@Autowired
 	public PaymentWritePlatformServiceImpl(final PlatformSecurityContext context,
@@ -120,7 +124,8 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 			final DepositAndRefundRepository depositAndRefundRepository,
 			final CreditDistributionRepository creditDistributionRepository, final CrmServices crmServices,
 			final ClientBillProfileInfoRepository clientBillProfileInfoRepository, final FromJsonHelper fromJsonHelper,
-			final ApplicationCurrencyRepository applicationCurrencyRepository) {
+			final ApplicationCurrencyRepository applicationCurrencyRepository,
+			final ClientBalanceWritePlatformService clientBalanceWritePlatformService) {
 
 		this.context = context;
 		this.fromApiJsonHelper = fromApiJsonHelper;
@@ -143,6 +148,7 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 		this.clientBillProfileInfoRepository = clientBillProfileInfoRepository;
 		this.fromJsonHelper = fromJsonHelper;
 		this.applicationCurrencyRepository = applicationCurrencyRepository;
+		this.clientBalanceWritePlatformService = clientBalanceWritePlatformService;
 
 	}
 
@@ -159,20 +165,39 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 			final JsonElement element = fromApiJsonHelper.parse(command.json());
 			Payment payment = Payment.fromJson(command, command.entityId());
 
-			/*
-			 * ApplicationCurrency applicationCurrency = applicationCurrencyRepository
-			 * .findOneByCode(command.stringValueOfParameterName("currencyCode"));
-			 * 
-			 * if (applicationCurrency == null) { throw new
-			 * CurrencyDetailsNotFoundException(command.stringValueOfParameterName(
-			 * "currencyCode")); }
-			 */
-			
+			ApplicationCurrency applicationCurrency = applicationCurrencyRepository
+					.findOneByCode(command.stringValueOfParameterName("currencyCode"));
+
+			if (applicationCurrency == null) {
+				throw new CurrencyDetailsNotFoundException(command.stringValueOfParameterName("currencyCode"));
+			}
+
 			if (result != null) {
 				payment.setReceiptNo(result.getResourceIdentifier());
 
 			}
-			//payment.setCurrencyId(applicationCurrency);
+
+			ApplicationCurrency basecurrency = applicationCurrencyRepository.findOneByCode("NGN");
+			payment.setCurrencyId(applicationCurrency);
+
+			ConverationDetails conversionChargesValue = clientBalanceWritePlatformService
+					.conversionDetails(basecurrency.getId(), payment.getCurrencyId().getId(), payment.getAmountPaid());
+
+			payment.setAmountPaid(conversionChargesValue.getConveratedAmount());
+
+			JSONObject conversionObject = new JSONObject();
+
+			try {
+				conversionObject.put("baseCurrency", "NGN");
+				conversionObject.put("conversionCurrency",payment.getCurrencyId().getCode() );
+				conversionObject.put("ConverationRate", conversionChargesValue.getConverationRate());
+				conversionObject.put("amount", conversionChargesValue.getPrice());
+				conversionObject.put("conversionAmount", conversionChargesValue.getConveratedAmount());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			payment.setConversionCharges(conversionObject.toString());
 
 			this.paymentRepository.saveAndFlush(payment);
 

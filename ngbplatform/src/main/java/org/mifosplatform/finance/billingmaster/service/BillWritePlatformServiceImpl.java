@@ -228,7 +228,9 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			parameters.put("param1", id);
 			parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant)); 
 			/* This realPath parameter holds the location path of company image #rakesh# */
-            parameters.put("realPath",this.getClass().getClassLoader().getResource("Files").getFile());
+           // parameters.put("realPath",this.getClass().getClassLoader().getResource("Files").getFile());
+            parameters.put("realPath",System.getProperty("user.dir") + "/src/main/resources/Files/companyLogo.jpg");
+
 		   final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfilepath, parameters, connection);
 		   JasperExportManager.exportReportToPdfFile(jasperPrint,printInvoiceLocation);
 	       connection.close();
@@ -384,8 +386,12 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
             parameters.put("param1", id);
             parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
             /* This realPath parameter holds the location path of company image #rakesh# */
-            parameters.put("realPath",this.getClass().getClassLoader().getResource("Files").getFile());
+            System.out.println("BillWritePlatformServiceImpl.generateItemsalePdf():"+this.getClass().getClassLoader().getResource("Files").getFile());
+          //  parameters.put("realPath",this.getClass().getClassLoader().getResource("Files").getFile());
+            parameters.put("realPath",System.getProperty("user.dir") + "/src/main/resources/Files/companyLogo.jpg");
+
            final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfilepath, parameters, connection);
+           
            JasperExportManager.exportReportToPdfFile(jasperPrint,printPaymentLocation);
            connection.close();
            System.out.println("Filling report successfully...");
@@ -441,6 +447,9 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 		}
 		return locale;
 	}
-	
+	  public static void main(String[] args) {
+		    System.out.println("Working Directory = " + System.getProperty("user.dir") + "/src/main/resources/Files/companyLogo.jpg");
+		  }
+	 
 	}
 
