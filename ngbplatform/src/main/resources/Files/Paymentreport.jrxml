@@ -261,6 +261,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="realPath" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
     p.id AS paymentId,
@@ -446,18 +447,6 @@ FROM
 				<textFieldExpression><![CDATA[$F{paymentDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="5" y="26" width="221" height="74" uuid="d8841e3f-f8f2-4824-8aff-30677f36a770"/>
-				<textElement>
-					<font fontName="DejaVu Sans" size="11"/>
-				</textElement>
-				<text><![CDATA[Kondapur,Hyderabad
-Andhra Pradesh,India 30214
-Tel: 858 935 8804
-info@openbillingsystem.com
-
-]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="354" y="80" width="114" height="20" uuid="d3b210ea-79d5-4573-96bc-66fb4a608c4d"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -492,6 +481,11 @@ info@openbillingsystem.com
 				</textElement>
 				<text><![CDATA[Customer  Details :]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="0" y="40" width="300" height="80" uuid="b2e0df4a-49c5-47fd-bde6-30396a181f23"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/MsoAddress.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 </jasperReport>

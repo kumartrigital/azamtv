@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UTS REPORT" pageWidth="612" pageHeight="760" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6fad43d2-0244-4322-8657-2cc8e26ba0e3">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -306,6 +307,7 @@ GROUP BY bc.id]]>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="realPath" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
     i.id AS invoiceId,
@@ -348,7 +350,7 @@ FROM
 	</field>
 	<variable name="variable1" class="java.lang.String"/>
 	<title>
-		<band height="306" splitType="Stretch">
+		<band height="340" splitType="Stretch">
 			<staticText>
 				<reportElement x="468" y="70" width="104" height="26" uuid="8fe5b5ef-339a-462f-8578-4503d68db125"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -490,22 +492,15 @@ FROM
 				<text><![CDATA[Open Billing System
 ]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="5" y="96" width="185" height="74" uuid="d8841e3f-f8f2-4824-8aff-30677f36a770"/>
-				<textElement>
-					<font fontName="DejaVu Sans" size="11"/>
-				</textElement>
-				<text><![CDATA[Kondapur,Hyderabad
-Andhra Pradesh,India 30214
-Tel: 858 935 8804
-info@openbillingsystem.com
-
-]]></text>
-			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement stretchType="RelativeToBandHeight" x="5" y="46" width="119" height="24" uuid="889fbb11-d922-4982-8443-bff538840007"/>
 				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
 			</image>
+			<subreport>
+				<reportElement x="5" y="107" width="290" height="73" uuid="b333dacb-1b18-44ec-a6f1-b8b4db70750a"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/MsoAddress.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</title>
 	<detail>
