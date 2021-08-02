@@ -418,7 +418,7 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$F{displayName}]]></textFieldExpression>
 			</textField>
-			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+			<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 				<reportElement x="326" y="276" width="193" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -457,7 +457,7 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$F{invoiceId}]]></textFieldExpression>
 			</textField>
-			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+			<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 				<reportElement x="358" y="117" width="114" height="20" uuid="9f1ffe82-53ea-4976-8f8b-40fc22e3b74c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
@@ -490,7 +490,7 @@ FROM
 		</band>
 	</title>
 	<detail>
-		<band height="61" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<componentElement>
 				<reportElement key="table 11" style="table 11" x="1" y="10" width="571" height="50" uuid="2c251718-355f-4b4b-b2ba-786f9ee3e4b3"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
@@ -571,7 +571,7 @@ FROM
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="95" height="20" uuid="d61a41d2-37aa-4c00-b27c-b1fefe8f853c"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
@@ -591,7 +591,7 @@ FROM
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="103" height="20" uuid="1ce82f50-0d23-4f04-a735-32cc79e9fd3c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
@@ -611,7 +611,7 @@ FROM
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="98" height="20" uuid="47b356f3-2e6f-4f27-a8d8-3831b66833ac"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
