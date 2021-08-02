@@ -498,7 +498,7 @@ FROM
 			<subreport>
 				<reportElement x="5" y="107" width="290" height="73" uuid="b333dacb-1b18-44ec-a6f1-b8b4db70750a"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["/MsoAddress.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{realPath}+"/MsoAddress.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>

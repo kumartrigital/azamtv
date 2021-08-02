@@ -167,9 +167,11 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 				final Integer id = Integer.valueOf(billMaster.getId().toString());
 				parameters.put("param1", id);
 				parameters.put("SUBREPORT_DIR", jpath + "" + File.separator);
-				parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
+				//parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
 				/* This realPath parameter holds the location path of company image #rakesh# */
 				parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
+				parameters.put("SUBREPORT_DIR", this.getClass().getClassLoader().getResource("Files").getFile());
+
 				final JasperPrint jasperPrint = JasperFillManager.fillReport(jfilepath, parameters, connection);
 				JasperExportManager.exportReportToPdfFile(jasperPrint, printStatementLocation);
 				billMaster.setFileName(printStatementLocation);
@@ -235,6 +237,8 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
 			/* This realPath parameter holds the location path of company image #rakesh# */
 			parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
+			parameters.put("SUBREPORT_DIR", this.getClass().getClassLoader().getResource("Files").getFile());
+
 
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfilepath, parameters, connection);
 			JasperExportManager.exportReportToPdfFile(jasperPrint, printInvoiceLocation);
@@ -399,9 +403,9 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			parameters.put("param1", id);
 			parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
 			/* This realPath parameter holds the location path of company image #rakesh# */
-			System.out.println("BillWritePlatformServiceImpl.generateItemsalePdf():"
-					+ this.getClass().getClassLoader().getResource("Files").getFile());
 			parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
+			parameters.put("SUBREPORT_DIR", this.getClass().getClassLoader().getResource("Files").getFile());
+			
 			// parameters.put("realPath",System.getProperty("user.dir") +
 			// "/src/main/resources/Files/companyLogo.jpg");
 
