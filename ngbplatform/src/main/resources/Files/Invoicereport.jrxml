@@ -468,14 +468,14 @@ FROM
 				<textFieldExpression><![CDATA[$F{city}+ "," +$F{state}+ "," + $F{country} +" " +$F{zip}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="4" y="76" width="211" height="20" uuid="6b9f764f-501d-4f72-9e89-20595f9acd91"/>
+				<reportElement x="4" y="86" width="211" height="20" uuid="6b9f764f-501d-4f72-9e89-20595f9acd91"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Next Generation Billing System]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement stretchType="RelativeToBandHeight" x="5" y="46" width="119" height="24" uuid="889fbb11-d922-4982-8443-bff538840007"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5" y="36" width="119" height="24" uuid="889fbb11-d922-4982-8443-bff538840007"/>
 				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
 			</image>
 			<subreport>
