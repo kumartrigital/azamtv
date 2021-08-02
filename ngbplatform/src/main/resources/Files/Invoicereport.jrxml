@@ -402,22 +402,12 @@ FROM
 				</textElement>
 				<text><![CDATA[Invoice  TO]]></text>
 			</staticText>
-			<line>
-				<reportElement x="419" y="237" width="1" height="69" uuid="2d446cbf-abdf-4cef-89fd-bf3ddfcdf69c"/>
-			</line>
 			<staticText>
-				<reportElement x="238" y="246" width="100" height="20" uuid="cd11679f-01b0-4584-ac85-3fd2e45a6445"/>
+				<reportElement x="326" y="246" width="100" height="20" uuid="cd11679f-01b0-4584-ac85-3fd2e45a6445"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Inovice Date]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="420" y="246" width="80" height="20" uuid="ecb86920-de08-448e-ad7c-aa15764e5a05"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Project]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement x="5" y="286" width="210" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
@@ -427,7 +417,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{displayName}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
-				<reportElement x="226" y="286" width="193" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
+				<reportElement x="326" y="286" width="193" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
@@ -470,13 +460,6 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$F{invoiceDate}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="439" y="286" width="133" height="20" uuid="b9cd6163-053a-4f45-87c6-e74258902c27"/>
-				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<text><![CDATA[IPTV]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="368" y="190" width="204" height="25" uuid="052a2667-4261-49c1-bd97-870a9fa1a3d9"/>
 				<textElement>

@@ -364,7 +364,7 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 			<subreport>
 				<reportElement x="5" y="80" width="345" height="70" uuid="b17bd128-3ac5-4932-901c-81f013fcaf05"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["MsoAddress.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{realPath}+"/MsoAddress.jasper"]]></subreportExpression>
 			</subreport>
 			<rectangle>
 				<reportElement x="3" y="162" width="555" height="69" uuid="82e7b0dd-2ddc-459a-86bc-08d1db119304"/>
