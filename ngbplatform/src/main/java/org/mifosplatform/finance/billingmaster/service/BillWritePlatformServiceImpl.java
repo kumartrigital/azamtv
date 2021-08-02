@@ -236,7 +236,9 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			parameters.put("param1", id);
 			parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
 			/* This realPath parameter holds the location path of company image #rakesh# */
-			parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
+			 String imagePath = new File(System.getProperty("user.dir")).getParent()+"/webapps/NGB_Client/app/images";
+
+			parameters.put("realPath", imagePath);
 			parameters.put("SUBREPORT_DIR", this.getClass().getClassLoader().getResource("Files").getFile());
 
 
@@ -294,6 +296,7 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			parameters.put("param1", id);
 			parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
 			/* This realPath parameter holds the location path of company image #rakesh# */
+			
 			parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfilepath, parameters, connection);
 			JasperExportManager.exportReportToPdfFile(jasperPrint, printPaymentLocation);
@@ -470,8 +473,8 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(
-				"Working Directory = " + System.getProperty("user.dir") + "/src/main/resources/Files/companyLogo.jpg");
+		 String imagePath = new File(System.getProperty("user.dir")).getParent()+"/webapps/NGB_Client/app/images/Whitelabel_logo.png";
+		System.out.println("Working Directory = " + imagePath);
 	}
 
 }
