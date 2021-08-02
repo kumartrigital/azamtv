@@ -112,7 +112,7 @@ private class ClientBillInfo implements RowMapper<ClientBillInfoData> {
 public ClientBillInfoData retriveclientbill(Long clientId) {
 	try{
 		ClientBillInfos clientBillInfos = new ClientBillInfos();
-		String sql = "SELECT  distinct "+clientBillInfos.schema()+" WHERE client_id = ?";
+		String sql = "SELECT  distinct "+clientBillInfos.schema()+" WHERE cb.client_id = ?";
 		return jdbcTemplate.queryForObject(sql, clientBillInfos,new Object[]{clientId});
 		}catch(EmptyResultDataAccessException ex){
 			return null;
@@ -144,7 +144,7 @@ private class ClientBillInfos implements RowMapper<ClientBillInfoData> {
     
 	public String schema() {
 		
-		return " cb.client_id AS clientId, cb.bill_day_of_month AS billDayOfMonth,cb.bill_currency AS billCurrency,cb.bill_frequency AS billFrequency, of.client_id as officeClientId" +
+		return " cb.client_id AS clientId, cb.bill_day_of_month AS billDayOfMonth,cb.bill_currency AS billCurrency,cb.bill_frequency AS billFrequency, of.client_id as officeClientId," +
 			   " cb.bill_segment AS billSegment,cb.next_bill_day AS nextBillDay,cb.last_bill_day AS lastBillDay,cb.last_bill_no AS lastBillNo, " +
 			   " cb.payment_type AS paymentType,cb.bill_suppression_flag AS billSuppressionFlag,cb.bill_suppression_id AS billSuppressionId,cb.first_bill AS firstBill,cb.hot_bill AS hotBill FROM m_client_billprofile cb join m_client c on cb.client_id = c.id join m_office of on c.office_id=of.id";
 		

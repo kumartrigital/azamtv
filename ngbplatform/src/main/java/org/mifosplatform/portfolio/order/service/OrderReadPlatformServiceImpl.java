@@ -1027,9 +1027,9 @@ public class OrderReadPlatformServiceImpl implements OrderReadPlatformService
 
 		this.context.authenticatedUser();
 		OrderPoIdMapper mapper = new OrderPoIdMapper();
-		int limit =1;
+		int limit = 1;
 		String sql = "select distinct " + mapper.schema() + "where o.order_no = ? limit ?";
-		return this.jdbcTemplate.queryForObject(sql, mapper, new Object[] { orderNo,limit });
+		return this.jdbcTemplate.queryForObject(sql, mapper, new Object[] { orderNo, limit });
 
 	}
 
@@ -1114,7 +1114,8 @@ public class OrderReadPlatformServiceImpl implements OrderReadPlatformService
 
 		public String schema() {
 
-			return " od.id as orderId,od.client_id as clientId,od.client_service_id as clientServiceId,od.plan_id as planId,pm.is_prepaid as isPrepaid , op.chargeOwner as chargeOwner from b_orders od join b_plan_master pm on pm.id=od.plan_id join b_order_price op on op.order_id=od.id ";
+			return " od.id as orderId,od.client_id as clientId,od.client_service_id as clientServiceId,od.plan_id as planId,pm.is_prepaid as isPrepaid , op.chargeOwner as chargeOwner, op.currency_id AS currencyId\n"
+					+ " from b_orders od join b_plan_master pm on pm.id=od.plan_id join b_order_price op on op.order_id=od.id ";
 
 		}
 

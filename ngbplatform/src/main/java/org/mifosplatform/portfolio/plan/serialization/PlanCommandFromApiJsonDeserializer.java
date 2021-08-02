@@ -33,7 +33,7 @@ public final class PlanCommandFromApiJsonDeserializer {
      */
     private final Set<String> supportedParameters = new HashSet<String>(Arrays.asList("planCode","planDescription","locale",
     		"dateFormat","startDate","endDate","status","chargeCode","roles","billRule","isHwReq",
-    		"provisioingSystem","products","duration","volume","isPrepaid","units","allowTopup","planType","currencyId","serviceCode","serviceId","isAdvance"));
+    		"isMultiCurrency","provisioingSystem","products","duration","volume","isPrepaid","units","allowTopup","planType","currencyId","serviceCode","serviceId","isAdvance"));
     private final FromJsonHelper fromApiJsonHelper;
 
     @Autowired

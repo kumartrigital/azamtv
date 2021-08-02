@@ -70,6 +70,8 @@ import org.mifosplatform.organisation.groupsdetails.domain.GroupsDetailsReposito
 import org.mifosplatform.organisation.mcodevalues.api.CodeNameConstants;
 import org.mifosplatform.organisation.mcodevalues.data.MCodeData;
 import org.mifosplatform.organisation.mcodevalues.service.MCodeReadPlatformService;
+import org.mifosplatform.organisation.monetary.domain.ApplicationCurrency;
+import org.mifosplatform.organisation.monetary.domain.ApplicationCurrencyRepository;
 import org.mifosplatform.organisation.office.domain.Office;
 import org.mifosplatform.organisation.office.domain.OfficeRepository;
 import org.mifosplatform.organisation.office.exception.OfficeNotFoundException;
@@ -148,6 +150,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 	static JSONObject voucher = new JSONObject();
 	static HttpClient httpClient;
 	static String result;
+	static String countryCurrency;
 
 	private final static Logger logger = LoggerFactory.getLogger(ClientWritePlatformServiceJpaRepositoryImpl.class);
 
@@ -186,6 +189,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 	private final InviewWritePlatformService inviewWritePlatformService;
 
 	private final ChargeCodeReadPlatformService chargeCodeReadPlatformService;
+	private final ApplicationCurrencyRepository applicationCurrencyRepository;
 
 	@Autowired
 	public ClientWritePlatformServiceJpaRepositoryImpl(final PlatformSecurityContext context,
@@ -215,7 +219,8 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 			final MCodeReadPlatformService mCodeReadPlatformService, final CrmServices crmServices,
 			final FromJsonHelper fromApiJsonHelper, final AddressWritePlatformService addressWritePlatformService,
 			final ChargeCodeReadPlatformService chargeCodeReadPlatformService,
-			final InviewWritePlatformService inviewWritePlatformService) {
+			final InviewWritePlatformService inviewWritePlatformService,
+			final ApplicationCurrencyRepository applicationCurrencyRepository) {
 
 		this.context = context;
 		this.ProvisioningWritePlatformService = ProvisioningWritePlatformService;
@@ -251,6 +256,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 		this.commandSourceRepository = commandSourceRepository;
 		this.chargeCodeReadPlatformService = chargeCodeReadPlatformService;
 		this.inviewWritePlatformService = inviewWritePlatformService;
+		this.applicationCurrencyRepository = applicationCurrencyRepository;
 	}
 
 	@Transactional
@@ -370,7 +376,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 
 	@Transactional
 	@Override
-	public CommandProcessingResult createClient(JsonCommand command)  {
+	public CommandProcessingResult createClient(JsonCommand command) {
 
 		try {
 			context.authenticatedUser();
@@ -397,7 +403,6 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 			if (clientOffice == null) {
 				throw new OfficeNotFoundException(officeId);
 			}
-			
 
 			final Long groupId = command.longValueOfParameterNamed(ClientApiConstants.groupIdParamName);
 			final Group clientParentGroup = null;
@@ -429,20 +434,20 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 				this.clientRepository.saveAndFlush(newClient);
 				final AccountNumberGenerator accountNoGenerator = this.accountIdentifierGeneratorFactory
 						.determineClientAccountNoGenerator(newClient.getId());
-				
+
 				newClient.updateAccountNo(accountNoGenerator.generate(),
 						this.mCodeReadPlatformService.getCodeValue(CodeNameConstants.NUMBER_GENERATOR));
 				this.clientRepository.saveAndFlush(newClient);
 			}
 
 			final JsonArray addressArray = command.arrayOfParameterNamed("address").getAsJsonArray();
+
 			List<Address> address = this.addressDetails(newClient.getId(), addressArray);
 			for (Address addr : address) {
 				this.addressRepository.saveAndFlush(addr);
 			}
 
 			if (configuration.isEnabled()) {
-
 				final JSONObject selfcarecreation = new JSONObject();
 				if (command.hasParameter("uniqueReferenceNo")) {
 					selfcarecreation.put("userName", command.stringValueOfParameterNamed("uniqueReferenceNo"));
@@ -455,7 +460,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 				selfcarecreation.put("device", command.stringValueOfParameterNamed("device"));
 				selfcarecreation.put("mailNotification", true);
 				selfcarecreation.put("password", newClient.getPassword());
-				
+
 				selfcarecreation.put("authToken", command.stringValueOfParameterName("authToken"));
 				selfcarecreation.put("lat", command.stringValueOfParameterName("lat"));
 				selfcarecreation.put("long", command.stringValueOfParameterName("long"));
@@ -547,6 +552,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 				final String district = this.fromApiJsonHelper.extractStringNamed("district", element);
 				final String zip = this.fromApiJsonHelper.extractStringNamed("zipCode", element);
 
+				countryCurrency = country;
 				Address adder = new Address(clientId, addressKey, addressNo, street, city, state, country, district,
 						zip);
 				addressList.add(adder);
@@ -560,7 +566,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 		String dateFormat = "dd MM yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		Calendar c = Calendar.getInstance();
-		
+
 		Configuration isClientBillProfileConf = configurationRepository
 				.findOneByName(ConfigurationConstants.CONFIG_BILL_PROFILE);
 		if (null != isClientBillProfileConf && isClientBillProfileConf.isEnabled()) {
@@ -568,7 +574,6 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 			ChargeCodeData ChargeCodeData = this.chargeCodeReadPlatformService
 					.retrieveSingleChargeCodeDetails(object.getLong("billFrequency"));
 
-			
 			if (ChargeCodeData.getBillFrequencyCode().equalsIgnoreCase("1 Month")) {
 				c.add(Calendar.MONTH, 1);
 				c.set(Calendar.DAY_OF_MONTH, 1);
@@ -600,6 +605,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 		} else {
 
 			ClientData clientdata = this.clientReadPlatformService.currencyInfo(client.getId());
+
 			final JSONObject object = new JSONObject();
 			Long start = Long.valueOf(1);
 			Long end = Long.valueOf(28);
@@ -610,11 +616,19 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
 			} else if (date.compareTo(end) > 0) {
 				object.put("billDayOfMonth", 1);
 			}
-			object.put("billCurrency", clientdata.getCurrencyId());
+			if (clientdata == null) {
+
+				ApplicationCurrency currencydetails = applicationCurrencyRepository
+						.findOneByCountryName(countryCurrency);
+				object.put("billCurrency", currencydetails.getId());
+
+			} else {
+				object.put("billCurrency", clientdata.getCurrencyId());
+			}
 			object.put("billFrequency", 2);
 			ChargeCodeData ChargeCodeData = this.chargeCodeReadPlatformService
 					.retrieveSingleChargeCodeDetails(object.getLong("billFrequency"));
-			
+
 			if (ChargeCodeData.getBillFrequencyCode().equalsIgnoreCase("1 Month")) {
 				c.add(Calendar.MONTH, 1);
 				String Date = sdf.format(c.getTime());

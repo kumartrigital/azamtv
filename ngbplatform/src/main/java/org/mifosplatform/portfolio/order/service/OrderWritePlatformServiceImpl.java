@@ -478,6 +478,7 @@ public class OrderWritePlatformServiceImpl implements OrderWritePlatformService 
 					jsonObject.put("systemDate", dateFormat.format(new Date()));
 					this.chargingOrderApiResourse.createChargesToOrders(order.getClientId(), jsonObject.toString());
 				} catch (Exception e) {
+					e.printStackTrace();
 					throw new PlatformDataIntegrityException("error.msg.charge.exception",
 							"error.message.charging.exception");
 				}
@@ -2469,9 +2470,9 @@ public class OrderWritePlatformServiceImpl implements OrderWritePlatformService 
 				officeData = this.officeReadPlatformService.retriveOfficeDetail(clientId);
 				office = this.officeRepository.findOne(officeData.getId());
 				officeBalance = this.officeBalanceRepository.findOneByOfficeId(officeData.getId());
+				
 				if (officeBalance.getBalanceAmount().compareTo(new BigDecimal(0)) == 0
 						&& parentAmount.compareTo(new BigDecimal(0)) == 0) {
-					System.out.println("FTA PLAN " + officeBalance.getBalanceAmount());
 				} else if (office.getPayment() == '3'
 						&& officeBalance.getBalanceAmount().compareTo(new BigDecimal(0)) >= 0
 						|| (officeBalance.getBalanceAmount().abs()).compareTo(parentAmount) < 0) {
@@ -2481,6 +2482,7 @@ public class OrderWritePlatformServiceImpl implements OrderWritePlatformService 
 
 			if (null != clientBalanceCheck && clientBalanceCheck.isEnabled()) {
 				ClientData clientData = this.clientReadPlatformService.retrieveOne("id", clientId.toString());
+				
 				if (selfAmount.compareTo(new BigDecimal(0)) == 0
 						&& clientData.getBalanceAmount().compareTo(new BigDecimal(0)) == 0)
 					System.out.println("FTA PLAN " + clientData.getBalanceAmount());

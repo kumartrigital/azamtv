@@ -12,6 +12,9 @@ import java.util.Map.Entry;
 
 import org.joda.time.LocalDate;
 import org.mifosplatform.billing.discountmaster.data.DiscountMasterData;
+import org.mifosplatform.billing.planprice.api.PricingApiResource;
+import org.mifosplatform.billing.planprice.domain.Price;
+import org.mifosplatform.billing.planprice.domain.PriceRepository;
 import org.mifosplatform.commands.service.PortfolioCommandSourceWritePlatformService;
 import org.mifosplatform.finance.chargeorder.data.BillingOrderData;
 import org.mifosplatform.finance.chargeorder.data.ChargeData;
@@ -74,6 +77,7 @@ public class GenerateChargesForOrderServiceImp implements GenerateChargesForOrde
 	private final OfficeBalanceRepository officeBalanceRepository;
 	private final OfficeRepository officeRepository;
 	private final ClientBalanceRepository clientBalanceRepository;
+	private final PriceRepository priceRepository;
 
 	@Autowired
 	public GenerateChargesForOrderServiceImp(final GenerateCharges generateCharges,
@@ -90,7 +94,7 @@ public class GenerateChargesForOrderServiceImp implements GenerateChargesForOrde
 			@Lazy final SecondarySubscriberDuesWritePlatformService secondarySubscriberDuesWritePlatformService,
 			final ClientReadPlatformService clientReadPlatformService,
 			final OfficeBalanceRepository officeBalanceRepository, final OfficeRepository officeRepository,
-			final ClientBalanceRepository clientBalanceRepository) {
+			final ClientBalanceRepository clientBalanceRepository, final PriceRepository priceRepository) {
 
 		this.generateCharges = generateCharges;
 		this.billItemRepository = billItemRepository;
@@ -108,6 +112,7 @@ public class GenerateChargesForOrderServiceImp implements GenerateChargesForOrde
 		this.officeBalanceRepository = officeBalanceRepository;
 		this.officeRepository = officeRepository;
 		this.clientBalanceRepository = clientBalanceRepository;
+		this.priceRepository = priceRepository;
 	}
 
 	@Override
@@ -379,9 +384,14 @@ public class GenerateChargesForOrderServiceImp implements GenerateChargesForOrde
 
 			if (billingOrderCommand.getCurrencyId() <= 1000) {
 
-				BigDecimal conversionPrice = this.clientBalanceWritePlatformService.conversion(
-						billingOrderCommand.getCurrencyId(), clientBillInfoData.getBillCurrency(),
-						billingOrderCommand.getPrice());
+				BigDecimal conversionPrice = billingOrderCommand.getPrice();
+
+				// commanded for multiCurrency
+				/*
+				 * this.clientBalanceWritePlatformService.conversion(
+				 * billingOrderCommand.getCurrencyId(), clientBillInfoData.getBillCurrency(),
+				 * billingOrderCommand.getPrice());
+				 */
 
 				BigDecimal netChargeTaxAmount = BigDecimal.ZERO;
 				BigDecimal discountAmount = BigDecimal.ZERO;
@@ -454,6 +464,7 @@ public class GenerateChargesForOrderServiceImp implements GenerateChargesForOrde
 				clientBalanceObject.addProperty("isWalletEnable", false);
 				clientBalanceObject.addProperty("clientServiceId", orderData.get(0).getClientServiceId());
 				clientBalanceObject.addProperty("currencyId", billingOrderCommand.getCurrencyId());
+
 				clientBalanceObject.addProperty("locale", "en");
 				Date date = new Date();
 				SimpleDateFormat formatter1 = new SimpleDateFormat("dd MMMM yyyy");
@@ -766,57 +777,73 @@ public class GenerateChargesForOrderServiceImp implements GenerateChargesForOrde
 					}
 				}
 
-				JsonObject clientBalanceObject = new JsonObject();
-				clientBalanceObject.addProperty("id", billItem.getId());
-				if (billItem.getCharges().get(0).getChargeOwner().equalsIgnoreCase("parent")) {
-					OfficeBalance officeBalance = this.officeBalanceRepository.findOneByOfficeId(officeData.getId());
+				for (OrderData orderDateDetails : orderData) {
 
-					/*
-					 * if (office.getPayment() == '3' &&
-					 * (officeBalance.getBalanceAmount()).compareTo(billItem.getInvoiceAmount()) >
-					 * 0) { throw new
-					 * OfficeBalanceIsNotEnoughException(officeBalance.getBalanceAmount()); } else {
-					 */
-					// System.out.println("chargeOfficeclinetId" +office.getClientId());
-					clientBalanceObject.addProperty("clientId", office.getClientId());
-					clientBalanceObject.addProperty("amount", billItem.getInvoiceAmount());
-					clientBalanceObject.addProperty("isWalletEnable", false);
-					clientBalanceObject.addProperty("clientServiceId", orderData.get(0).getClientServiceId());
-					clientBalanceObject.addProperty("currencyId", billItem.getCurrencyId());
-					clientBalanceObject.addProperty("locale", "en");
+					Price planPricing = priceRepository.findplansByPlanIdChargeOwnerSelf(orderDateDetails.getPlanId());
 
-					final JsonElement clientServiceElementNew = fromJsonHelper.parse(clientBalanceObject.toString());
-					JsonCommand clientBalanceCommand = new JsonCommand(null, clientServiceElementNew.toString(),
-							clientServiceElementNew, fromJsonHelper, null, null, null, null, null, null, null, null,
-							null, null, null, null);
+					JsonObject clientBalanceObject = new JsonObject();
+					clientBalanceObject.addProperty("id", billItem.getId());
+					if (billItem.getCharges().get(0).getChargeOwner().equalsIgnoreCase("parent")) {
+						OfficeBalance officeBalance = this.officeBalanceRepository
+								.findOneByOfficeId(officeData.getId());
 
-					// updating office balance
-					officeBalance.updateBalance("DEBIT", billItem.getInvoiceAmount());
-					this.officeBalanceRepository.saveAndFlush(officeBalance);
-					this.chargingOrderWritePlatformService.updateClientBalance(clientBalanceCommand);
-					System.out.println("charging for parent");
-					// }
-				} else if (billItem.getCharges().get(0).getChargeOwner().equalsIgnoreCase("self")) {
-				//	ClientData clientData = this.clientReadPlatformService.retrieveOne("id", clientId.toString());
-					/*
-					 * if(clientData!=null &&
-					 * clientData.getBalanceAmount().compareTo(billItem.getInvoiceAmount())>0) {
-					 * throw new ClientBalanceNotEnoughException(); }else {
-					 */
-					clientBalanceObject.addProperty("clientId", clientId);
-					// System.out.println("chargeclinetId" + clientId);
-					clientBalanceObject.addProperty("amount", billItem.getInvoiceAmount());
-					clientBalanceObject.addProperty("isWalletEnable", false);
-					clientBalanceObject.addProperty("clientServiceId", orderData.get(0).getClientServiceId());
-					clientBalanceObject.addProperty("currencyId", billItem.getCurrencyId());
-					clientBalanceObject.addProperty("locale", "en");
+						/*
+						 * if (office.getPayment() == '3' &&
+						 * (officeBalance.getBalanceAmount()).compareTo(billItem.getInvoiceAmount()) >
+						 * 0) { throw new
+						 * OfficeBalanceIsNotEnoughException(officeBalance.getBalanceAmount()); } else {
+						 */
+						// System.out.println("chargeOfficeclinetId" +office.getClientId());
+						clientBalanceObject.addProperty("clientId", office.getClientId());
+						clientBalanceObject.addProperty("amount", billItem.getInvoiceAmount());
+						clientBalanceObject.addProperty("isWalletEnable", false);
+						// clientBalanceObject.addProperty("clientServiceId",
+						// orderData.get(0).getClientServiceId());
+						clientBalanceObject.addProperty("clientServiceId", orderDateDetails.getClientServiceId());
+						clientBalanceObject.addProperty("currencyId", planPricing.getCurrencyId());
 
-					final JsonElement clientServiceElementNew = fromJsonHelper.parse(clientBalanceObject.toString());
-					JsonCommand clientBalanceCommand = new JsonCommand(null, clientServiceElementNew.toString(),
-							clientServiceElementNew, fromJsonHelper, null, null, null, null, null, null, null, null,
-							null, null, null, null);
-					this.chargingOrderWritePlatformService.updateClientBalance(clientBalanceCommand);
-					System.out.println("charging for self");
+						// clientBalanceObject.addProperty("currencyId", billItem.getCurrencyId());
+						// clientBalanceObject.addProperty("clientServiceId",
+						// orderData.get(0).getCurrencyId());
+
+						clientBalanceObject.addProperty("locale", "en");
+
+						final JsonElement clientServiceElementNew = fromJsonHelper
+								.parse(clientBalanceObject.toString());
+						JsonCommand clientBalanceCommand = new JsonCommand(null, clientServiceElementNew.toString(),
+								clientServiceElementNew, fromJsonHelper, null, null, null, null, null, null, null, null,
+								null, null, null, null);
+
+						// updating office balance
+						officeBalance.updateBalance("DEBIT", billItem.getInvoiceAmount());
+						this.officeBalanceRepository.saveAndFlush(officeBalance);
+						this.chargingOrderWritePlatformService.updateClientBalance(clientBalanceCommand);
+						System.out.println("charging for parent");
+						// }
+					} else if (billItem.getCharges().get(0).getChargeOwner().equalsIgnoreCase("self")) {
+						// ClientData clientData = this.clientReadPlatformService.retrieveOne("id",
+						// clientId.toString());
+						/*
+						 * if(clientData!=null &&
+						 * clientData.getBalanceAmount().compareTo(billItem.getInvoiceAmount())>0) {
+						 * throw new ClientBalanceNotEnoughException(); }else {
+						 */
+						clientBalanceObject.addProperty("clientId", clientId);
+						// System.out.println("chargeclinetId" + clientId);
+						clientBalanceObject.addProperty("amount", billItem.getInvoiceAmount());
+						clientBalanceObject.addProperty("isWalletEnable", false);
+						clientBalanceObject.addProperty("clientServiceId", orderDateDetails.getClientServiceId());
+						clientBalanceObject.addProperty("currencyId", planPricing.getCurrencyId());
+						clientBalanceObject.addProperty("locale", "en");
+
+						final JsonElement clientServiceElementNew = fromJsonHelper
+								.parse(clientBalanceObject.toString());
+						JsonCommand clientBalanceCommand = new JsonCommand(null, clientServiceElementNew.toString(),
+								clientServiceElementNew, fromJsonHelper, null, null, null, null, null, null, null, null,
+								null, null, null, null);
+						this.chargingOrderWritePlatformService.updateClientBalance(clientBalanceCommand);
+						System.out.println("charging for self");
+					}
 				}
 				// }
 				billItemList.add(entry.getValue());

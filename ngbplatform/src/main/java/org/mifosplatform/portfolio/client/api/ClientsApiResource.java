@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import javax.security.auth.login.AccountNotFoundException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -47,7 +46,6 @@ import org.mifosplatform.infrastructure.core.serialization.ApiRequestJsonSeriali
 import org.mifosplatform.infrastructure.core.serialization.ToApiJsonSerializer;
 import org.mifosplatform.infrastructure.core.service.Page;
 import org.mifosplatform.infrastructure.security.service.PlatformSecurityContext;
-import org.mifosplatform.logistics.itemdetails.exception.SerialNumberNotFoundException;
 import org.mifosplatform.logistics.onetimesale.service.OneTimeSaleReadPlatformService;
 import org.mifosplatform.organisation.address.data.AddressData;
 import org.mifosplatform.organisation.address.service.AddressReadPlatformService;
@@ -61,7 +59,6 @@ import org.mifosplatform.portfolio.allocation.service.AllocationReadPlatformServ
 import org.mifosplatform.portfolio.client.data.ClientAdditionalData;
 import org.mifosplatform.portfolio.client.data.ClientBillInfoData;
 import org.mifosplatform.portfolio.client.data.ClientData;
-import org.mifosplatform.portfolio.client.exception.ClientNotFoundException;
 import org.mifosplatform.portfolio.client.service.BillSupressionProfileInfoReadPlatformService;
 import org.mifosplatform.portfolio.client.service.ClientBillInfoReadPlatformService;
 import org.mifosplatform.portfolio.client.service.ClientCategoryData;
