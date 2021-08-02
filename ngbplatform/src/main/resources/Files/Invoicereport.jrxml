@@ -350,7 +350,6 @@ FROM
 	<field name="zip" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="currency" class="java.lang.String"/>
 	<variable name="variable1" class="java.lang.String"/>
 	<title>
 		<band height="306" splitType="Stretch">
