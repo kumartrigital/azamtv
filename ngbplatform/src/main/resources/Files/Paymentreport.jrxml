@@ -315,7 +315,7 @@ FROM
 		<band height="50">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement stretchType="RelativeToBandHeight" x="5" y="21" width="115" height="29" uuid="06d1c171-2b51-4b59-ad52-29f21815f884"/>
-				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realPath}+"/Whitelabel_logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>
@@ -354,10 +354,10 @@ FROM
 				<reportElement x="1" y="167" width="571" height="69" uuid="f8f263b4-1a5e-4290-8cc8-f9e876a117fc"/>
 			</rectangle>
 			<line>
-				<reportElement x="281" y="167" width="1" height="69" uuid="1b03cca4-98da-475d-9ada-46965eee6d8f"/>
+				<reportElement x="214" y="167" width="1" height="69" uuid="1b03cca4-98da-475d-9ada-46965eee6d8f"/>
 			</line>
 			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement x="330" y="205" width="181" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
+				<reportElement x="236" y="205" width="181" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11"/>
 				</textElement>
@@ -378,7 +378,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{clientId}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="331" y="175" width="100" height="20" uuid="cd11679f-01b0-4584-ac85-3fd2e45a6445"/>
+				<reportElement x="234" y="175" width="100" height="20" uuid="cd11679f-01b0-4584-ac85-3fd2e45a6445"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
@@ -388,7 +388,7 @@ FROM
 				<reportElement x="0" y="195" width="573" height="1" uuid="e7e850cd-7c0e-42f4-ab0e-6a237fb241a0"/>
 			</line>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="34" y="205" width="210" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
+				<reportElement x="34" y="205" width="146" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11"/>
 				</textElement>
@@ -472,12 +472,22 @@ FROM
 				<subreportExpression><![CDATA[$P{realPath}+"/MsoAddress.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="4" y="302" width="277" height="20" uuid="081114b4-0ef6-4514-9dae-9cd6ffff6527"/>
+				<reportElement x="453" y="205" width="109" height="20" uuid="081114b4-0ef6-4514-9dae-9cd6ffff6527"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="441" y="168" width="1" height="69" uuid="c757e5a3-d03d-44bb-8737-bcb9ca87a30f"/>
+			</line>
+			<staticText>
+				<reportElement x="446" y="175" width="100" height="20" uuid="60444b7e-c28f-423d-980f-4452e7b8a9d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Currency]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>
