@@ -265,6 +265,7 @@
 	<queryString>
 		<![CDATA[SELECT
     p.id AS paymentId,
+    (select name from m_currency m where m.id=p.currency_Id) as currency,
     p.payment_date AS paymentDate,
     p.amount_paid as totalPayAmount,
     mcv.code_value as payMode,
@@ -309,6 +310,7 @@ FROM
 	<field name="zip" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="currency" class="java.lang.String"/>
 	<pageHeader>
 		<band height="50">
 			<image hAlign="Center" vAlign="Middle">
@@ -352,10 +354,10 @@ FROM
 				<reportElement x="1" y="167" width="571" height="69" uuid="f8f263b4-1a5e-4290-8cc8-f9e876a117fc"/>
 			</rectangle>
 			<line>
-				<reportElement x="215" y="167" width="1" height="69" uuid="1b03cca4-98da-475d-9ada-46965eee6d8f"/>
+				<reportElement x="281" y="167" width="1" height="69" uuid="1b03cca4-98da-475d-9ada-46965eee6d8f"/>
 			</line>
 			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement x="238" y="216" width="181" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
+				<reportElement x="330" y="205" width="181" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11"/>
 				</textElement>
@@ -376,7 +378,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{clientId}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="238" y="175" width="100" height="20" uuid="cd11679f-01b0-4584-ac85-3fd2e45a6445"/>
+				<reportElement x="331" y="175" width="100" height="20" uuid="cd11679f-01b0-4584-ac85-3fd2e45a6445"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
@@ -386,7 +388,7 @@ FROM
 				<reportElement x="0" y="195" width="573" height="1" uuid="e7e850cd-7c0e-42f4-ab0e-6a237fb241a0"/>
 			</line>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="5" y="216" width="210" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
+				<reportElement x="34" y="205" width="210" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11"/>
 				</textElement>
@@ -458,17 +460,24 @@ FROM
 				<text><![CDATA[Payment Details]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="100" width="135" height="20" uuid="05d5af0e-14ab-419b-9a38-d672d7ae0acb"/>
+				<reportElement x="329" y="100" width="141" height="20" uuid="05d5af0e-14ab-419b-9a38-d672d7ae0acb"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Customer  Details :]]></text>
+				<text><![CDATA[Customer  Address :]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="40" width="300" height="80" uuid="b2e0df4a-49c5-47fd-bde6-30396a181f23"/>
+				<reportElement x="0" y="32" width="300" height="80" uuid="b2e0df4a-49c5-47fd-bde6-30396a181f23"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{realPath}+"/MsoAddress.jasper"]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement x="4" y="302" width="277" height="20" uuid="081114b4-0ef6-4514-9dae-9cd6ffff6527"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

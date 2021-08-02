@@ -262,6 +262,7 @@
 		<queryString>
 			<![CDATA[SELECT  bc.id AS Id,
 bc.order_id as orderId,
+(select name from m_currency c where c.id=bc.currency_id) as currency,
 round((bc.netcharge_amount+ifnull(bcx.tax_amount,0)),2) AS Amount,
        (CASE
         WHEN bc.priceline_id = 0 AND bc.charge_type = 'NRC' THEN btm.item_description
@@ -290,6 +291,7 @@ GROUP BY bc.id]]>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="orderId" class="java.lang.Integer"/>
+		<field name="currency" class="java.lang.String"/>
 		<field name="Amount" class="java.lang.Double">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
@@ -348,9 +350,10 @@ FROM
 	<field name="zip" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="currency" class="java.lang.String"/>
 	<variable name="variable1" class="java.lang.String"/>
 	<title>
-		<band height="340" splitType="Stretch">
+		<band height="306" splitType="Stretch">
 			<staticText>
 				<reportElement x="468" y="70" width="104" height="26" uuid="8fe5b5ef-339a-462f-8578-4503d68db125"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -377,7 +380,7 @@ FROM
 				<textElement>
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Customer Details :]]></text>
+				<text><![CDATA[Customer Address :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="469" y="170" width="104" height="20" uuid="23a9af09-fded-4b24-b40c-12a1d3989d2b"/>
@@ -393,7 +396,7 @@ FROM
 				<reportElement x="0" y="265" width="573" height="1" uuid="e7e850cd-7c0e-42f4-ab0e-6a237fb241a0"/>
 			</line>
 			<line>
-				<reportElement x="215" y="237" width="1" height="69" uuid="1b03cca4-98da-475d-9ada-46965eee6d8f"/>
+				<reportElement x="280" y="237" width="1" height="69" uuid="1b03cca4-98da-475d-9ada-46965eee6d8f"/>
 			</line>
 			<staticText>
 				<reportElement x="22" y="245" width="98" height="20" uuid="57cf17de-be47-44de-bbde-04748296f846"/>
@@ -410,14 +413,16 @@ FROM
 				<text><![CDATA[Inovice Date]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="5" y="286" width="210" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
+				<reportElement x="36" y="276" width="210" height="20" uuid="25d28b1e-d1a3-4feb-ba18-a3ba3fb73a97"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{displayName}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
-				<reportElement x="326" y="286" width="193" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c"/>
+				<reportElement x="326" y="276" width="193" height="20" uuid="2f7cf95a-ff23-42b1-8530-f7081397bf5c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
@@ -506,9 +511,9 @@ FROM
 								<text><![CDATA[S.NO.]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="2" y="0" width="46" height="20" uuid="219d70a9-e5d9-4236-a1a5-f7c90382e16c"/>
+								<reportElement x="0" y="0" width="48" height="20" uuid="219d70a9-e5d9-4236-a1a5-f7c90382e16c"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
@@ -526,9 +531,9 @@ FROM
 								<text><![CDATA[Description]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="10" y="0" width="115" height="20" uuid="1b9be5cd-8f01-4aa4-a0d9-1ff37b80d0ad"/>
+								<reportElement x="0" y="0" width="125" height="20" uuid="1b9be5cd-8f01-4aa4-a0d9-1ff37b80d0ad"/>
 								<textElement textAlignment="Justified" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
@@ -546,7 +551,7 @@ FROM
 								<text><![CDATA[Period]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField pattern="dd/MM/yy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="100" height="20" uuid="55f9da36-ce17-4da2-b3ff-1a7aa85d6926"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -566,9 +571,9 @@ FROM
 								<text><![CDATA[Activation]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
-								<reportElement x="2" y="0" width="93" height="20" uuid="d61a41d2-37aa-4c00-b27c-b1fefe8f853c"/>
+								<reportElement x="0" y="0" width="95" height="20" uuid="d61a41d2-37aa-4c00-b27c-b1fefe8f853c"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
@@ -583,16 +588,16 @@ FROM
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Disconnection]]></text>
+								<text><![CDATA[Currency]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
+						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="103" height="20" uuid="1ce82f50-0d23-4f04-a735-32cc79e9fd3c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{Disconnection}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -606,11 +611,11 @@ FROM
 								<text><![CDATA[Amount]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
-							<textField pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="98" height="20" uuid="0344b5b9-e3ef-4d77-ba44-f75ecf43b2dd"/>
+						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="98" height="20" uuid="47b356f3-2e6f-4f27-a8d8-3831b66833ac"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="DejaVu Sans" size="10" isPdfEmbedded="true"/>
+									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
 							</textField>

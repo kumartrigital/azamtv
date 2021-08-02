@@ -23,7 +23,7 @@ from m_office o , b_office_address bo where bo.office_id = o.id
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="77" splitType="Stretch">
+		<band height="56" splitType="Stretch">
 			<textField>
 				<reportElement x="-19" y="20" width="259" height="18" uuid="99757e5e-efb9-4e05-8403-003dde09b0d6"/>
 				<textElement>
