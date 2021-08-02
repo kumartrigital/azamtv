@@ -6,21 +6,18 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Sat Apr 18 17:01:41 IST 2015"/>
-	<parameter name="param1" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[select address_name as address,city as city,state as state ,country as country,
 zip as zip,phone_number as phone_number,email_id as email_id
 from m_office o , b_office_address bo where bo.office_id = o.id
- and o.external_id=$P{param1}]]>
+ and o.external_id='MSO-1']]>
 	</queryString>
 	<field name="address" class="java.lang.String"/>
 	<field name="city" class="java.lang.String"/>
 	<field name="state" class="java.lang.String"/>
 	<field name="country" class="java.lang.String"/>
-	<field name="zip" class="java.lang.Integer"/>
-	<field name="phone_number" class="java.lang.Integer"/>
+	<field name="zip" class="java.lang.String"/>
+	<field name="phone_number" class="java.lang.String"/>
 	<field name="email_id" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
