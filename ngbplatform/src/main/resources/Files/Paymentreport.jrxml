@@ -315,7 +315,7 @@ FROM
 		<band height="50">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement stretchType="RelativeToBandHeight" x="5" y="21" width="115" height="29" uuid="06d1c171-2b51-4b59-ad52-29f21815f884"/>
-				<imageExpression><![CDATA[$P{realPath}+"/Whitelabel_logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

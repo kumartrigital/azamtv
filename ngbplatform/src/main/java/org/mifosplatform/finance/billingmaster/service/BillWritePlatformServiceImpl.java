@@ -236,9 +236,9 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			parameters.put("param1", id);
 			parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
 			/* This realPath parameter holds the location path of company image #rakesh# */
-			 String imagePath = new File(System.getProperty("user.dir")).getParent()+"/webapps/NGB_Client/app/images";
+			// String imagePath = new File(System.getProperty("user.dir")).getParent()+"/webapps/NGB_Client/app/images";
 
-			parameters.put("realPath", imagePath);
+			parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
 			parameters.put("SUBREPORT_DIR", this.getClass().getClassLoader().getResource("Files").getFile());
 
 
@@ -296,8 +296,7 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			parameters.put("param1", id);
 			parameters.put(JRParameter.REPORT_LOCALE, getLocale(tenant));
 			/* This realPath parameter holds the location path of company image #rakesh# */
-			 String imagePath = new File(System.getProperty("user.dir")).getParent()+"/webapps/NGB_Client/app/images";
-				parameters.put("realPath", imagePath);
+				parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
 				parameters.put("SUBREPORT_DIR", this.getClass().getClassLoader().getResource("Files").getFile());
 
 
