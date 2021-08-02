@@ -246,7 +246,7 @@ public class BillingMasterApiResourse {
 	@Path("/itemsale/{id}/")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response printItemsale(@PathParam("id") final Long id) {
+	public Response printItemsale(@PathParam("id") final Integer id) {
 
 		String printFileName = this.billWritePlatformService.generateItemsalePdf(id);
 		final File file = new File(printFileName);

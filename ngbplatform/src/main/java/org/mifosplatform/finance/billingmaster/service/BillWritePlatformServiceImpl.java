@@ -368,7 +368,7 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 
 	@Transactional
 	@Override
-	public String generateItemsalePdf(final Long id) {
+	public String generateItemsalePdf(final Integer id) {
 
 		final String fileLocation = FileUtils.MIFOSX_BASE_DIR;
 		/** Recursively create the directory if it does not exist **/
@@ -401,8 +401,9 @@ public class BillWritePlatformServiceImpl implements BillWritePlatformService {
 			/* This realPath parameter holds the location path of company image #rakesh# */
 			System.out.println("BillWritePlatformServiceImpl.generateItemsalePdf():"
 					+ this.getClass().getClassLoader().getResource("Files").getFile());
-			// parameters.put("realPath",this.getClass().getClassLoader().getResource("Files").getFile());
-			parameters.put("realPath", System.getProperty("user.dir") + "/src/main/resources/Files/companyLogo.jpg");
+			parameters.put("realPath", this.getClass().getClassLoader().getResource("Files").getFile());
+			// parameters.put("realPath",System.getProperty("user.dir") +
+			// "/src/main/resources/Files/companyLogo.jpg");
 
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfilepath, parameters, connection);
 

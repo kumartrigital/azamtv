@@ -19,7 +19,7 @@ public interface BillWritePlatformService {
 	
 	String generateLeaseAggrement(String mobileNo);
 
-	String generateItemsalePdf(Long id);
+	String generateItemsalePdf(Integer id);
 	
 	void sendPdfToEmail(String printFileName,Long clientId,String templateName);
 

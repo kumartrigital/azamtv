@@ -307,6 +307,7 @@ GROUP BY bc.id]]>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="realPath" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
     i.id AS invoiceId,
@@ -349,7 +350,7 @@ FROM
 	</field>
 	<variable name="variable1" class="java.lang.String"/>
 	<title>
-		<band height="394" splitType="Stretch">
+		<band height="340" splitType="Stretch">
 			<staticText>
 				<reportElement x="468" y="70" width="104" height="26" uuid="8fe5b5ef-339a-462f-8578-4503d68db125"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -494,6 +495,11 @@ FROM
 				<reportElement stretchType="RelativeToBandHeight" x="5" y="46" width="119" height="24" uuid="889fbb11-d922-4982-8443-bff538840007"/>
 				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
 			</image>
+			<subreport>
+				<reportElement x="5" y="107" width="290" height="73" uuid="b333dacb-1b18-44ec-a6f1-b8b4db70750a"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/MsoAddress.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</title>
 	<detail>
