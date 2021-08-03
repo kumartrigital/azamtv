@@ -46,106 +46,130 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
-
-
-
 @Path("/financialTransactions")
 @Component
 @Scope("singleton")
 public class FinancialTransactionApiResource {
-	private  final Set<String> RESPONSE_DATA_PARAMETERS=new HashSet<String>(Arrays.asList("transactionId","transactionDate","transactionType","amount",
-			"invoiceId","chrageAmount","taxAmount","discountAmount","netChargeAmount","chargeType","amount","billDate","dueDate","id","transaction",
-			"chargeStartDate","chargeEndDate"));
+	private final Set<String> RESPONSE_DATA_PARAMETERS = new HashSet<String>(
+			Arrays.asList("transactionId", "transactionDate", "transactionType", "amount", "invoiceId", "chrageAmount",
+					"taxAmount", "discountAmount", "netChargeAmount", "chargeType", "amount", "billDate", "dueDate",
+					"id", "transaction", "chargeStartDate", "chargeEndDate"));
 	private BillMasterReadPlatformService billMasterReadPlatformService;
 	private PlatformSecurityContext context;
 	private final DefaultToApiJsonSerializer<FinancialTransactionsData> toApiJsonSerializer;
 	private final ApiRequestParameterHelper apiRequestParameterHelper;
 	private final PortfolioCommandSourceWritePlatformService commandsSourceWritePlatformService;
-    private final String resourceNameForPermissions = "financialTransactions";
-    private final ClientReadPlatformService clientReadPlatformService;
-    private final CrmServices crmServices;
-    @Autowired
-    public FinancialTransactionApiResource(final BillMasterReadPlatformService billMasterReadPlatformService,final PlatformSecurityContext context,
-    		final DefaultToApiJsonSerializer<FinancialTransactionsData> toApiJsonSerializer,final ApiRequestParameterHelper apiRequestParameterHelper,
-    		final PortfolioCommandSourceWritePlatformService portfolioCommandSourceWritePlatformService,
-    		final ClientReadPlatformService clientReadPlatformService, final CrmServices crmServices){
-    	this.apiRequestParameterHelper=apiRequestParameterHelper;
-    	this.billMasterReadPlatformService=billMasterReadPlatformService;
-    	this.commandsSourceWritePlatformService=portfolioCommandSourceWritePlatformService;
-    	this.context=context;
-    	this.toApiJsonSerializer=toApiJsonSerializer;
-    	this.clientReadPlatformService =clientReadPlatformService;
-    	this.crmServices=crmServices;
-    
-    }
+	private final String resourceNameForPermissions = "financialTransactions";
+	private final ClientReadPlatformService clientReadPlatformService;
+	private final CrmServices crmServices;
+
+	@Autowired
+	public FinancialTransactionApiResource(final BillMasterReadPlatformService billMasterReadPlatformService,
+			final PlatformSecurityContext context,
+			final DefaultToApiJsonSerializer<FinancialTransactionsData> toApiJsonSerializer,
+			final ApiRequestParameterHelper apiRequestParameterHelper,
+			final PortfolioCommandSourceWritePlatformService portfolioCommandSourceWritePlatformService,
+			final ClientReadPlatformService clientReadPlatformService, final CrmServices crmServices) {
+		this.apiRequestParameterHelper = apiRequestParameterHelper;
+		this.billMasterReadPlatformService = billMasterReadPlatformService;
+		this.commandsSourceWritePlatformService = portfolioCommandSourceWritePlatformService;
+		this.context = context;
+		this.toApiJsonSerializer = toApiJsonSerializer;
+		this.clientReadPlatformService = clientReadPlatformService;
+		this.crmServices = crmServices;
+
+	}
+
 	@GET
 	@Path("{clientId}")
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_JSON})
-	public String retrieveTransactionalData(@PathParam("clientId") final Long clientId,@Context final UriInfo uriInfo, 
-	@QueryParam("sqlSearch") final String sqlSearch, @QueryParam("limit") final Integer limit, 
-	@QueryParam("offset") final Integer offset, @QueryParam("key") final String key)	{
-	context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
-	
-	final SearchSqlQuery searchFinancialTransaction =SearchSqlQuery.forSearch(sqlSearch, offset,limit );
-	this.crmServices.getClientBills(key,clientId.toString());
-	Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService.retrieveInvoiceFinancialData(searchFinancialTransaction,clientId);
-	return this.toApiJsonSerializer.serialize(transactionData);    
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String retrieveTransactionalData(@PathParam("clientId") final Long clientId, @Context final UriInfo uriInfo,
+			@QueryParam("sqlSearch") final String sqlSearch, @QueryParam("limit") final Integer limit,
+			@QueryParam("offset") final Integer offset, @QueryParam("key") final String key) {
+		context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
+
+		final SearchSqlQuery searchFinancialTransaction = SearchSqlQuery.forSearch(sqlSearch, offset, limit);
+		this.crmServices.getClientBills(key, clientId.toString());
+		Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService
+				.retrieveInvoiceFinancialData(searchFinancialTransaction, clientId);
+		return this.toApiJsonSerializer.serialize(transactionData);
 	}
-	
+
 	@GET
 	@Path("officeid/{officeId}")
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_JSON})
-	public String retrieveTransactionalDataByOfficeId(@PathParam("officeId") final Long officeId,@Context final UriInfo uriInfo, 
-	@QueryParam("sqlSearch") final String sqlSearch, @QueryParam("limit") final Integer limit, 
-	@QueryParam("offset") final Integer offset, @QueryParam("key") final String key)	{
-	context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
-	
-	final SearchSqlQuery searchFinancialTransaction =SearchSqlQuery.forSearch(sqlSearch, offset,limit );
-	this.crmServices.getClientBills(key,officeId.toString());
-	Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService.retrieveInvoiceFinancialDataByOfficeId(searchFinancialTransaction,officeId);
-	return this.toApiJsonSerializer.serialize(transactionData);    
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String retrieveTransactionalDataByOfficeId(@PathParam("officeId") final Long officeId,
+			@Context final UriInfo uriInfo, @QueryParam("sqlSearch") final String sqlSearch,
+			@QueryParam("limit") final Integer limit, @QueryParam("offset") final Integer offset,
+			@QueryParam("key") final String key) {
+		context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
+
+		final SearchSqlQuery searchFinancialTransaction = SearchSqlQuery.forSearch(sqlSearch, offset, limit);
+		this.crmServices.getClientBills(key, officeId.toString());
+		Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService
+				.retrieveInvoiceFinancialDataByOfficeId(searchFinancialTransaction, officeId);
+		return this.toApiJsonSerializer.serialize(transactionData);
 	}
-	
+
 	@GET
 	@Path("{invoiceId}/invoice")
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_JSON})
-	public String retrieveInvoiceData(@PathParam("invoiceId") final Long invoiceId,@Context final UriInfo uriInfo) {
-	context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
-	List<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService.retrieveSingleInvoiceData(invoiceId);
-	FinancialTransactionsData data=new FinancialTransactionsData(transactionData);
-    final ApiRequestJsonSerializationSettings settings=apiRequestParameterHelper.process(uriInfo.getQueryParameters());
-    return this.toApiJsonSerializer.serialize(settings,data,RESPONSE_DATA_PARAMETERS);
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String retrieveInvoiceData(@PathParam("invoiceId") final Long invoiceId, @Context final UriInfo uriInfo) {
+		context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
+		List<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService
+				.retrieveSingleInvoiceData(invoiceId);
+		FinancialTransactionsData data = new FinancialTransactionsData(transactionData);
+		final ApiRequestJsonSerializationSettings settings = apiRequestParameterHelper
+				.process(uriInfo.getQueryParameters());
+		return this.toApiJsonSerializer.serialize(settings, data, RESPONSE_DATA_PARAMETERS);
 	}
-	
+
 	@GET
 	@Path("{clientId}/type")
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_JSON})
-	public String retrieveSampleData(@PathParam("clientId") final Long clientId,@Context final UriInfo uriInfo, @QueryParam("type") final String type,
-	 @QueryParam("limit") final Integer limit, @QueryParam("offset") final Integer offset)	{
-	context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
-	final SearchSqlQuery searchFinancialTransaction =SearchSqlQuery.forSearch(null, offset,limit );
-	Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService.retrieveSampleData(searchFinancialTransaction,clientId,type);
-	return this.toApiJsonSerializer.serialize(transactionData);    
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String retrieveSampleData(@PathParam("clientId") final Long clientId, @Context final UriInfo uriInfo,
+			@QueryParam("type") final String type, @QueryParam("limit") final Integer limit,
+			@QueryParam("offset") final Integer offset) {
+		context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
+		final SearchSqlQuery searchFinancialTransaction = SearchSqlQuery.forSearch(null, offset, limit);
+		Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService
+				.retrieveSampleData(searchFinancialTransaction, clientId, type);
+		return this.toApiJsonSerializer.serialize(transactionData);
 	}
-	
-	
+
 	@GET
 	@Path("{clientId}/payments")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String retrieveStatementsData(@PathParam("clientId") final Long clientId, @Context final UriInfo uriInfo,
+			@QueryParam("type") final String type, @QueryParam("limit") final Integer limit,
+			@QueryParam("offset") final Integer offset, @QueryParam("fromDate") final String fromDate,
+			@QueryParam("toDate") final String toDate) {
+		context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
+		final SearchSqlQuery searchFinancialTransactionNew = SearchSqlQuery.forSearch(null, offset, limit);
+		Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService
+				.retrieveStatementsData(searchFinancialTransactionNew, clientId, type, fromDate, toDate);
+		return this.toApiJsonSerializer.serialize(transactionData);
+	}
+
+	@GET
+	@Path("{clientId}/payments/{currencyId}")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	public String retrieveStatementsData(@PathParam("clientId") final Long clientId,@Context final UriInfo uriInfo, @QueryParam("type") final String type,
+	public String retrieveStatementsDatawithCurrency(@PathParam("clientId") final Long clientId,@PathParam("currencyId") final Long currencyId,@Context final UriInfo uriInfo, @QueryParam("type") final String type,
 	 @QueryParam("limit") final Integer limit, @QueryParam("offset") final Integer offset,
 	 @QueryParam("fromDate") final String fromDate,
 	 @QueryParam("toDate") final String toDate)	{
 	context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
 	final SearchSqlQuery searchFinancialTransactionNew =SearchSqlQuery.forSearch(null, offset,limit );
-	Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService.retrieveStatementsData(searchFinancialTransactionNew,clientId,type,fromDate,toDate);
+	Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService.retrieveStatementsDatawithCurrency(searchFinancialTransactionNew,clientId,currencyId,type,fromDate,toDate);
 	return this.toApiJsonSerializer.serialize(transactionData);    
 	}
+
 	
 	
 	@GET

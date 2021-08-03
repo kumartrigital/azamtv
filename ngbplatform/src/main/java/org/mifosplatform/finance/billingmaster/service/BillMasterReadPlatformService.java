@@ -33,6 +33,11 @@ public interface BillMasterReadPlatformService {
 
 	Page<FinancialTransactionsData> retrieveStatementsData(SearchSqlQuery searchFinancialTransactionNew, Long clientId,
 			String type, String fromDate, String toDate);
+	
+	Page<FinancialTransactionsData> retrieveStatementsDatawithCurrency(SearchSqlQuery searchFinancialTransactionNew, Long clientId,
+			Long currencyId,String type, String fromDate, String toDate);
+
+	
 
 	Page<FinancialTransactionsData> retrieveInvoiceFinancialDataByOfficeId(SearchSqlQuery searchTransactionHistory,
 			Long officeId);
