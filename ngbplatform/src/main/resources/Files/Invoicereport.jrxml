@@ -512,8 +512,11 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="48" height="20" uuid="219d70a9-e5d9-4236-a1a5-f7c90382e16c"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="48" height="20" uuid="219d70a9-e5d9-4236-a1a5-f7c90382e16c">
+									<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
@@ -533,7 +536,7 @@ FROM
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="125" height="20" uuid="1b9be5cd-8f01-4aa4-a0d9-1ff37b80d0ad"/>
-								<textElement textAlignment="Justified" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Description}]]></textFieldExpression>
@@ -553,7 +556,7 @@ FROM
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField pattern="dd/MM/yy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="100" height="20" uuid="55f9da36-ce17-4da2-b3ff-1a7aa85d6926"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Period}]]></textFieldExpression>
@@ -573,7 +576,7 @@ FROM
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
 							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="95" height="20" uuid="d61a41d2-37aa-4c00-b27c-b1fefe8f853c"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Activation}]]></textFieldExpression>
@@ -611,7 +614,7 @@ FROM
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="20" rowSpan="1">
-							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
+							<textField>
 								<reportElement x="0" y="0" width="98" height="20" uuid="47b356f3-2e6f-4f27-a8d8-3831b66833ac"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>

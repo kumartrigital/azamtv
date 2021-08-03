@@ -45,7 +45,7 @@ public class FinancialTransactionsData {
 	private String cancelRemark;
 	private Long officePoid;
 	private String isDeleted;
-	
+	private String currency;
 
 
 	public FinancialTransactionsData(final Long transactionId,final Date transactionDate,String transactionType,BigDecimal amount) {
@@ -53,11 +53,12 @@ public class FinancialTransactionsData {
 		this.transactionDate = transactionDate;
 		this.transactionType = transactionType;
 		this.amount = amount;
+		
 	}
 
 	public FinancialTransactionsData(Long officeId,Long clientId,Long transactionId, LocalDate transDate,String transactionType, BigDecimal amount,
 			BigDecimal creditAmount, BigDecimal debitAmount,String userName, String transactionCategory, boolean flag,
-			String planCode,String description) {
+			String planCode,String description,String currency) {
 
 		this.officeId = officeId;
 		this.clientId = clientId;
@@ -73,6 +74,7 @@ public class FinancialTransactionsData {
 		this.flag=flag;
 		this.planCode = planCode;
 		this.description = description;
+		this.currency=currency;
 	}
 
 
@@ -91,6 +93,7 @@ public class FinancialTransactionsData {
 		this.billDate=billDate;
 		this.dueDate=dueDate;
 		this.amount=amount;
+		
 	}
 
 	public FinancialTransactionsData(Long chargeId, String chargeType,
@@ -106,6 +109,7 @@ public class FinancialTransactionsData {
 		this.chargeStartDate=chargeStartDate;
 		this.chargeEndDate=chargeEndDate;
 		this.orderId=orderId;
+		
 	}
 
 	public FinancialTransactionsData(
@@ -115,6 +119,10 @@ public class FinancialTransactionsData {
 
 	public Long getTransactionId() {
 		return transactionId;
+	}
+	
+	public String getCurrency() {
+		return currency;
 	}
 
 	public void setTransactionId(Long transactionId) {

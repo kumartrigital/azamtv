@@ -342,27 +342,19 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 	<title>
 		<band height="231" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="56" width="177" height="20" uuid="dfc05fd7-8343-4547-b27e-a910868f1032"/>
+				<reportElement x="3" y="40" width="177" height="20" uuid="dfc05fd7-8343-4547-b27e-a910868f1032"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Next Generation Billing
 ]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="5" y="36" width="170" height="20" uuid="57063b9b-5339-4994-a4a4-422c9e1ac63a"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="13" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Item Sale Receipt
-]]></text>
-			</staticText>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="119" height="24" uuid="d8df21c6-6a5b-4d0e-bcd3-e50563d0501b"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="3" width="119" height="24" uuid="d8df21c6-6a5b-4d0e-bcd3-e50563d0501b"/>
 				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
 			</image>
 			<subreport>
-				<reportElement x="5" y="80" width="345" height="70" uuid="b17bd128-3ac5-4932-901c-81f013fcaf05"/>
+				<reportElement x="1" y="60" width="265" height="90" uuid="b17bd128-3ac5-4932-901c-81f013fcaf05"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{realPath}+"/MsoAddress.jasper"]]></subreportExpression>
 			</subreport>
@@ -373,46 +365,29 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 				<reportElement x="4" y="190" width="555" height="1" uuid="fe5c629e-8226-41ab-9080-1037ec601c67"/>
 			</line>
 			<line>
-				<reportElement x="227" y="162" width="1" height="69" uuid="11b74de5-cefb-4bd6-bbc1-844e8446a0d6"/>
-			</line>
-			<line>
-				<reportElement x="431" y="162" width="1" height="69" uuid="4bcb773e-4598-46dc-b27f-c98c906b2046"/>
+				<reportElement x="281" y="162" width="1" height="69" uuid="11b74de5-cefb-4bd6-bbc1-844e8446a0d6"/>
 			</line>
 			<staticText>
-				<reportElement x="250" y="170" width="100" height="20" uuid="d967fbbc-6098-488e-9b99-2d1b6d7d8278"/>
+				<reportElement x="346" y="170" width="100" height="20" uuid="d967fbbc-6098-488e-9b99-2d1b6d7d8278"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Purchases Date]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="432" y="171" width="80" height="20" uuid="50e92fa3-88d3-416b-9faf-195afa53aac8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Project]]></text>
-			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="17" y="211" width="210" height="20" uuid="62c830c8-1232-466e-a3df-f6927b7ee58d"/>
+				<reportElement x="34" y="200" width="210" height="20" uuid="62c830c8-1232-466e-a3df-f6927b7ee58d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{toOffice}]]></textFieldExpression>
 			</textField>
-			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
-				<reportElement x="238" y="211" width="193" height="20" uuid="3a41e366-de98-439b-ac10-aa42833fdf1e"/>
+			<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
+				<reportElement x="344" y="200" width="193" height="20" uuid="3a41e366-de98-439b-ac10-aa42833fdf1e"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{requestedDate}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="451" y="211" width="107" height="20" uuid="cba7cc43-10f3-4d41-912c-b82ade1e1161"/>
-				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<text><![CDATA[AzamTv]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="40" y="170" width="98" height="20" uuid="0785712e-befa-41d2-b30f-bc6c69e0a398"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -421,42 +396,49 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 				<text><![CDATA[Purchases  TO]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="320" y="15" width="233" height="48" uuid="25184e50-a49c-4a2f-bf44-6a4a9991e00c"/>
+				<reportElement x="296" y="22" width="262" height="48" uuid="25184e50-a49c-4a2f-bf44-6a4a9991e00c"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="330" y="16" width="114" height="20" uuid="569adc5f-efa0-46ad-9095-20e85d2f6f6b"/>
+				<reportElement x="305" y="23" width="114" height="20" uuid="569adc5f-efa0-46ad-9095-20e85d2f6f6b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ Date :]]></text>
+				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="447" y="16" width="102" height="20" uuid="123d7eba-265a-49cc-b377-2112c929ec90"/>
+				<reportElement x="452" y="23" width="102" height="20" uuid="123d7eba-265a-49cc-b377-2112c929ec90"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Item sale #]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="321" y="40" width="120" height="20" uuid="8a96001c-3bf6-4d3b-9324-5143e5766dfd"/>
+				<reportElement x="307" y="47" width="120" height="20" uuid="8a96001c-3bf6-4d3b-9324-5143e5766dfd"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{requestedDate}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="460" y="39" width="88" height="20" uuid="bfee3c30-cdee-42b1-9816-fed201f6eb5f"/>
+				<reportElement x="465" y="46" width="88" height="20" uuid="bfee3c30-cdee-42b1-9816-fed201f6eb5f"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{itemsale_id}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="445" y="14" width="1" height="48" uuid="58728a6b-4537-4a5f-baf1-6903d9008539"/>
+				<reportElement x="436" y="21" width="1" height="48" uuid="58728a6b-4537-4a5f-baf1-6903d9008539"/>
 			</line>
 			<line>
-				<reportElement x="321" y="39" width="232" height="1" uuid="b7264299-338f-49ff-8bd5-8e6bed074a66"/>
+				<reportElement x="296" y="46" width="262" height="1" uuid="b7264299-338f-49ff-8bd5-8e6bed074a66"/>
 			</line>
+			<staticText>
+				<reportElement x="453" y="0" width="99" height="20" uuid="94db650b-36bc-4339-88c1-4efa7e345a5b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item Sale]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>
@@ -484,7 +466,7 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
 							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="48" height="28" uuid="4a149269-39e0-4f30-bccc-dff3f5dad3dc"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
@@ -503,7 +485,7 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="125" height="28" uuid="211515e3-3cc8-4f89-9582-76b4ebded606"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
@@ -524,7 +506,7 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField>
 								<reportElement x="0" y="0" width="100" height="28" uuid="0dace585-02f1-4c11-aa3b-5ccc980d11eb"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
@@ -545,7 +527,7 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="95" height="28" uuid="9d9c9d51-7cb6-44b9-8025-e4c615dbdb85"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
@@ -566,7 +548,7 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField pattern="MMMMM dd yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="103" height="28" uuid="f1a44feb-eb39-472d-b87a-eb72675a43b8"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
@@ -587,7 +569,7 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 11_TD" height="28" rowSpan="1">
-							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+							<textField>
 								<reportElement x="0" y="0" width="98" height="28" uuid="e7e73b2d-a18b-4517-bbfd-a20f686fb03a"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="10"/>
@@ -604,14 +586,14 @@ as fromOffice,(select name from m_office where id = its.purchase_by) as toOffice
 		<band height="23">
 			<staticText>
 				<reportElement x="369" y="0" width="111" height="22" uuid="dd00155c-915a-4aae-9446-e0f5ac777d46"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Item Price:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement x="480" y="3" width="69" height="20" uuid="a23ef105-35fd-41f5-99c5-145cd6aa1aa2"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total_amount}]]></textFieldExpression>
