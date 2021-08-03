@@ -528,8 +528,8 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 		StringBuilder sqlBuilder = new StringBuilder(200);
 		sqlBuilder.append("SELECT ");
 		sqlBuilder.append(financialTypeMapper.financialTypeSchemWithCurrency());
-		sqlBuilder.append(" ) a ");
-		sqlBuilder.append(" WHERE a.currency_Id =" + currencyId);
+		//sqlBuilder.append(" ) a ");
+		//sqlBuilder.append(" WHERE a.currency_Id =" + currencyId);
 
 		if (fromDate != null && toDate != null) {
 			sqlBuilder.append(
@@ -537,6 +537,7 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 		}
 		sqlBuilder.append(" ) a ");
 		sqlBuilder.append(" WHERE a.client_id =" + clientId);
+		sqlBuilder.append(" and a.currency_Id =" + currencyId);
 
 		if (searchFinancialTransactionNew.isLimited()) {
 			sqlBuilder.append(" limit ").append(searchFinancialTransactionNew.getLimit());
