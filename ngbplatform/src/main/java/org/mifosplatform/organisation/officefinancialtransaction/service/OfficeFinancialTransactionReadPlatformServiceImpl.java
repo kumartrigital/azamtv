@@ -50,9 +50,9 @@ public class OfficeFinancialTransactionReadPlatformServiceImpl implements Office
 			final String transactionCategory = resultSet.getString("tran_type");
 			final boolean flag = resultSet.getBoolean("flag");
 			final LocalDate transDate = JdbcSupport.getLocalDate(resultSet, "TransDate");
-
+		final String currency = resultSet.getString("currency");
 			return new FinancialTransactionsData(officeId,null, transactionId, transDate, transactionType, debitAmount, creditAmount, 
-					null, userName, transactionCategory, flag, null, null);
+					null, userName, transactionCategory, flag, null, null,currency);
 		}
      }
 }

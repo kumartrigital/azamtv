@@ -61,9 +61,9 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 			final String transactionCategory = resultSet.getString("transType");
 			final String description = resultSet.getString("description");
 			final String planCode = resultSet.getString("plan_code");
-			
+			final String currency = resultSet.getString("currency");
 			return new FinancialTransactionsData(null,null, transactionId, transDate, transactionType, null, null, amount, null, 
-					transactionCategory, false, planCode, description);
+					transactionCategory, false, planCode, description,currency);
 		}
 
 		public String financialTransactionsSchema() {
@@ -119,9 +119,10 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 			final String transactionCategory = resultSet.getString("tran_type");
 			final boolean flag = resultSet.getBoolean("flag");
 			final LocalDate transDate = JdbcSupport.getLocalDate(resultSet,"TransDate");
+			final String currency = resultSet.getString("currency");
 
 			return new FinancialTransactionsData(null ,null,transactionId, transDate, transactionType, debitAmount, creditAmount, null, userName, 
-					transactionCategory, flag, null, null);
+					transactionCategory, flag, null, null,currency);
 		}
 
 		public String financialTransactionsSchema() {
@@ -178,9 +179,9 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 			final String transactionCategory = resultSet.getString("tran_type");
 			final boolean flag = resultSet.getBoolean("flag");
 			final LocalDate transDate = JdbcSupport.getLocalDate(resultSet,"TransDate");
-
+			final String currency = resultSet.getString("currency");
 			return new FinancialTransactionsData(null,clientId, transactionId, transDate, transactionType, debitAmount, creditAmount, null, userName, 
-					transactionCategory, flag, null, null);
+					transactionCategory, flag, null, null,currency);
 		}
 
 		public String financialTransactionsSchema() {
@@ -214,6 +215,7 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 	    	final String transactionType = resultSet.getString("Transaction_type");
 	        final BigDecimal amount = resultSet.getBigDecimal("Amount");
 	        final LocalDate transactionDate = JdbcSupport.getLocalDate(resultSet, "Transaction_date");
+	       // final String currency = resultSet.getString("currency");
 	        return new FinancialTransactionsData(transctionId, transactionType, transactionDate, amount);
 
 		}
@@ -330,7 +332,7 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 				   final BigDecimal discountAmount = resultSet.getBigDecimal("discountAmount");
 				   final BigDecimal netChargeAmount = resultSet.getBigDecimal("netChargeAmount");
 				   final Long orderId = resultSet.getLong("orderId");
-
+				 //  final String currency= resultSet.getString("currency");
 				return new FinancialTransactionsData(chargeId, chargeType, chargeDescription, chargeAmount, taxAmount, discountAmount,
 						netChargeAmount, chargeStartDate, chargeEndDate, orderId);
 			}
@@ -416,10 +418,10 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 				final boolean flag = resultSet.getBoolean("flag");
 				final LocalDate transDate = JdbcSupport.getLocalDate(resultSet, "TransDate");
 			    /*final String receiptNumber = "R-1092";*/
-			
+				final String currency = resultSet.getString("currency");
 				
 			    return new  FinancialTransactionsData(null,null, transactionId, transDate, transactionType, debitAmount, creditAmount, null, 
-							userName, transactionCategory, flag, null, null);
+							userName, transactionCategory, flag, null, null,currency);
 			
 			    /*FinancialTransactionsData ft = new FinancialTransactionsData(null, transactionId, transDate, transactionType, debitAmount, creditAmount, null, 
 							userName, transactionCategory, flag, null, null);
@@ -491,10 +493,10 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 	    final Long clientPoId=resultSet.getLong("clientPoId");
 	    final String cancelRemark=resultSet.getString("cancelRemark");
 	
-		
+	    final String currency=resultSet.getString("currency");
 	
 	    FinancialTransactionsData ft = new FinancialTransactionsData(null, null,transactionId, transDate, transactionType, debitAmount, creditAmount, null, 
-					userName, transactionCategory, flag, null, null);
+					userName, transactionCategory, flag, null, null,currency);
 
 	    ft .setReceiptNo(receiptNo);
 	    ft .setClientPoId(clientPoId);
