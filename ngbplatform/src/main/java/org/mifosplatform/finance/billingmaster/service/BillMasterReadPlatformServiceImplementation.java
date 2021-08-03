@@ -492,7 +492,6 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 	    final String receiptNo=resultSet.getString("receiptNo");
 	    final Long clientPoId=resultSet.getLong("clientPoId");
 	    final String cancelRemark=resultSet.getString("cancelRemark");
-	
 	    final String currency=resultSet.getString("currency");
 	
 	    FinancialTransactionsData ft = new FinancialTransactionsData(null, null,transactionId, transDate, transactionType, debitAmount, creditAmount, null, 
