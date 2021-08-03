@@ -510,12 +510,13 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 
 		return   " * from (SELECT bp.id AS transId,bp.receipt_no AS receiptNo,ma.username AS username,bp.client_id AS client_id,mc.po_id as clientPoid,bp.cancel_remark AS cancelRemark, "+
 				 " (SELECT mca.code_value FROM m_code_value mca WHERE ((mca.code_id = 11) AND (bp.paymode_id = mca.id))) AS tran_type, "+
-				 " CAST(bp.payment_date AS DATE) AS transDate,'PAYMENT' AS transType, 0 AS DebitAmount,bp.amount_paid AS CreditAmount,bp.is_deleted AS flag "+
+				 " CAST(bp.payment_date AS DATE) AS transDate,'PAYMENT' AS transType, 0 AS DebitAmount,bp.amount_paid AS CreditAmount,bp.is_deleted AS flag,"
+				 + "(select m.name from m_currency m where m.id=bp.currency_Id) as currency "+
 				 " FROM b_payments bp JOIN m_appuser ma on bp.createdby_id=ma.id JOIN m_client mc ON bp.client_id= mc.id WHERE ISNULL(bp.ref_id) " + 
 				 " UNION ALL  "+
 				 " SELECT bp.id AS transId,bp.receipt_no AS receiptNo,ma.username AS username, bp.client_id AS client_id,mc.po_id as clientPoid,bp.cancel_remark AS cancelRemark, "+
 				 " (SELECT mca.code_value FROM m_code_value mca WHERE ((mca.code_id = 11) AND (bp.paymode_id = mca.id))) AS tran_type, "+
-				 " CAST(bp.payment_date AS DATE) AS transDate,'PAYMENT CANCELLED' AS transType,ABS(bp.amount_paid) AS DebitAmount,0 AS CreditAmount,bp.is_deleted AS flag "+
+				 " CAST(bp.payment_date AS DATE) AS transDate,'PAYMENT CANCELLED' AS transType,ABS(bp.amount_paid) AS DebitAmount,0 AS CreditAmount,bp.is_deleted AS flag,(select m.name from m_currency m where m.id=bp.currency_Id) as currency "+
 				 " FROM b_payments bp JOIN m_appuser ma on bp.createdby_id=ma.id JOIN m_client mc ON bp.client_id= mc.id WHERE (bp.is_deleted = 1) AND (bp.ref_id IS NOT NULL) ";
     
 	      }
