@@ -105,6 +105,44 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 
 	}
 
+	@Override
+	public Page<FinancialTransactionsData> retrieveTransactionalDatawithCurrency(final SearchSqlQuery searchTransactionHistory,
+			final Long clientId,final Long currencyId) {
+
+		final FinancialInvoiceTransactionsMapper financialTransactionsMapper = new FinancialInvoiceTransactionsMapper();
+		StringBuilder sqlBuilder = new StringBuilder(200);
+		sqlBuilder.append("select ");
+		sqlBuilder.append(financialTransactionsMapper.financialTransactionsSchemawithCurrency());
+		String sqlSearch = searchTransactionHistory.getSqlSearch();
+		String extraCriteria = "";
+		if (sqlSearch != null) {
+			sqlSearch = sqlSearch.trim();
+			extraCriteria = " and (v.transType like '%" + sqlSearch + "%' OR "
+					+ " DATE_FORMAT(v.transDate,'%d %M %Y') like '%" + sqlSearch + "%' OR v.tran_type like '%"
+					+ sqlSearch + "%' OR " + " v.dr_amt like '%" + sqlSearch + "%' OR v.cr_amt like '%" + sqlSearch
+					+ "%' )";
+		}
+
+		sqlBuilder.append(extraCriteria);
+
+		sqlBuilder.append(" order by  transId desc ");
+
+		if (searchTransactionHistory.isLimited()) {
+			sqlBuilder.append(" limit ").append(searchTransactionHistory.getLimit());
+		}
+
+		if (searchTransactionHistory.isOffset()) {
+			sqlBuilder.append(" offset ").append(searchTransactionHistory.getOffset());
+		}
+
+		return this.paginationHelper.fetchPage(this.jdbcTemplate, "SELECT FOUND_ROWS()", sqlBuilder.toString(),
+				new Object[] { clientId,currencyId}, financialTransactionsMapper);
+
+	}
+
+	
+	
+	
 	private static final class FinancialInvoiceTransactionsMapper implements RowMapper<FinancialTransactionsData> {
 
 		@Override
@@ -126,6 +164,10 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 		public String financialTransactionsSchema() {
 
 			return " SQL_CALC_FOUND_ROWS v.* from  fin_trans_vw  v where v.client_id=? ";
+		}
+		public String financialTransactionsSchemawithCurrency() {
+
+			return " SQL_CALC_FOUND_ROWS v.* from  fin_trans_currency_vw  v where v.client_id=? and v.currency_id=? ";
 		}
 	}
 
@@ -481,10 +523,13 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 			String toDate) {
 
 		final FinancialTypeNewMapper financialTypeMapper = new FinancialTypeNewMapper();
+		
 
 		StringBuilder sqlBuilder = new StringBuilder(200);
 		sqlBuilder.append("SELECT ");
 		sqlBuilder.append(financialTypeMapper.financialTypeSchemWithCurrency());
+		sqlBuilder.append(" ) a ");
+		sqlBuilder.append(" WHERE a.currency_Id =" + currencyId);
 
 		if (fromDate != null && toDate != null) {
 			sqlBuilder.append(
@@ -554,12 +599,12 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 		return " * from (SELECT bp.id AS transId,bp.receipt_no AS receiptNo,ma.username AS username,bp.client_id AS client_id,mc.po_id as clientPoid,bp.cancel_remark AS cancelRemark, "
 				+ " (SELECT mca.code_value FROM m_code_value mca WHERE ((mca.code_id = 11) AND (bp.paymode_id = mca.id))) AS tran_type, "
 				+ " CAST(bp.payment_date AS DATE) AS transDate,'PAYMENT' AS transType, 0 AS DebitAmount,bp.amount_paid AS CreditAmount,bp.is_deleted AS flag,"
-				+ "(select m.name from m_currency m where m.id=bp.currency_Id) as currency "
+				+ "(select m.name from m_currency m where m.id=bp.currency_Id) as currency, bp.currency_Id as currency_Id "
 				+ " FROM b_payments bp JOIN m_appuser ma on bp.createdby_id=ma.id JOIN m_client mc ON bp.client_id= mc.id WHERE ISNULL(bp.ref_id) "
 				+ " UNION ALL  "
 				+ " SELECT bp.id AS transId,bp.receipt_no AS receiptNo,ma.username AS username, bp.client_id AS client_id,mc.po_id as clientPoid,bp.cancel_remark AS cancelRemark, "
 				+ " (SELECT mca.code_value FROM m_code_value mca WHERE ((mca.code_id = 11) AND (bp.paymode_id = mca.id))) AS tran_type, "
-				+ " CAST(bp.payment_date AS DATE) AS transDate,'PAYMENT CANCELLED' AS transType,ABS(bp.amount_paid) AS DebitAmount,0 AS CreditAmount,bp.is_deleted AS flag,(select m.name from m_currency m where m.id=bp.currency_Id) as currency "
+				+ " CAST(bp.payment_date AS DATE) AS transDate,'PAYMENT CANCELLED' AS transType,ABS(bp.amount_paid) AS DebitAmount,0 AS CreditAmount,bp.is_deleted AS flag,(select m.name from m_currency m where m.id=bp.currency_Id) as currency, bp.currency_Id as currency_Id "
 				+ " FROM b_payments bp JOIN m_appuser ma on bp.createdby_id=ma.id JOIN m_client mc ON bp.client_id= mc.id WHERE (bp.is_deleted = 1) AND (bp.ref_id IS NOT NULL) ";
 
 	}

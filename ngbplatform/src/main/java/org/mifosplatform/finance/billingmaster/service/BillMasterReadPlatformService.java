@@ -14,6 +14,7 @@ public interface BillMasterReadPlatformService {
 	List<FinancialTransactionsData> retrieveFinancialData(Long clientId);
 
 	Page<FinancialTransactionsData> retrieveInvoiceFinancialData(SearchSqlQuery searchFinancialTransaction, Long clientId);
+	Page<FinancialTransactionsData> retrieveTransactionalDatawithCurrency(SearchSqlQuery searchFinancialTransaction, Long clientId,Long currencyId);
 
 	List<FinancialTransactionsData> getFinancialTransactionData(Long id);
 

@@ -97,6 +97,24 @@ public class FinancialTransactionApiResource {
 	}
 
 	@GET
+	@Path("{clientId}/{currencyId}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String retrieveTransactionalDatawithCurrency(@PathParam("clientId") final Long clientId,@PathParam("currencyId") final Long currencyId, @Context final UriInfo uriInfo,
+			@QueryParam("sqlSearch") final String sqlSearch, @QueryParam("limit") final Integer limit,
+			@QueryParam("offset") final Integer offset, @QueryParam("key") final String key) {
+		context.authenticatedUser().validateHasReadPermission(resourceNameForPermissions);
+
+		final SearchSqlQuery searchFinancialTransaction = SearchSqlQuery.forSearch(sqlSearch, offset, limit);
+		this.crmServices.getClientBills(key, clientId.toString());
+		Page<FinancialTransactionsData> transactionData = this.billMasterReadPlatformService
+				.retrieveTransactionalDatawithCurrency(searchFinancialTransaction, clientId,currencyId);
+		return this.toApiJsonSerializer.serialize(transactionData);
+		
+		
+	}
+	
+	@GET
 	@Path("officeid/{officeId}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
