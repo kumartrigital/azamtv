@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.mifosplatform.billing.payterms.data.PaytermData;
+import org.mifosplatform.portfolio.client.data.Balance;
 import org.mifosplatform.portfolio.order.data.OrderData;
 import org.mifosplatform.portfolio.order.data.OrderDiscountData;
 import org.mifosplatform.portfolio.order.data.OrderHistoryData;
@@ -25,6 +26,8 @@ public interface OrderReadPlatformService {
 	List<OrderPriceData> retrieveOrderPriceDetails(Long orderId, Long clientId);
 	
 	List<OrderData> retrieveClientOrderDetails(Long clientId);
+	
+
 	
 	List<OrderData> retrieveClientServiceOrderDetails(Long clientId,Long clientServiceId);
 	

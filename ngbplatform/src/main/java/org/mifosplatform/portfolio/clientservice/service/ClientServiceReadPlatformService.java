@@ -7,6 +7,7 @@ package org.mifosplatform.portfolio.clientservice.service;
 
 import java.util.List;
 
+import org.mifosplatform.portfolio.client.data.Balance;
 import org.mifosplatform.portfolio.clientservice.data.ClientServiceData;
 import org.mifosplatform.provisioning.provisioning.data.ServiceParameterData;
 
@@ -24,7 +25,8 @@ public interface ClientServiceReadPlatformService {
 
 	List<ClientServiceData> retriveActiveClientsInOrg(Long officeId);
 
-	
+	List<Balance> retriveBalance(Long clientId);
+
 	
 	
 

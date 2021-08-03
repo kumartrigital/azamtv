@@ -224,11 +224,12 @@ public class ClientsApiResource {
 			@QueryParam("lastName") final String lastname, @QueryParam("email") final String email,
 			@QueryParam("phone") final String phone, @QueryParam("city") final String city,
 			@QueryParam("officeId") final Long officeId, @QueryParam("categoryType") final String categoryType,
-			@QueryParam("externalId") final String externalId,@QueryParam("offset") final Integer offset,@QueryParam("limit") final Integer limit) {
+			@QueryParam("externalId") final String externalId, @QueryParam("offset") final Integer offset,
+			@QueryParam("limit") final Integer limit) {
 
 		this.context.authenticatedUser().validateHasReadPermission(ClientApiConstants.CLIENT_RESOURCE_NAME);
 		final SearchParameters searchParameters = SearchParameters.newforClients(sqlSearch, officeId, externalId,
-				firstname, lastname, email, phone, city, categoryType, clientId, offset,limit);
+				firstname, lastname, email, phone, city, categoryType, clientId, offset, limit);
 		final Page<ClientData> clientData = this.clientReadPlatformService.retrieveAllClients(searchParameters);
 		return this.toApiJsonSerializer.serialize(clientData);
 	}
@@ -458,7 +459,7 @@ public class ClientsApiResource {
 		 * (columnName.equals("account_no")) throw new
 		 * ClientNotFoundException(columnValue, 0l); }
 		 */
-		ClientData clientdata = this.clientReadPlatformService.retrieveSearchClientId(columnName,columnValue);
+		ClientData clientdata = this.clientReadPlatformService.retrieveSearchClientId(columnName, columnValue);
 		final ApiRequestJsonSerializationSettings settings = apiRequestParameterHelper
 				.process(uriInfo.getQueryParameters());
 		return this.toApiJsonSerializer.serialize(settings, clientdata,
@@ -537,6 +538,9 @@ public class ClientsApiResource {
 			clientData.setOneTimeSaleData(
 					this.oneTimeSaleReadPlatformService.retrieveClientOneTimeSalesData(clientData.getId()));
 			clientData.setOrderData(this.orderReadPlatformService.retrieveClientOrderDetails(clientData.getId()));
+			// clientData.setOrderData(this.orderReadPlatformService.retrieveClientOrderDetails(clientData.getId()));
+
+			clientData.setBalance(this.clientServiceReadPlatformService.retriveBalance(clientData.getId()));
 
 			if (settings.isTemplate()) {
 				clientData = this.handleTemplateData360(clientData);
