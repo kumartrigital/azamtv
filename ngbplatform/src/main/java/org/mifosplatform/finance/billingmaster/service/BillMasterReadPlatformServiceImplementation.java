@@ -476,7 +476,7 @@ public class BillMasterReadPlatformServiceImplementation implements BillMasterRe
 		public String financialTypeSchema() {
 
 			return " ft.username as username,ft.TransId as TransId,ft.TransType as TransType,ft.Dr_amt as DebitAmount,ft.Cr_amt as CreditAmount,"
-					+ "ft.tran_type as tran_type,ft.flag as flag,ft.TransDate as TransDate from fin_trans_vw as ft  where client_id=? ";
+					+ "ft.tran_type as tran_type,ft.flag as flag,ft.TransDate as TransDate,ft.currency as currency from fin_trans_vw as ft  where client_id=? ";
 
 		}
 	}
