@@ -49,8 +49,13 @@ Create view fin_trans_currency_vw as
             WHEN 'CREDIT' THEN `b_adjustments`.`adjustment_amount`
         END) AS `cr_amount`,
         1 AS `flag`,
-        '' AS `currency`,
-        0 AS `currency_id`
+      (SELECT 
+                `m`.`name`
+            FROM
+                `m_currency` `m`
+            WHERE
+                (`m`.`id` = `b_adjustments`.`currency_id`)) AS `currency`,
+     `b_adjustments`.`currency_id`  AS `currency_id`
     FROM
         (`b_adjustments`
         JOIN `m_appuser`)
@@ -76,8 +81,13 @@ Create view fin_trans_currency_vw as
         END) AS `dr_amount`,
         0 AS `cr_amt`,
         1 AS `flag`,
-        '' AS `currency`,
-        0 AS `currency_id`
+       (SELECT 
+                `m`.`name`
+            FROM
+                `m_currency` `m`
+            WHERE
+                (`m`.`id` = `b_adjustments`.`currency_id`)) AS `currency`,
+     `b_adjustments`.`currency_id`  AS `currency_id`
     FROM
         (`b_adjustments`
         JOIN `m_appuser`)

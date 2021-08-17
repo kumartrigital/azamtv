@@ -1,6 +1,6 @@
 Drop view if exists fin_trans_vw;
 Create view fin_trans_vw as
-  SELECT DISTINCT
+   SELECT DISTINCT
         `b_bill_item`.`id` AS `transId`,
         `m_appuser`.`username` AS `username`,
         `b_bill_item`.`client_id` AS `client_id`,
@@ -48,7 +48,12 @@ Create view fin_trans_vw as
             WHEN 'CREDIT' THEN `b_adjustments`.`adjustment_amount`
         END) AS `cr_amount`,
         1 AS `flag`,
-        '' AS `currency`
+        (SELECT 
+                `m`.`name`
+            FROM
+                `m_currency` `m`
+            WHERE
+                (`m`.`id` = `b_adjustments`.`currency_id`)) AS `currency`
     FROM
         (`b_adjustments`
         JOIN `m_appuser`)
@@ -74,7 +79,12 @@ Create view fin_trans_vw as
         END) AS `dr_amount`,
         0 AS `cr_amt`,
         1 AS `flag`,
-        '' AS `currency`
+      (SELECT 
+                `m`.`name`
+            FROM
+                `m_currency` `m`
+            WHERE
+                (`m`.`id` = `b_adjustments`.`currency_id`)) AS `currency`
     FROM
         (`b_adjustments`
         JOIN `m_appuser`)
