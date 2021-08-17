@@ -1,9 +1,6 @@
-CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
-    SQL SECURITY DEFINER
-VIEW `fin_trans_vw` AS
-    SELECT DISTINCT
+Drop view if exists fin_trans_vw;
+Create view fin_trans_vw as
+  SELECT DISTINCT
         `b_bill_item`.`id` AS `transId`,
         `m_appuser`.`username` AS `username`,
         `b_bill_item`.`client_id` AS `client_id`,
@@ -176,4 +173,4 @@ VIEW `fin_trans_vw` AS
     WHERE
         ((`bdr`.`createdby_id` = `m_appuser`.`id`)
             AND (`bdr`.`transaction_date` <= NOW()))
-    ORDER BY `transId` , `username`
+    ORDER BY `transId` , `username`;
