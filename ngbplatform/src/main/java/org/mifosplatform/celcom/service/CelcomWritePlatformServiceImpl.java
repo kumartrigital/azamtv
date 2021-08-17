@@ -685,12 +685,7 @@ public class CelcomWritePlatformServiceImpl implements CelcomWritePlatformServic
 		
 		}		
 		
-		
-		
-		
-		
-		
-		
+
 
 		@Override
 		public CommandProcessingResult createAdjustmentsCelcom(JsonCommand command) {

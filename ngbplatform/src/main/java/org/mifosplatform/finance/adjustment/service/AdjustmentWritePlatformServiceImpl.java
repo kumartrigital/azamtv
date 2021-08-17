@@ -82,6 +82,7 @@ public class AdjustmentWritePlatformServiceImpl implements AdjustmentWritePlatfo
 			/*this.context.authenticatedUser();*/
 			this.fromApiJsonDeserializer.validateForCreate(command.json());
 			Adjustment adjustment = Adjustment.fromJson(command);
+			
 			if(command.booleanPrimitiveValueOfParameterNamed("withtax")){
 				this.crmServices.billadjustment(command);
 			}else{
@@ -90,7 +91,8 @@ public class AdjustmentWritePlatformServiceImpl implements AdjustmentWritePlatfo
 			ClientBalance clientBalance = null;
 			BigDecimal balance=BigDecimal.ZERO;
 			Long clientServiceId = Long.valueOf(0);
-			clientBalance = clientBalanceRepository.findByClientAndClientServiceId(adjustment.getClientId(),Long.valueOf(0));
+			clientBalance = clientBalanceRepository.findByClientAndClientServiceId(adjustment.getClientId(),Long.valueOf(0),adjustment.getCurrencyId());
+			
 			this.adjustmentRepository.saveAndFlush(adjustment);
 			boolean isWalletPayment=command.booleanPrimitiveValueOfParameterNamed("isWalletPayment");
             ClientBillProfileInfo ClientBillProfileInfo=this.clientBillProfileInfoRepository.findwithclientId(adjustment.getClientId());
@@ -100,7 +102,8 @@ public class AdjustmentWritePlatformServiceImpl implements AdjustmentWritePlatfo
 			clientBalanceObject.put("amount",adjustment.getAmountPaid());
 			clientBalanceObject.put("isWalletEnable", isWalletPayment);
 			clientBalanceObject.put("clientServiceId",clientServiceId );
-			clientBalanceObject.put("currencyId",ClientBillProfileInfo.getBillCurrency());
+			//clientBalanceObject.put("currencyId",ClientBillProfileInfo.getBillCurrency());
+			clientBalanceObject.put("currencyId",adjustment.getCurrencyId());
 			clientBalanceObject.put("paymentType", adjustment.getAdjustmentType());
 			clientBalanceObject.put("locale", "en");
 			} catch (JSONException e) {

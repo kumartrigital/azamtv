@@ -1,4 +1,5 @@
-CREATE 
+
+CREATE ignore
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER

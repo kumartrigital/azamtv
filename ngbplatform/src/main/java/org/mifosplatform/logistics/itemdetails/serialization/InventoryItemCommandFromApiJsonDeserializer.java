@@ -77,6 +77,7 @@ public final class InventoryItemCommandFromApiJsonDeserializer {
         
         final String quality = command.stringValueOfParameterNamed("quality");
         baseDataValidator.reset().parameter("quality").value(quality).notBlank();
+        
         final Long quantity = command.longValueOfParameterNamed("quantity");
         
 		/*if(isSerialRequired){

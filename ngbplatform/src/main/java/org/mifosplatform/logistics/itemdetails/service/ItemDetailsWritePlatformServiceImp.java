@@ -198,9 +198,6 @@ public class ItemDetailsWritePlatformServiceImp implements ItemDetailsWritePlatf
 	}
 	
 
-	
-	
-	
 
 	@Override
 	public synchronized CommandProcessingResult addItem(final JsonCommand command,Long flag) {
@@ -234,6 +231,7 @@ public class ItemDetailsWritePlatformServiceImp implements ItemDetailsWritePlatf
 			ItemMaster items = this.itemMasterRepository.findOne(item);
 			Boolean isSerialRequired = true;
 			Long quantity = command.longValueOfParameterNamed("quantity");
+		
 			if(UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(items.getUnits()) ||
 					UnitEnumType.METERS.toString().equalsIgnoreCase(items.getUnits())){
 				isSerialRequired = false;
