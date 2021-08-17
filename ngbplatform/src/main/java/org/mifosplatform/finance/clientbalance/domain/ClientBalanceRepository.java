@@ -11,6 +11,11 @@ public interface ClientBalanceRepository extends JpaRepository<ClientBalance, Lo
 	@Query("from ClientBalance clientBalance where clientBalance.clientId =:clientId") 
 	ClientBalance findByClientId(@Param("clientId") final Long clientId);
 	
+	
+	@Query("from ClientBalance clientBalance where clientBalance.clientId =:clientId and clientBalance.resourceId =:resourceId and clientBalance.clientServiceId =:clientServiceId" ) 
+	ClientBalance findByClientId(@Param("clientId") final Long clientId , @Param("resourceId") final Long resourceId, @Param("clientServiceId") final Long clientServiceId );
+	
+	
 	@Query("from ClientBalance clientBalance where clientBalance.clientId =:clientId and  clientBalance.clientServiceId =:clientServiceId")
 	ClientBalance findByClientAndClientServiceId(@Param("clientId")Long clientId,@Param("clientServiceId") Long clientServiceId);
   

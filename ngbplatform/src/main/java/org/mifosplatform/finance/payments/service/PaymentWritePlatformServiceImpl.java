@@ -13,7 +13,6 @@ import java.util.Properties;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mifosplatform.billing.currency.domain.CountryCurrencyRepository;
 import org.mifosplatform.crm.service.CrmServices;
 import org.mifosplatform.finance.chargeorder.domain.BillItem;
 import org.mifosplatform.finance.chargeorder.domain.BillItemRepository;
@@ -37,6 +36,7 @@ import org.mifosplatform.finance.payments.exception.ReceiptNoDuplicateException;
 import org.mifosplatform.finance.payments.serialization.PaymentCommandFromApiJsonDeserializer;
 import org.mifosplatform.finance.paymentsgateway.domain.PaymentGatewayConfiguration;
 import org.mifosplatform.finance.paymentsgateway.domain.PaymentGatewayConfigurationRepository;
+import org.mifosplatform.infrastructure.configuration.domain.Configuration;
 import org.mifosplatform.infrastructure.configuration.domain.ConfigurationConstants;
 import org.mifosplatform.infrastructure.configuration.domain.ConfigurationRepository;
 import org.mifosplatform.infrastructure.core.api.JsonCommand;
@@ -106,6 +106,7 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 	private final FromJsonHelper fromJsonHelper;
 	private final ApplicationCurrencyRepository applicationCurrencyRepository;
 	private final ClientBalanceWritePlatformService clientBalanceWritePlatformService;
+	private final ConfigurationRepository ConfigurationRepository;
 
 	@Autowired
 	public PaymentWritePlatformServiceImpl(final PlatformSecurityContext context,
@@ -149,6 +150,7 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 		this.fromJsonHelper = fromJsonHelper;
 		this.applicationCurrencyRepository = applicationCurrencyRepository;
 		this.clientBalanceWritePlatformService = clientBalanceWritePlatformService;
+		this.ConfigurationRepository = globalConfigurationRepository;
 
 	}
 
@@ -164,9 +166,8 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 
 			final JsonElement element = fromApiJsonHelper.parse(command.json());
 			Payment payment = Payment.fromJson(command, command.entityId());
-			System.out.println("PaymentWritePlatformServiceImpl.createPayment() :" +payment.getAmountPaid() );
+			System.out.println("PaymentWritePlatformServiceImpl.createPayment() :" + payment.getAmountPaid());
 
-			
 			ApplicationCurrency applicationCurrency = applicationCurrencyRepository
 					.findOneByCode(command.stringValueOfParameterName("currencyCode"));
 
@@ -178,7 +179,7 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 				payment.setReceiptNo(result.getResourceIdentifier());
 
 			}
-			System.out.println("PaymentWritePlatformServiceImpl.createPayment() :" +payment.getAmountPaid() );
+			System.out.println("PaymentWritePlatformServiceImpl.createPayment() :" + payment.getAmountPaid());
 
 			ClientBillProfileInfo clientBillProfileInfo = this.clientBillProfileInfoRepository
 					.findwithclientId(payment.getClientId());
@@ -186,9 +187,9 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 			// applicationCurrencyRepository.findOneByCode("NGN");
 
 			payment.setCurrencyId(applicationCurrency);
-			System.out.println("PaymentWritePlatformServiceImpl.createPayment() :" +payment.getAmountPaid() );
-			
-			//BigDecimal paidAmount =  payment.getAmountPaid();
+			System.out.println("PaymentWritePlatformServiceImpl.createPayment() :" + payment.getAmountPaid());
+
+			// BigDecimal paidAmount = payment.getAmountPaid();
 
 			if (clientBillProfileInfo.getBillCurrency() != applicationCurrency.getId()) {
 				ConverationDetails conversionChargesValue = clientBalanceWritePlatformService.conversionDetails(
@@ -267,7 +268,7 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 				clientBalance.updateBalance(clientBalanceCommand);
 
 			} else if (clientBalance == null) {
-				System.out.println("PaymentWritePlatformServiceImpl.createPayment() :"+payment.getAmountPaid());
+				System.out.println("PaymentWritePlatformServiceImpl.createPayment() :" + payment.getAmountPaid());
 				BigDecimal balance = BigDecimal.ZERO.subtract(payment.getAmountPaid());
 				/*
 				 * clientBalance = ClientBalance.create(payment.getClientId(), balance,
@@ -355,7 +356,19 @@ public class PaymentWritePlatformServiceImpl implements PaymentWritePlatformServ
 			this.paymentRepository.save(payment);
 			payment.cancelPayment(command);
 			this.paymentRepository.save(payment);
-			final ClientBalance clientBalance = clientBalanceRepository.findByClientId(payment.getClientId());
+			
+
+			Configuration multi_Currency = ConfigurationRepository.findOneByName(ConfigurationConstants.multi_Currency);
+			ClientBalance clientBalance = null;
+			if (null != multi_Currency && multi_Currency.isEnabled()) {
+				clientBalance = clientBalanceRepository.findByClientId(payment.getClientId(),
+						payment.getCurrencyId().getId(),0l);
+
+			} else {
+				clientBalance = clientBalanceRepository.findByClientId(payment.getClientId());
+
+			}
+
 			clientBalance.setBalanceAmount(payment.getAmountPaid(), payment.isWalletPayment());
 			this.clientBalanceRepository.save(clientBalance);
 

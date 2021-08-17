@@ -741,7 +741,14 @@ public class GenerateChargesForOrderServiceImp implements GenerateChargesForOrde
 				}
 
 				orderId = charge.getOrderId();
-				billItem.setCurrencyId(clientBillInfoData.getBillCurrency());
+				
+				List<OrderData> orderData = this.orderReadPlatformService.orderDetailsForClientBalance(orderId);
+
+				Price planPricing = priceRepository.findplansByPlanIdChargeOwnerSelf(orderData.get(0).getPlanId());
+
+				//billItem.setCurrencyId(clientBillInfoData.getBillCurrency());
+				billItem.setCurrencyId(Long.parseLong(planPricing.getCurrencyId()));
+
 				billItem.addCharges(charge);
 				if (charge.getChargeOwner() != null && charge.getChargeOwner().equalsIgnoreCase("self")) {
 					billItem.setClientId(charge.getClientId());
