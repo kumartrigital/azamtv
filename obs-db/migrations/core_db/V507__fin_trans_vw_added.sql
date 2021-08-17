@@ -1,10 +1,11 @@
-
-CREATE ignore
+Drop view if exists fin_trans_vw;
+Create
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
-VIEW `fin_trans_vw` AS
-    SELECT DISTINCT
+ view fin_trans_vw As
+   SELECT DISTINCT
+
         `b_bill_item`.`id` AS `transId`,
         `m_appuser`.`username` AS `username`,
         `b_bill_item`.`client_id` AS `client_id`,
@@ -52,7 +53,12 @@ VIEW `fin_trans_vw` AS
             WHEN 'CREDIT' THEN `b_adjustments`.`adjustment_amount`
         END) AS `cr_amount`,
         1 AS `flag`,
-        '' AS `currency`
+        (SELECT 
+                `m`.`name`
+            FROM
+                `m_currency` `m`
+            WHERE
+                (`m`.`id` = `b_adjustments`.`currency_id`)) AS `currency`
     FROM
         (`b_adjustments`
         JOIN `m_appuser`)
@@ -78,7 +84,12 @@ VIEW `fin_trans_vw` AS
         END) AS `dr_amount`,
         0 AS `cr_amt`,
         1 AS `flag`,
-        '' AS `currency`
+      (SELECT 
+                `m`.`name`
+            FROM
+                `m_currency` `m`
+            WHERE
+                (`m`.`id` = `b_adjustments`.`currency_id`)) AS `currency`
     FROM
         (`b_adjustments`
         JOIN `m_appuser`)
@@ -177,4 +188,6 @@ VIEW `fin_trans_vw` AS
     WHERE
         ((`bdr`.`createdby_id` = `m_appuser`.`id`)
             AND (`bdr`.`transaction_date` <= NOW()))
+
     ORDER BY `transId` , `username`
+
