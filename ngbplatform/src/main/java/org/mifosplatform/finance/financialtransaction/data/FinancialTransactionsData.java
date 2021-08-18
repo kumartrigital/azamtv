@@ -76,6 +76,26 @@ public class FinancialTransactionsData {
 		this.description = description;
 		this.currency=currency;
 	}
+	public FinancialTransactionsData(Long officeId,Long clientId,Long transactionId, LocalDate transDate,String transactionType, BigDecimal amount,
+			BigDecimal creditAmount, BigDecimal debitAmount,String userName, String transactionCategory, boolean flag,
+			String planCode,String description) {
+
+		this.officeId = officeId;
+		this.clientId = clientId;
+		this.transactionId = transactionId;
+		this.transDate = transDate;
+		this.transactionType = transactionType;
+		this.amount = amount;
+		this.transaction="INVOICE";
+		this.creditAmount=creditAmount;
+		this.debitAmount=debitAmount;
+		this.userName=userName;
+		this.transactionCategory=transactionCategory;
+		this.flag=flag;
+		this.planCode = planCode;
+		this.description = description;
+}
+
 
 
 

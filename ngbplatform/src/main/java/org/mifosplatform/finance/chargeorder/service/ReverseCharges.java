@@ -50,7 +50,9 @@ public class ReverseCharges {
 		List<BillItem> invoiceList=null;
 		
 		BillItem invoice=null;
+		
 	    BigDecimal invoiceAmount=BigDecimal.ZERO;
+	    Long invoiceCurrency = null;
 	   
 		List<BillingOrderData> billingOrderProducts = this.chargingOrderReadPlatformService.getReverseBillingOrderData(clientId, disconnectionDate, orderId);
 		
@@ -62,7 +64,7 @@ public class ReverseCharges {
 			 invoiceList = this.generateChargesForOrderService. generateCharge(billingOrderCommands);
 			 for(BillItem invioce : invoiceList)
 		        {
-		        	invoiceAmount= invoiceAmount.add(invoice.getInvoiceAmount());
+		        	invoiceAmount= invoiceAmount.add(invioce.getInvoiceAmount());
 		        }
 			 invoiceAmount=invoiceList.get(0).getInvoiceAmount();
 		}else{
@@ -71,7 +73,8 @@ public class ReverseCharges {
         
         for(BillItem invioce : invoiceItems)
         {
-        	invoiceAmount= invoiceAmount.add(invoice.getInvoiceAmount());
+        	invoiceAmount= invoiceAmount.add(invioce.getInvoiceAmount());
+        	invoiceCurrency = invioce.getCurrencyId();
         }
         List<Long>  invoices = this.chargingOrderReadPlatformService.listOfInvoices(clientId, orderId);
 	        if(!invoices.isEmpty() && invoiceAmount != null && invoiceAmount.intValue() != 0){
@@ -98,10 +101,10 @@ public class ReverseCharges {
 		
 		JsonObject clientBalanceObject = new JsonObject();
 			clientBalanceObject.addProperty("clientId",clientId);
-			clientBalanceObject.addProperty("amount", invoice.getInvoiceAmount());
+			clientBalanceObject.addProperty("amount", invoiceAmount);
 			clientBalanceObject.addProperty("isWalletEnable", false);
 			clientBalanceObject.addProperty("clientServiceId",orderData.get(0).getClientServiceId());
-			clientBalanceObject.addProperty("currencyId",invoice.getCurrencyId());
+			clientBalanceObject.addProperty("currencyId",invoiceCurrency);
 			clientBalanceObject.addProperty("locale", "en");
 	
 	

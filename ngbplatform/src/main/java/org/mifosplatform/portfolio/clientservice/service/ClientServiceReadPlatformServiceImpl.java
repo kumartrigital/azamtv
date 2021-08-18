@@ -150,8 +150,23 @@ public class ClientServiceReadPlatformServiceImpl implements ClientServiceReadPl
 		final ClientServiceOrgMapper mapper = new ClientServiceOrgMapper();
 		StringBuilder sql = new StringBuilder("Select ");
 		sql.append(mapper.schema());
+		
 		if (clientServiceID != 0) {
 			sql.append(" and a.id =" + clientServiceID);
+		}
+		return this.jdbcTemplate.query(sql.toString(), mapper, new Object[] {});
+
+	}
+	
+	@Override
+	public List<ClientServiceData> retriveActiveClientsInOrgByOffice(Long officeId) {
+
+		final ClientServiceOrgMapper mapper = new ClientServiceOrgMapper();
+		StringBuilder sql = new StringBuilder("Select ");
+		sql.append(mapper.schema());
+		
+		if (officeId != 0) {
+			sql.append(" and b.office_id =" + officeId);
 		}
 		return this.jdbcTemplate.query(sql.toString(), mapper, new Object[] {});
 

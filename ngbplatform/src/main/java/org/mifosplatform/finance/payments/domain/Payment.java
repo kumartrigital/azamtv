@@ -117,6 +117,28 @@ public class Payment extends AbstractAuditableCustom<AppUser, Long> {
 		this.refernceId = referenceId;
 
 	}
+	
+	public Payment(final Long clientId, final Long paymentId, final Long externalId, final BigDecimal amountPaid,
+			final Long statmentId, final LocalDate paymentDate, final String remark, final int paymodeId,
+			final String transId, final String receiptNo, final Long invoiceId, char isWalletPayment,
+			char isSubscriptionPayment, final Long referenceId,final ApplicationCurrency currencyId) {
+
+		this.clientId = clientId;
+		this.statementId = statmentId;
+		this.amountPaid = amountPaid.negate();
+		this.paymentDate = paymentDate.toDate();
+		this.remarks = remark;
+		this.paymodeId = paymodeId;
+		this.transactionId = transId;
+		if (this.receiptNo != null)
+			this.receiptNo = receiptNo + "_CP";
+		this.invoiceId = invoiceId;
+		this.isWalletPayment = isWalletPayment;
+		this.isSubscriptionPayment = isSubscriptionPayment;
+		this.refernceId = referenceId;
+		this.currencyId =currencyId;
+
+	}
 
 	public static Payment fromJson(final JsonCommand command, final Long clientid) {
 		final LocalDate paymentDate = command.localDateValueOfParameterNamed("paymentDate");

@@ -1,5 +1,9 @@
 Drop view if exists fin_trans_currency_vw;
-Create view fin_trans_currency_vw as
+Create 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+view fin_trans_currency_vw as
     SELECT DISTINCT
         `b_bill_item`.`id` AS `transId`,
         `m_appuser`.`username` AS `username`,
@@ -190,8 +194,6 @@ Create view fin_trans_currency_vw as
     WHERE
         ((`bdr`.`createdby_id` = `m_appuser`.`id`)
             AND (`bdr`.`transaction_date` <= NOW()))
-<<<<<<< HEAD
+
     ORDER BY `transId` , `username`
-=======
-    ORDER BY `transId` , `username`;
->>>>>>> bf5386a9ae23f466f462f908ccbd846c30c3871e
+
