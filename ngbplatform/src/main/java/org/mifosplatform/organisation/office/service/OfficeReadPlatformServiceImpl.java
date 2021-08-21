@@ -442,9 +442,9 @@ public class OfficeReadPlatformServiceImpl implements OfficeReadPlatformService 
 			final String cancelRemark=resultSet.getString("cancelRemark");
 			final String isDeleted=resultSet.getString("isDeleted");
 
-			final String currency=resultSet.getString("currency");
+			//final String currency=resultSet.getString("currency");
 			FinancialTransactionsData financialTransactionsData = new FinancialTransactionsData(officeId,null, transactionId, transDate, transactionType, debitAmount,
-					creditAmount, null, userName, transactionCategory, flag, null, null,currency);
+					creditAmount, null, userName, transactionCategory, flag, null, null);
 			
 			financialTransactionsData.setReceiptNo(receiptid);
 			financialTransactionsData.setOfficePoid(office_poid);
