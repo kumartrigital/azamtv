@@ -8,6 +8,8 @@ import org.mifosplatform.logistics.item.data.ItemData;
 public interface OneTimeSaleWritePlatformService {
 
 	CommandProcessingResult createOneTimeSale(JsonCommand command,Long clientId);
+	
+	CommandProcessingResult createOneTimeSaleNonserializedItem(JsonCommand command,Long clientId);
 
 	ItemData calculatePrice(Long itemId, JsonQuery query);
 

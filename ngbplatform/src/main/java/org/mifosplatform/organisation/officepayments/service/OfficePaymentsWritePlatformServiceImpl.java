@@ -14,6 +14,8 @@ import org.mifosplatform.infrastructure.core.service.DateUtils;
 import org.mifosplatform.infrastructure.security.service.PlatformSecurityContext;
 import org.mifosplatform.organisation.monetary.domain.ApplicationCurrency;
 import org.mifosplatform.organisation.monetary.domain.ApplicationCurrencyRepository;
+import org.mifosplatform.organisation.office.domain.Office;
+import org.mifosplatform.organisation.office.domain.OfficeRepository;
 import org.mifosplatform.organisation.officepayments.domain.OfficePayments;
 import org.mifosplatform.organisation.officepayments.domain.OfficePaymentsRepository;
 import org.mifosplatform.organisation.officepayments.exception.PaymentOfficeDetailsNotFoundException;
@@ -62,6 +64,7 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 	private final ConfigurationRepository configurationRepository;
 	private final ApplicationCurrencyRepository applicationCurrencyRepository;
 	private final ClientBalanceWritePlatformService clientBalanceWritePlatformService;
+	private final OfficeRepository officeRepository;
 
 	@Autowired
 	public OfficePaymentsWritePlatformServiceImpl(final PlatformSecurityContext context,
@@ -73,7 +76,8 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 			final JournalvoucherDetailsRepository journalvoucherDetailsRepository,
 			final ConfigurationRepository configurationRepository,
 			final ApplicationCurrencyRepository applicationCurrencyRepository,
-			final ClientBalanceWritePlatformService clientBalanceWritePlatformService) {
+			final ClientBalanceWritePlatformService clientBalanceWritePlatformService,
+			final OfficeRepository officeRepository) {
 
 		this.context = context;
 		this.officePaymentsRepository = officePaymentsRepository;
@@ -86,6 +90,7 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 		this.configurationRepository = configurationRepository;
 		this.applicationCurrencyRepository = applicationCurrencyRepository;
 		this.clientBalanceWritePlatformService = clientBalanceWritePlatformService;
+		this.officeRepository = officeRepository;
 	}
 
 	/*
@@ -112,7 +117,10 @@ public class OfficePaymentsWritePlatformServiceImpl implements OfficePaymentsWri
 			}
 			officePayments.setCurrencyId(applicationCurrency);
 
-			ApplicationCurrency basecurrency = applicationCurrencyRepository.findOneByCode("NGN");
+			Office office = officeRepository.findOne(command.entityId());
+
+			ApplicationCurrency basecurrency = applicationCurrencyRepository
+					.findOneByCode(office.getCurrencyId().getCode());
 
 			if (!basecurrency.getCode().equals(applicationCurrency.getCode())) {
 

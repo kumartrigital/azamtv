@@ -1198,6 +1198,14 @@ public class CommandWrapperBuilder {
 		this.href = "/onetimesale/template";
 		return this;
 	}
+	
+	public CommandWrapperBuilder createOneTimeSaleNonserailizedItem(Long clientId, String devicesaleTpye) {
+		this.actionName = "CREATE";
+		this.entityName = devicesaleTpye;
+		this.entityId = clientId;
+		this.href = "/onetimesale/NonSerialItem";
+		return this;
+	}
 
 	public CommandWrapperBuilder calculatePrice(Long itemId) {
 		this.actionName = "CREATE";

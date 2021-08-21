@@ -7,6 +7,8 @@ import org.mifosplatform.infrastructure.core.data.CommandProcessingResult;
 import org.mifosplatform.infrastructure.core.data.CommandProcessingResultBuilder;
 import org.mifosplatform.infrastructure.core.exception.PlatformDataIntegrityException;
 import org.mifosplatform.infrastructure.security.service.PlatformSecurityContext;
+import org.mifosplatform.logistics.item.domain.ItemMaster;
+import org.mifosplatform.logistics.item.domain.ItemRepository;
 import org.mifosplatform.logistics.itemdetails.domain.InventoryGrn;
 import org.mifosplatform.logistics.itemdetails.domain.InventoryGrnRepository;
 import org.mifosplatform.logistics.itemdetails.serialization.InventoryGrnCommandFromApiJsonDeserializer;
@@ -19,111 +21,119 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class GrnDetailsWritePlatformServiceImpl implements GrnDetailsWritePlatformService{
+public class GrnDetailsWritePlatformServiceImpl implements GrnDetailsWritePlatformService {
 
-	
 	private PlatformSecurityContext context;
 	private InventoryGrnRepository inventoryGrnRepository;
 	private InventoryGrnCommandFromApiJsonDeserializer inventoryGrnCommandFromApiJsonDeserializer;
-	
+	private ItemRepository itemRepository;
+
 	@Autowired
-	public GrnDetailsWritePlatformServiceImpl(final PlatformSecurityContext context,InventoryGrnRepository inventoryGrnRepository, InventoryGrnCommandFromApiJsonDeserializer inventoryGrnCommandFromApiJsonDeserializer) {
+	public GrnDetailsWritePlatformServiceImpl(final PlatformSecurityContext context,
+			InventoryGrnRepository inventoryGrnRepository,
+			InventoryGrnCommandFromApiJsonDeserializer inventoryGrnCommandFromApiJsonDeserializer,
+			final ItemRepository itemRepository) {
 		this.context = context;
 		this.inventoryGrnRepository = inventoryGrnRepository;
 		this.inventoryGrnCommandFromApiJsonDeserializer = inventoryGrnCommandFromApiJsonDeserializer;
+		this.itemRepository = itemRepository;
 	}
-	
-	private final static Logger logger = (Logger) LoggerFactory.getLogger(GrnDetailsWritePlatformServiceImpl.class);	
-		
-		
+
+	private final static Logger logger = (Logger) LoggerFactory.getLogger(GrnDetailsWritePlatformServiceImpl.class);
+
 	@Transactional
 	@Override
 	public CommandProcessingResult addGrnDetails(JsonCommand command) {
 		InventoryGrn inventoryGrn = null;
-		try{
+		try {
 			context.authenticatedUser();
 			inventoryGrnCommandFromApiJsonDeserializer.validateForCreate(command.json());
 			inventoryGrn = InventoryGrn.fromJson(command);
+			ItemMaster itemMaster = itemRepository.findOne(inventoryGrn.getItemMasterId());
+
+			if (itemMaster.getUnits().equalsIgnoreCase("Accessories")) {
+				inventoryGrn.setReceivedQuantity(inventoryGrn.getOrderdQuantity());
+			}
 			this.inventoryGrnRepository.save(inventoryGrn);
-		}catch(DataIntegrityViolationException dve){
-			//logger.error(dve.getMessage(), dve);   
-			 handleDataIntegrityIssues(command, dve);
+		} catch (DataIntegrityViolationException dve) {
+			// logger.error(dve.getMessage(), dve);
+			handleDataIntegrityIssues(command, dve);
 			return new CommandProcessingResult(Long.valueOf(-1));
-		
+
 		}
-		return new CommandProcessingResultBuilder().withCommandId(command.commandId()).withEntityId(inventoryGrn.getId()).build();
+		return new CommandProcessingResultBuilder().withCommandId(command.commandId())
+				.withEntityId(inventoryGrn.getId()).build();
 	}
 
 	private InventoryGrn grnRetrieveById(Long id) {
-        
-		InventoryGrn grnId=this.inventoryGrnRepository.findOne(id);
-              if (grnId== null) { throw new EventActionMappingNotFoundException(id.toString()); }
-	          return grnId;	
+
+		InventoryGrn grnId = this.inventoryGrnRepository.findOne(id);
+		if (grnId == null) {
+			throw new EventActionMappingNotFoundException(id.toString());
+		}
+		return grnId;
 	}
 
 	@Override
-	public CommandProcessingResult editGrnDetails(JsonCommand command,
-			Long entityId) {
-		
-		try{
+	public CommandProcessingResult editGrnDetails(JsonCommand command, Long entityId) {
+
+		try {
 			context.authenticatedUser();
 			inventoryGrnCommandFromApiJsonDeserializer.validateForCreate(command.json());
-			InventoryGrn inventoryGrnDetails=grnRetrieveById(entityId);
-			
+			InventoryGrn inventoryGrnDetails = grnRetrieveById(entityId);
+
 			final Map<String, Object> changes = inventoryGrnDetails.update(command);
-			
-			if(!changes.isEmpty()){
-        		this.inventoryGrnRepository.save(inventoryGrnDetails);
-        	}
-			
+
+			if (!changes.isEmpty()) {
+				this.inventoryGrnRepository.save(inventoryGrnDetails);
+			}
+
 			return new CommandProcessingResult(entityId);
-		}catch(DataIntegrityViolationException dve){
-			logger.error(dve.getMessage(), dve);   
+		} catch (DataIntegrityViolationException dve) {
+			logger.error(dve.getMessage(), dve);
 			return new CommandProcessingResult(Long.valueOf(-1));
-		
+
 		}
 	}
 
 	@Override
-	public CommandProcessingResult updateGrnOrderStatus(Integer orderStatus,
-			Long grnId) {
-	
-		try{
+	public CommandProcessingResult updateGrnOrderStatus(Integer orderStatus, Long grnId) {
+
+		try {
 			context.authenticatedUser();
-		    //inventoryGrnCommandFromApiJsonDeserializer.validateForUpdateOrderStatus(command.json());
-			 //Integer orderStatus = command.integerValueOfParameterNamed("orderStatus");
-			InventoryGrn inventoryGrnDetails=grnRetrieveById(grnId);
+			// inventoryGrnCommandFromApiJsonDeserializer.validateForUpdateOrderStatus(command.json());
+			// Integer orderStatus = command.integerValueOfParameterNamed("orderStatus");
+			InventoryGrn inventoryGrnDetails = grnRetrieveById(grnId);
 			inventoryGrnDetails.setOrderStatus(orderStatus);
-			
-        		this.inventoryGrnRepository.save(inventoryGrnDetails);
-        	
-			
-			return new CommandProcessingResultBuilder()  //
-				       .withEntityId(grnId) 
-				       .build();
-		}catch(DataIntegrityViolationException dve){
-			logger.error(dve.getMessage(), dve);   
+
+			this.inventoryGrnRepository.save(inventoryGrnDetails);
+
+			return new CommandProcessingResultBuilder() //
+					.withEntityId(grnId).build();
+		} catch (DataIntegrityViolationException dve) {
+			logger.error(dve.getMessage(), dve);
 			return new CommandProcessingResult(Long.valueOf(-1));
-		
+
 		}
 	}
-	/*
-     * Guaranteed to throw an exception no matter what the data integrity issue
-     * is.
-     */
-    private void handleDataIntegrityIssues(final JsonCommand command, final DataIntegrityViolationException dve) {
 
-    	final Throwable realCause = dve.getMostSpecificCause();
-        if (realCause.getMessage().contains("purchase_no_code_key")) {
-            final String purchaseNo = command.stringValueOfParameterNamed("purchaseNo");
-            throw new PlatformDataIntegrityException("error.msg.grn.duplicate.purchaseNo", "Grn with purchaseNo" + purchaseNo
-                    + "` already exists", "purchaseNo", purchaseNo);
-        }
-        logAsErrorUnexpectedDataIntegrityException(dve);
-        throw new PlatformDataIntegrityException("error.msg.client.unknown.data.integrity.issue",
-                "Unknown data integrity issue with resource.");
-    }
-    private void logAsErrorUnexpectedDataIntegrityException(final DataIntegrityViolationException dve) {
-        logger.error(dve.getMessage(), dve);
-    }
+	/*
+	 * Guaranteed to throw an exception no matter what the data integrity issue is.
+	 */
+	private void handleDataIntegrityIssues(final JsonCommand command, final DataIntegrityViolationException dve) {
+
+		final Throwable realCause = dve.getMostSpecificCause();
+		if (realCause.getMessage().contains("purchase_no_code_key")) {
+			final String purchaseNo = command.stringValueOfParameterNamed("purchaseNo");
+			throw new PlatformDataIntegrityException("error.msg.grn.duplicate.purchaseNo",
+					"Grn with purchaseNo" + purchaseNo + "` already exists", "purchaseNo", purchaseNo);
+		}
+		logAsErrorUnexpectedDataIntegrityException(dve);
+		throw new PlatformDataIntegrityException("error.msg.client.unknown.data.integrity.issue",
+				"Unknown data integrity issue with resource.");
+	}
+
+	private void logAsErrorUnexpectedDataIntegrityException(final DataIntegrityViolationException dve) {
+		logger.error(dve.getMessage(), dve);
+	}
 }

@@ -49,6 +49,7 @@ import org.mifosplatform.logistics.onetimesale.domain.ItemPairingRepository;
 import org.mifosplatform.logistics.onetimesale.domain.OneTimeSale;
 import org.mifosplatform.logistics.onetimesale.domain.OneTimeSaleRepository;
 import org.mifosplatform.logistics.onetimesale.exception.DeviceSaleNotFoundException;
+import org.mifosplatform.logistics.onetimesale.exception.StockNotFoundException;
 import org.mifosplatform.logistics.onetimesale.serialization.OneTimesaleCommandFromApiJsonDeserializer;
 import org.mifosplatform.organisation.mcodevalues.api.CodeNameConstants;
 import org.mifosplatform.organisation.office.data.OfficeData;
@@ -80,8 +81,7 @@ import com.google.gson.JsonObject;
  */
 @Service
 public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlatformService {
-	
-	
+
 	private final static Logger LOGGER = LoggerFactory.getLogger(OneTimeSaleWritePlatformServiceImpl.class);
 	private final FromJsonHelper fromJsonHelper;
 	private final PlatformSecurityContext context;
@@ -102,7 +102,7 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 	private final ItemPairingRepository itemPairingRepository;
 	private final FromJsonHelper fromApiJsonHelper;
 	private final OrderRepository orderRepository;
-	private final ClientBalanceReadPlatformService  clientBalanceReadPlatformService;
+	private final ClientBalanceReadPlatformService clientBalanceReadPlatformService;
 	private final ConfigurationRepository configurationRepository;
 	private final OfficeReadPlatformService officeReadPlatformService;
 	private final ClientReadPlatformService clientReadPlatformService;
@@ -111,22 +111,23 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 	private final ClientBalanceWritePlatformService clientBalanceWritePlatformService;
 
 	@Autowired
-	public OneTimeSaleWritePlatformServiceImpl(final PlatformSecurityContext context,final OneTimeSaleRepository oneTimeSaleRepository,
-			final ItemRepository itemMasterRepository,final OneTimesaleCommandFromApiJsonDeserializer apiJsonDeserializer,
-			final InvoiceOneTimeSale invoiceOneTimeSale,final ItemReadPlatformService itemReadPlatformService,
-			final FromJsonHelper fromJsonHelper,final OneTimeSaleReadPlatformService oneTimeSaleReadPlatformService,
+	public OneTimeSaleWritePlatformServiceImpl(final PlatformSecurityContext context,
+			final OneTimeSaleRepository oneTimeSaleRepository, final ItemRepository itemMasterRepository,
+			final OneTimesaleCommandFromApiJsonDeserializer apiJsonDeserializer,
+			final InvoiceOneTimeSale invoiceOneTimeSale, final ItemReadPlatformService itemReadPlatformService,
+			final FromJsonHelper fromJsonHelper, final OneTimeSaleReadPlatformService oneTimeSaleReadPlatformService,
 			final ItemDetailsWritePlatformService inventoryItemDetailsWritePlatformService,
 			final EventValidationReadPlatformService eventValidationReadPlatformService,
 			final DiscountReadPlatformService discountReadPlatformService,
-			final ChargeCodeRepository chargeCodeRepository,
-			final BillItemRepository billItemRepository, final InventoryGrnRepository inventoryGrnRepository,
-			final GrnReadPlatformService grnReadPlatformService,final ItemDetailsRepository itemDetailsRepository,
-			final ItemPairingRepository itemPairingRepository,final FromJsonHelper fromApiJsonHelper,
-			final OrderRepository orderRepository,
+			final ChargeCodeRepository chargeCodeRepository, final BillItemRepository billItemRepository,
+			final InventoryGrnRepository inventoryGrnRepository, final GrnReadPlatformService grnReadPlatformService,
+			final ItemDetailsRepository itemDetailsRepository, final ItemPairingRepository itemPairingRepository,
+			final FromJsonHelper fromApiJsonHelper, final OrderRepository orderRepository,
 			final ClientBalanceReadPlatformService clientBalanceReadPlatformService,
 			final ConfigurationRepository configurationRepository,
 			final OfficeReadPlatformService officeReadPlatformService,
-			final ClientReadPlatformService clientReadPlatformService,final SlabRateWritePlatformService slabRateWritePlatformService,
+			final ClientReadPlatformService clientReadPlatformService,
+			final SlabRateWritePlatformService slabRateWritePlatformService,
 			final ClientBillInfoReadPlatformService clientBillInfoReadPlatformService,
 			final ClientBalanceWritePlatformService clientBalanceWritePlatformService) {
 
@@ -149,21 +150,25 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 		this.itemPairingRepository = itemPairingRepository;
 		this.fromApiJsonHelper = fromApiJsonHelper;
 		this.orderRepository = orderRepository;
-		this.clientBalanceReadPlatformService=clientBalanceReadPlatformService;
-		this.configurationRepository=configurationRepository;
-		this.officeReadPlatformService=officeReadPlatformService;
-		this.clientReadPlatformService=clientReadPlatformService;
+		this.clientBalanceReadPlatformService = clientBalanceReadPlatformService;
+		this.configurationRepository = configurationRepository;
+		this.officeReadPlatformService = officeReadPlatformService;
+		this.clientReadPlatformService = clientReadPlatformService;
 		this.slabRateWritePlatformService = slabRateWritePlatformService;
 		this.clientBillInfoReadPlatformService = clientBillInfoReadPlatformService;
 		this.clientBalanceWritePlatformService = clientBalanceWritePlatformService;
 	}
 
-	/* (non-Javadoc)
-	 * @see #createOneTimeSale(org.mifosplatform.infrastructure.core.api.JsonCommand, java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * #createOneTimeSale(org.mifosplatform.infrastructure.core.api.JsonCommand,
+	 * java.lang.Long)
 	 */
 	@Transactional
 	@Override
-	public CommandProcessingResult createOneTimeSale(final JsonCommand command,final Long clientId) {
+	public CommandProcessingResult createOneTimeSale(final JsonCommand command, final Long clientId) {
 
 		try {
 			this.context.authenticatedUser();
@@ -174,121 +179,213 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 			final Long quantity = command.longValueOfParameterNamed("quantity");
 
 			// Check for Custome_Validation
-			this.eventValidationReadPlatformService.checkForCustomValidations(clientId, "Rental",command.json(),getUserId());
+			this.eventValidationReadPlatformService.checkForCustomValidations(clientId, "Rental", command.json(),
+					getUserId());
 
-			
-			//This method is used to check the client has balance to activate prepaid service
-			/*this.slabRateWritePlatformService.prepaidService(clientId ,item.getUnitPrice());*/
+			// This method is used to check the client has balance to activate prepaid
+			// service
+			/*
+			 * this.slabRateWritePlatformService.prepaidService(clientId
+			 * ,item.getUnitPrice());
+			 */
 
-		   //end
-		    ClientBillInfoData clientBillInfoData =this.clientBillInfoReadPlatformService.retrieveClientBillInfoDetails(clientId); 
-		    BigDecimal conversionPrice = this.clientBalanceWritePlatformService.conversion(item.getCurrencyId(),clientBillInfoData.getBillCurrency(),item.getUnitPrice());
+			// end
+			ClientBillInfoData clientBillInfoData = this.clientBillInfoReadPlatformService
+					.retrieveClientBillInfoDetails(clientId);
+			BigDecimal conversionPrice = this.clientBalanceWritePlatformService.conversion(item.getCurrencyId(),
+					clientBillInfoData.getBillCurrency(), item.getUnitPrice());
 
-			final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command,item,conversionPrice,clientBillInfoData.getBillCurrency());
+			final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command, item, conversionPrice,
+					clientBillInfoData.getBillCurrency());
 			this.oneTimeSaleRepository.saveAndFlush(oneTimeSale);
-			final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
-			
+			final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService
+					.retrieveOnetimeSalesForInvoice(clientId);
+
 			JsonObject jsonObject = new JsonObject();
 			final String saleType = command.stringValueOfParameterNamed("saleType");
 			if (saleType.equalsIgnoreCase("NEWSALE")) {
 				for (OneTimeSaleData oneTimeSaleData : oneTimeSaleDatas) {
-					CommandProcessingResult invoice=this.invoiceOneTimeSale.invoiceOneTimeSale(clientId,oneTimeSaleData,false);
-					updateOneTimeSale(oneTimeSaleData,invoice);
+					CommandProcessingResult invoice = this.invoiceOneTimeSale.invoiceOneTimeSale(clientId,
+							oneTimeSaleData, false);
+					updateOneTimeSale(oneTimeSaleData, invoice);
 				}
 			}
-			
-			if(UnitEnumType.PIECES.toString().equalsIgnoreCase(item.getUnits())){
-				
+
+			if (UnitEnumType.PIECES.toString().equalsIgnoreCase(item.getUnits())) {
+
 				JsonArray serialData = fromJsonHelper.extractJsonArrayNamed("serialNumber", element);
 				for (JsonElement je : serialData) {
 					JsonObject serialNumber = je.getAsJsonObject();
 					serialNumber.addProperty("clientId", oneTimeSale.getClientId());
-					serialNumber.addProperty("orderId", oneTimeSale.getId());break;
+					serialNumber.addProperty("orderId", oneTimeSale.getId());
+					break;
 				}
 				jsonObject.addProperty("itemId", oneTimeSale.getItemId());
 				jsonObject.addProperty("quantity", oneTimeSale.getQuantity());
 				jsonObject.add("serialNumber", serialData);
-				JsonCommand jsonCommand = new JsonCommand(null,jsonObject.toString(), element, fromJsonHelper, null, null,
-						null, null, null, null, null, null, null, null, null, null);
+				JsonCommand jsonCommand = new JsonCommand(null, jsonObject.toString(), element, fromJsonHelper, null,
+						null, null, null, null, null, null, null, null, null, null, null);
 				this.inventoryItemDetailsWritePlatformService.allocateHardware(jsonCommand);
-			}else if(UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits()) || 
-								UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())){
-				
-				final Collection<InventoryGrnData> grnDatas = this.grnReadPlatformService.retriveGrnIdswithItemId(itemId);
-				for(InventoryGrnData grnData : grnDatas){
+			} else if (UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits())
+					|| UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())) {
+
+				final Collection<InventoryGrnData> grnDatas = this.grnReadPlatformService
+						.retriveGrnIdswithItemId(itemId);
+
+				for (InventoryGrnData grnData : grnDatas) {
 					InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(grnData.getId());
-					if(inventoryGrn.getReceivedQuantity() > 0 && inventoryGrn.getStockQuantity() > 0){
-						inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity()-quantity);
+					if (inventoryGrn.getReceivedQuantity() > 0) {
+						inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity() + quantity);
 						this.inventoryGrnRepository.save(inventoryGrn);
 						break;
+					} else {
+						throw new StockNotFoundException();
 					}
 				}
-				//InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(command.longValueOfParameterNamed("grnId"));
-				
-			}else{
-				throw new PlatformDataIntegrityException("error.msg.invalid.unit",
-						"Unknown unit is mentioned");
+				// InventoryGrn inventoryGrn =
+				// inventoryGrnRepository.findOne(command.longValueOfParameterNamed("grnId"));
+
+			} else {
+				throw new PlatformDataIntegrityException("error.msg.invalid.unit", "Unknown unit is mentioned");
 			}
-			
+
 			return new CommandProcessingResult(Long.valueOf(oneTimeSale.getId()), clientId);
 		} catch (final DataIntegrityViolationException dve) {
 			handleCodeDataIntegrityIssues(command, dve);
 			return new CommandProcessingResult(Long.valueOf(-1));
 		}
 	}
-	
-	 private void devicePairingFunctionality(JsonArray serialData,String isPairing,FromJsonHelper fromJsonHelper,Long clientId) {
-		 String serialNo1 = null;String serialNo2 = null;JsonElement je = null;
-		 String STBItemType = null;String VCItemType = null;String status = null;
-		 Long serviceId = Long.valueOf(1);
-		 ItemPairing itemPairing = null;
-		 if("Y".equalsIgnoreCase(isPairing)){
-			 for(int i=0;i<serialData.size();i++){
-				 je = serialData.get(i);
-				 status = this.fromJsonHelper.extractStringNamed("status", je);
-				 if(i==0){
-					 serialNo1 = this.fromJsonHelper.extractStringNamed("serialNumber", je);
-					 STBItemType = this.fromJsonHelper.extractStringNamed("itemType", je);
-				 }else if(i==1){
-					 serialNo2 = this.fromJsonHelper.extractStringNamed("serialNumber", je);
-					 VCItemType = this.fromJsonHelper.extractStringNamed("itemType", je);
-				 }
-			 }
-			 if(serialNo1 != null && serialNo2 != null && STBItemType != null && VCItemType !=null){
-				 itemPairing = new ItemPairing(clientId, serviceId, new Date(), null, status, serialNo1, STBItemType, serialNo2, VCItemType);
-				 this.itemPairingRepository.saveAndFlush(itemPairing);
-			 }
-		 }
-	 
-	 }
-		
-	private Long getUserId() {
-			Long userId=null;
-			SecurityContext context = SecurityContextHolder.getContext();
-				if(context.getAuthentication() != null){
-					AppUser appUser=this.context.authenticatedUser();
-					userId=appUser.getId();
-				}else {
-					userId=new Long(0);
-				}
-				
-				return userId;
-		}
 
-	private void handleCodeDataIntegrityIssues(final JsonCommand command,
-			final DataIntegrityViolationException dve) {
-		
-		LOGGER.error(dve.getMessage(), dve);
-		final Throwable realCause=dve.getMostSpecificCause();
-		throw new PlatformDataIntegrityException(
-				"error.msg.could.unknown.data.integrity.issue",
-				"Unknown data integrity issue with resource: "
-						+ realCause.getMessage());
-		
+	@Transactional
+	@Override
+	public CommandProcessingResult createOneTimeSaleNonserializedItem(final JsonCommand command, final Long clientId) {
+
+		try {
+			this.context.authenticatedUser();
+			this.apiJsonDeserializer.validateForCreate(command.json());
+			final JsonElement element = fromJsonHelper.parse(command.json());
+			final Long itemId = command.longValueOfParameterNamed("itemId");
+			ItemMaster item = this.itemMasterRepository.findOne(itemId);
+			final Long quantity = command.longValueOfParameterNamed("quantity");
+
+			// Check for Custome_Validation
+			this.eventValidationReadPlatformService.checkForCustomValidations(clientId, "Rental", command.json(),
+					getUserId());
+
+			// end
+			ClientBillInfoData clientBillInfoData = this.clientBillInfoReadPlatformService
+					.retrieveClientBillInfoDetails(clientId);
+			BigDecimal conversionPrice = this.clientBalanceWritePlatformService.conversion(item.getCurrencyId(),
+					clientBillInfoData.getBillCurrency(), item.getUnitPrice());
+
+			final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command, item, conversionPrice,
+					clientBillInfoData.getBillCurrency());
+			this.oneTimeSaleRepository.saveAndFlush(oneTimeSale);
+			final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService
+					.retrieveOnetimeSalesForInvoice(clientId);
+
+			JsonObject jsonObject = new JsonObject();
+			final String saleType = command.stringValueOfParameterNamed("saleType");
+			if (saleType.equalsIgnoreCase("NEWSALE")) {
+				for (OneTimeSaleData oneTimeSaleData : oneTimeSaleDatas) {
+					CommandProcessingResult invoice = this.invoiceOneTimeSale.invoiceOneTimeSale(clientId,
+							oneTimeSaleData, false);
+					updateOneTimeSale(oneTimeSaleData, invoice);
+				}
+			}
+			/*
+			 * if(UnitEnumType.PIECES.toString().equalsIgnoreCase(item.getUnits())){
+			 * 
+			 * JsonArray serialData = fromJsonHelper.extractJsonArrayNamed("serialNumber",
+			 * element); for (JsonElement je : serialData) { JsonObject serialNumber =
+			 * je.getAsJsonObject(); serialNumber.addProperty("clientId",
+			 * oneTimeSale.getClientId()); serialNumber.addProperty("orderId",
+			 * oneTimeSale.getId());break; } jsonObject.addProperty("itemId",
+			 * oneTimeSale.getItemId()); jsonObject.addProperty("quantity",
+			 * oneTimeSale.getQuantity()); jsonObject.add("serialNumber", serialData);
+			 * JsonCommand jsonCommand = new JsonCommand(null,jsonObject.toString(),
+			 * element, fromJsonHelper, null, null, null, null, null, null, null, null,
+			 * null, null, null, null);
+			 * this.inventoryItemDetailsWritePlatformService.allocateHardware(jsonCommand);
+			 * }else
+			 * if(UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits()) ||
+			 * UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())){
+			 * 
+			 * final Collection<InventoryGrnData> grnDatas =
+			 * this.grnReadPlatformService.retriveGrnIdswithItemId(itemId);
+			 * for(InventoryGrnData grnData : grnDatas){ InventoryGrn inventoryGrn =
+			 * inventoryGrnRepository.findOne(grnData.getId());
+			 * if(inventoryGrn.getReceivedQuantity() > 0 && inventoryGrn.getStockQuantity()
+			 * > 0){
+			 * inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity()-quantity);
+			 * this.inventoryGrnRepository.save(inventoryGrn); break; } } //InventoryGrn
+			 * inventoryGrn =
+			 * inventoryGrnRepository.findOne(command.longValueOfParameterNamed("grnId"));
+			 * 
+			 * }else{ throw new PlatformDataIntegrityException("error.msg.invalid.unit",
+			 * "Unknown unit is mentioned"); }
+			 */
+			return new CommandProcessingResult(Long.valueOf(oneTimeSale.getId()), clientId);
+		} catch (final DataIntegrityViolationException dve) {
+			handleCodeDataIntegrityIssues(command, dve);
+			return new CommandProcessingResult(Long.valueOf(-1));
+		}
+	}
+
+	private void devicePairingFunctionality(JsonArray serialData, String isPairing, FromJsonHelper fromJsonHelper,
+			Long clientId) {
+		String serialNo1 = null;
+		String serialNo2 = null;
+		JsonElement je = null;
+		String STBItemType = null;
+		String VCItemType = null;
+		String status = null;
+		Long serviceId = Long.valueOf(1);
+		ItemPairing itemPairing = null;
+		if ("Y".equalsIgnoreCase(isPairing)) {
+			for (int i = 0; i < serialData.size(); i++) {
+				je = serialData.get(i);
+				status = this.fromJsonHelper.extractStringNamed("status", je);
+				if (i == 0) {
+					serialNo1 = this.fromJsonHelper.extractStringNamed("serialNumber", je);
+					STBItemType = this.fromJsonHelper.extractStringNamed("itemType", je);
+				} else if (i == 1) {
+					serialNo2 = this.fromJsonHelper.extractStringNamed("serialNumber", je);
+					VCItemType = this.fromJsonHelper.extractStringNamed("itemType", je);
+				}
+			}
+			if (serialNo1 != null && serialNo2 != null && STBItemType != null && VCItemType != null) {
+				itemPairing = new ItemPairing(clientId, serviceId, new Date(), null, status, serialNo1, STBItemType,
+						serialNo2, VCItemType);
+				this.itemPairingRepository.saveAndFlush(itemPairing);
+			}
+		}
 
 	}
 
-	public void updateOneTimeSale(final OneTimeSaleData oneTimeSaleData,final CommandProcessingResult invoice) {
+	private Long getUserId() {
+		Long userId = null;
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context.getAuthentication() != null) {
+			AppUser appUser = this.context.authenticatedUser();
+			userId = appUser.getId();
+		} else {
+			userId = new Long(0);
+		}
+
+		return userId;
+	}
+
+	private void handleCodeDataIntegrityIssues(final JsonCommand command, final DataIntegrityViolationException dve) {
+
+		LOGGER.error(dve.getMessage(), dve);
+		final Throwable realCause = dve.getMostSpecificCause();
+		throw new PlatformDataIntegrityException("error.msg.could.unknown.data.integrity.issue",
+				"Unknown data integrity issue with resource: " + realCause.getMessage());
+
+	}
+
+	public void updateOneTimeSale(final OneTimeSaleData oneTimeSaleData, final CommandProcessingResult invoice) {
 
 		OneTimeSale oneTimeSale = oneTimeSaleRepository.findOne(oneTimeSaleData.getId());
 		oneTimeSale.setIsInvoiced('Y');
@@ -297,44 +394,49 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 
 	}
 
-	/* (non-Javadoc)
-	 * @see #calculatePrice(java.lang.Long, org.mifosplatform.infrastructure.core.api.JsonQuery)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see #calculatePrice(java.lang.Long,
+	 * org.mifosplatform.infrastructure.core.api.JsonQuery)
 	 */
 	@Override
 	public ItemData calculatePrice(final Long itemId, final JsonQuery query) {
 
 		try {
-			
+
 			this.context.authenticatedUser();
 			this.apiJsonDeserializer.validateForPrice(query.parsedJson());
-			final BigDecimal unitprice = fromJsonHelper.extractBigDecimalWithLocaleNamed("unitPrice",query.parsedJson());
+			final BigDecimal unitprice = fromJsonHelper.extractBigDecimalWithLocaleNamed("unitPrice",
+					query.parsedJson());
 			final String units = fromJsonHelper.extractStringNamed("units", query.parsedJson());
 			BigDecimal itemprice = null;
 			BigDecimal totalPrice = null;
 			ItemMaster itemMaster = this.itemMasterRepository.findOne(itemId);
-		
-		    if (unitprice != null) {
+
+			if (unitprice != null) {
 				itemprice = unitprice;
 			} else {
 				itemprice = itemMaster.getUnitPrice();
 			}
-		    List<ItemData> itemCodeData = this.oneTimeSaleReadPlatformService.retrieveItemData();
+			List<ItemData> itemCodeData = this.oneTimeSaleReadPlatformService.retrieveItemData();
 			List<DiscountMasterData> discountdata = this.discountReadPlatformService.retrieveAllDiscounts();
-			ItemData itemData = this.itemReadPlatformService.retrieveSingleItemDetails(null, itemId,null,false);
+			ItemData itemData = this.itemReadPlatformService.retrieveSingleItemDetails(null, itemId, null, false);
 			itemData.setUnitPrice(itemprice);
 			List<ChargesData> chargesDatas = this.itemReadPlatformService.retrieveChargeCode();
 
-		    if(UnitEnumType.PIECES.toString().equalsIgnoreCase(units)){
-		    	final Integer quantity = fromJsonHelper.extractIntegerWithLocaleNamed("quantity",query.parsedJson());
-		    	totalPrice = itemprice.multiply(new BigDecimal(quantity));
-		    	return new ItemData(itemCodeData, itemData, totalPrice, quantity.toString(), discountdata, chargesDatas, null);
-		    }else{
-		    	final String quantityValue = fromJsonHelper.extractStringNamed("quantity",query.parsedJson());
-		    	totalPrice = itemprice.multiply(new BigDecimal(quantityValue));
-		    	return new ItemData(itemCodeData, itemData, totalPrice, quantityValue, discountdata, chargesDatas, null);
-		    }
-			
-			
+			if (UnitEnumType.PIECES.toString().equalsIgnoreCase(units)) {
+				final Integer quantity = fromJsonHelper.extractIntegerWithLocaleNamed("quantity", query.parsedJson());
+				totalPrice = itemprice.multiply(new BigDecimal(quantity));
+				return new ItemData(itemCodeData, itemData, totalPrice, quantity.toString(), discountdata, chargesDatas,
+						null);
+			} else {
+				final String quantityValue = fromJsonHelper.extractStringNamed("quantity", query.parsedJson());
+				totalPrice = itemprice.multiply(new BigDecimal(quantityValue));
+				return new ItemData(itemCodeData, itemData, totalPrice, quantityValue, discountdata, chargesDatas,
+						null);
+			}
+
 		} catch (final DataIntegrityViolationException dve) {
 			handleCodeDataIntegrityIssues(null, dve);
 			return null;
@@ -342,8 +444,12 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see #deleteOneTimeSale(org.mifosplatform.infrastructure.core.api.JsonCommand, java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * #deleteOneTimeSale(org.mifosplatform.infrastructure.core.api.JsonCommand,
+	 * java.lang.Long)
 	 */
 	@Transactional
 	@Override
@@ -352,190 +458,188 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 		OneTimeSale oneTimeSale = null;
 		try {
 			oneTimeSale = this.findOneById(entityId);
-		    if(oneTimeSale.getDeviceMode().equalsIgnoreCase("NEWSALE")&&oneTimeSale.getIsInvoiced()=='Y'){
-				ChargeCodeMaster chargeCode=this.chargeCodeRepository.findOneByChargeCode(oneTimeSale.getChargeCode());
-				if(oneTimeSale.getInvoiceId()!=null){//check for old onetimesale's
-				   BillItem oldInvoice=this.billItemRepository.findOne(oneTimeSale.getInvoiceId());
-				   List<Charge> charge=oldInvoice.getCharges();
-				   BigDecimal discountAmount=charge.get(0).getDiscountAmount();
-				   //cancel sale calling 
-				   OneTimeSale cancelDeviceSale= new OneTimeSale(oneTimeSale.getClientId(), oneTimeSale.getItemId(), oneTimeSale.getUnits(),oneTimeSale.getQuantity(),oneTimeSale.getChargeCode(), oneTimeSale.getUnitPrice(), oneTimeSale.getTotalPrice(), 
-			        		                           DateUtils.getLocalDateOfTenant(),oneTimeSale.getDiscountId(),oneTimeSale.getOfficeId(),CodeNameConstants.CODE_CANCEL_SALE,null,oneTimeSale.getClientServiceId(),null);
-				   this.oneTimeSaleRepository.saveAndFlush(cancelDeviceSale);
-				   OneTimeSaleData oneTimeSaleData = new OneTimeSaleData(cancelDeviceSale.getId(),oneTimeSale.getClientId(), oneTimeSale.getUnits(), oneTimeSale.getChargeCode(), 
-						                             chargeCode.getChargeType(),oneTimeSale.getUnitPrice(),oneTimeSale.getQuantity(), oneTimeSale.getTotalPrice(), "Y",
-						                             oneTimeSale.getItemId(),oneTimeSale.getDiscountId(),chargeCode.getTaxInclusive(),null,null,null);
-				   CommandProcessingResult invoice=this.invoiceOneTimeSale.reverseInvoiceForOneTimeSale(oneTimeSale.getClientId(),oneTimeSaleData,discountAmount,false);
-				   cancelDeviceSale.setIsDeleted('Y');
-				   cancelDeviceSale.setInvoiceId(invoice.resourceId());
-				   cancelDeviceSale.setIsInvoiced('Y');
-				   this.oneTimeSaleRepository.save(cancelDeviceSale);
-				   oldInvoice.setDueAmount(BigDecimal.ZERO);
-				   this.billItemRepository.save(oldInvoice);
-				  }
-			 }
+			if (oneTimeSale.getDeviceMode().equalsIgnoreCase("NEWSALE") && oneTimeSale.getIsInvoiced() == 'Y') {
+				ChargeCodeMaster chargeCode = this.chargeCodeRepository
+						.findOneByChargeCode(oneTimeSale.getChargeCode());
+				if (oneTimeSale.getInvoiceId() != null) {// check for old onetimesale's
+					BillItem oldInvoice = this.billItemRepository.findOne(oneTimeSale.getInvoiceId());
+					List<Charge> charge = oldInvoice.getCharges();
+					BigDecimal discountAmount = charge.get(0).getDiscountAmount();
+					// cancel sale calling
+					OneTimeSale cancelDeviceSale = new OneTimeSale(oneTimeSale.getClientId(), oneTimeSale.getItemId(),
+							oneTimeSale.getUnits(), oneTimeSale.getQuantity(), oneTimeSale.getChargeCode(),
+							oneTimeSale.getUnitPrice(), oneTimeSale.getTotalPrice(), DateUtils.getLocalDateOfTenant(),
+							oneTimeSale.getDiscountId(), oneTimeSale.getOfficeId(), CodeNameConstants.CODE_CANCEL_SALE,
+							null, oneTimeSale.getClientServiceId(), null);
+					this.oneTimeSaleRepository.saveAndFlush(cancelDeviceSale);
+					OneTimeSaleData oneTimeSaleData = new OneTimeSaleData(cancelDeviceSale.getId(),
+							oneTimeSale.getClientId(), oneTimeSale.getUnits(), oneTimeSale.getChargeCode(),
+							chargeCode.getChargeType(), oneTimeSale.getUnitPrice(), oneTimeSale.getQuantity(),
+							oneTimeSale.getTotalPrice(), "Y", oneTimeSale.getItemId(), oneTimeSale.getDiscountId(),
+							chargeCode.getTaxInclusive(), null, null, null);
+					CommandProcessingResult invoice = this.invoiceOneTimeSale.reverseInvoiceForOneTimeSale(
+							oneTimeSale.getClientId(), oneTimeSaleData, discountAmount, false);
+					cancelDeviceSale.setIsDeleted('Y');
+					cancelDeviceSale.setInvoiceId(invoice.resourceId());
+					cancelDeviceSale.setIsInvoiced('Y');
+					this.oneTimeSaleRepository.save(cancelDeviceSale);
+					oldInvoice.setDueAmount(BigDecimal.ZERO);
+					this.billItemRepository.save(oldInvoice);
+				}
+			}
 			oneTimeSale.setIsDeleted('Y');
 			this.oneTimeSaleRepository.save(oneTimeSale);
 
 		} catch (final DataIntegrityViolationException dve) {
 			handleCodeDataIntegrityIssues(null, dve);
 		}
-		return new CommandProcessingResult(Long.valueOf(oneTimeSale.getId()),oneTimeSale.getClientId());
+		return new CommandProcessingResult(Long.valueOf(oneTimeSale.getId()), oneTimeSale.getClientId());
 	}
 
 	private OneTimeSale findOneById(final Long saleId) {
-	
-		try{
-			OneTimeSale oneTimeSale=this.oneTimeSaleRepository.findOne(saleId);
+
+		try {
+			OneTimeSale oneTimeSale = this.oneTimeSaleRepository.findOne(saleId);
 			return oneTimeSale;
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw new DeviceSaleNotFoundException(saleId.toString());
 		}
 	}
 
-/*	@Override
-	public CommandProcessingResult createOneTimeSaleDevicePlan(final JsonCommand command,final Long clientId) {
+	/*
+	 * @Override public CommandProcessingResult createOneTimeSaleDevicePlan(final
+	 * JsonCommand command,final Long clientId) {
+	 * 
+	 * try {
+	 * 
+	 * this.context.authenticatedUser();
+	 * this.apiJsonDeserializer.validateForCreate(command.json()); final JsonElement
+	 * element = fromJsonHelper.parse(command.json()); final Long itemId =
+	 * command.longValueOfParameterNamed("itemId"); ItemMaster item =
+	 * this.itemMasterRepository.findOne(itemId); final Long quantity =
+	 * command.longValueOfParameterNamed("quantity"); ItemDetails itemDetails =
+	 * this.itemDetailsRepository.findOne(quantity); final JsonArray commandArray =
+	 * fromApiJsonHelper.extractJsonArrayNamed("serialNumber", element);
+	 * 
+	 * if (commandArray != null) { for (JsonElement jsonelement : commandArray) {
+	 * final Long orderId = fromApiJsonHelper.extractLongNamed("orderId",
+	 * jsonelement); Order order = this.orderRepository.findOne(orderId);
+	 * 
+	 * this.eventValidationReadPlatformService.checkForCustomValidations(clientId,
+	 * "Rental",command.json(),getUserId());
+	 * 
+	 * final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command,item);
+	 * this.oneTimeSaleRepository.saveAndFlush(oneTimeSale); final
+	 * List<OneTimeSaleData> oneTimeSaleDatas =
+	 * this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
+	 * 
+	 * 
+	 * //Order order = this.orderRepository.findOne(orderId);
+	 * this.oneTimeSaleRepository.saveAndFlush(oneTimeSale); final
+	 * List<OneTimeSaleData> oneTimeSaleDatas =
+	 * this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
+	 * 
+	 * 
+	 * JsonObject jsonObject = new JsonObject(); final String saleType =
+	 * command.stringValueOfParameterNamed("saleType"); if
+	 * (saleType.equalsIgnoreCase("NEWSALE")) { for (OneTimeSaleData oneTimeSaleData
+	 * : oneTimeSaleDatas) { CommandProcessingResult
+	 * invoice=this.invoiceOneTimeSale.invoiceOneTimeSale(clientId,oneTimeSaleData,
+	 * false); updateOneTimeSale(oneTimeSaleData,invoice); } }
+	 * 
+	 * if(UnitEnumType.PIECES.toString().equalsIgnoreCase(item.getUnits())){
+	 * 
+	 * JsonArray serialData = fromJsonHelper.extractJsonArrayNamed("serialNumber",
+	 * element); for (JsonElement je : serialData) { JsonObject serialNumber =
+	 * je.getAsJsonObject(); serialNumber.addProperty("clientId",
+	 * order.getClientId()); serialNumber.addProperty("orderId",
+	 * order.getId());break; } jsonObject.addProperty("itemId", item.getId());
+	 * jsonObject.addProperty("quantity", itemDetails.getReceivedQuantity());
+	 * jsonObject.add("serialNumber", serialData); JsonCommand jsonCommand = new
+	 * JsonCommand(null,jsonObject.toString(), element, fromJsonHelper, null, null,
+	 * null, null, null, null, null, null, null, null, null, null);
+	 * this.inventoryItemDetailsWritePlatformService.allocateHardware(jsonCommand);
+	 * }else
+	 * if(UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits()) ||
+	 * UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())){
+	 * 
+	 * final Collection<InventoryGrnData> grnDatas =
+	 * this.grnReadPlatformService.retriveGrnIdswithItemId(itemId);
+	 * for(InventoryGrnData grnData : grnDatas){ InventoryGrn inventoryGrn =
+	 * inventoryGrnRepository.findOne(grnData.getId());
+	 * if(inventoryGrn.getReceivedQuantity() > 0 && inventoryGrn.getStockQuantity()
+	 * > 0){
+	 * inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity()-quantity);
+	 * this.inventoryGrnRepository.save(inventoryGrn); break; } } //InventoryGrn
+	 * inventoryGrn =
+	 * inventoryGrnRepository.findOne(command.longValueOfParameterNamed("grnId"));
+	 * 
+	 * }else{ throw new PlatformDataIntegrityException("error.msg.invalid.unit",
+	 * "Unknown unit is mentioned"); }
+	 * 
+	 * } }
+	 * 
+	 * 
+	 * //final Long orderId = element.longValueOfParameterNamed("orderId"); //Order
+	 * order = this.orderRepository.findOne(orderId);
+	 * 
+	 * // Check for Custome_Validation
+	 * this.eventValidationReadPlatformService.checkForCustomValidations(clientId,
+	 * "Rental",command.json(),getUserId());
+	 * 
+	 * final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command,item);
+	 * this.oneTimeSaleRepository.saveAndFlush(oneTimeSale); final
+	 * List<OneTimeSaleData> oneTimeSaleDatas =
+	 * this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
+	 * 
+	 * 
+	 * //Order order = this.orderRepository.findOne(orderId);
+	 * this.oneTimeSaleRepository.saveAndFlush(oneTimeSale); final
+	 * List<OneTimeSaleData> oneTimeSaleDatas =
+	 * this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
+	 * 
+	 * 
+	 * JsonObject jsonObject = new JsonObject(); final String saleType =
+	 * command.stringValueOfParameterNamed("saleType"); if
+	 * (saleType.equalsIgnoreCase("NEWSALE")) { for (OneTimeSaleData oneTimeSaleData
+	 * : oneTimeSaleDatas) { CommandProcessingResult
+	 * invoice=this.invoiceOneTimeSale.invoiceOneTimeSale(clientId,oneTimeSaleData,
+	 * false); updateOneTimeSale(oneTimeSaleData,invoice); } }
+	 * 
+	 * if(UnitEnumType.PIECES.toString().equalsIgnoreCase(item.getUnits())){
+	 * 
+	 * JsonArray serialData = fromJsonHelper.extractJsonArrayNamed("serialNumber",
+	 * element); for (JsonElement je : serialData) { JsonObject serialNumber =
+	 * je.getAsJsonObject(); serialNumber.addProperty("clientId",
+	 * order.getClientId()); serialNumber.addProperty("orderId",
+	 * order.getId());break; } jsonObject.addProperty("itemId", item.getId());
+	 * //jsonObject.addProperty("quantity", order.getQuantity());
+	 * jsonObject.add("serialNumber", serialData); JsonCommand jsonCommand = new
+	 * JsonCommand(null,jsonObject.toString(), element, fromJsonHelper, null, null,
+	 * null, null, null, null, null, null, null, null, null, null);
+	 * this.inventoryItemDetailsWritePlatformService.allocateHardware(jsonCommand);
+	 * }else
+	 * if(UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits()) ||
+	 * UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())){
+	 * 
+	 * final Collection<InventoryGrnData> grnDatas =
+	 * this.grnReadPlatformService.retriveGrnIdswithItemId(itemId);
+	 * for(InventoryGrnData grnData : grnDatas){ InventoryGrn inventoryGrn =
+	 * inventoryGrnRepository.findOne(grnData.getId());
+	 * if(inventoryGrn.getReceivedQuantity() > 0 && inventoryGrn.getStockQuantity()
+	 * > 0){
+	 * inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity()-quantity);
+	 * this.inventoryGrnRepository.save(inventoryGrn); break; } } //InventoryGrn
+	 * inventoryGrn =
+	 * inventoryGrnRepository.findOne(command.longValueOfParameterNamed("grnId"));
+	 * 
+	 * }else{ throw new PlatformDataIntegrityException("error.msg.invalid.unit",
+	 * "Unknown unit is mentioned"); }
+	 * 
+	 * return new CommandProcessingResult(Long.valueOf(order.getId()), clientId); }
+	 * catch (final DataIntegrityViolationException dve) {
+	 * handleCodeDataIntegrityIssues(command, dve); return new
+	 * CommandProcessingResult(Long.valueOf(-1)); } }
+	 */
 
-		try {
-			
-			this.context.authenticatedUser();
-			this.apiJsonDeserializer.validateForCreate(command.json());
-			final JsonElement element = fromJsonHelper.parse(command.json());
-			final Long itemId = command.longValueOfParameterNamed("itemId");
-			ItemMaster item = this.itemMasterRepository.findOne(itemId);
-			final Long quantity = command.longValueOfParameterNamed("quantity");
-			ItemDetails itemDetails = this.itemDetailsRepository.findOne(quantity);
-			final JsonArray commandArray = fromApiJsonHelper.extractJsonArrayNamed("serialNumber", element);
-			
-			if (commandArray != null) {
-				for (JsonElement jsonelement : commandArray) {
-					final Long orderId = fromApiJsonHelper.extractLongNamed("orderId", jsonelement);
-					Order order = this.orderRepository.findOne(orderId);
-					
-					this.eventValidationReadPlatformService.checkForCustomValidations(clientId, "Rental",command.json(),getUserId());
-
-					final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command,item);
-					this.oneTimeSaleRepository.saveAndFlush(oneTimeSale);
-					final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
-					
-
-					//Order order = this.orderRepository.findOne(orderId);
-					this.oneTimeSaleRepository.saveAndFlush(oneTimeSale);
-					final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
-					
-					
-					JsonObject jsonObject = new JsonObject();
-					final String saleType = command.stringValueOfParameterNamed("saleType");
-					if (saleType.equalsIgnoreCase("NEWSALE")) {
-						for (OneTimeSaleData oneTimeSaleData : oneTimeSaleDatas) {
-							CommandProcessingResult invoice=this.invoiceOneTimeSale.invoiceOneTimeSale(clientId,oneTimeSaleData,false);
-							updateOneTimeSale(oneTimeSaleData,invoice);
-						}
-					}
-					
-					if(UnitEnumType.PIECES.toString().equalsIgnoreCase(item.getUnits())){
-						
-						JsonArray serialData = fromJsonHelper.extractJsonArrayNamed("serialNumber", element);
-						for (JsonElement je : serialData) {
-							JsonObject serialNumber = je.getAsJsonObject();
-							serialNumber.addProperty("clientId", order.getClientId());
-							serialNumber.addProperty("orderId", order.getId());break;
-						}
-						jsonObject.addProperty("itemId", item.getId());
-						jsonObject.addProperty("quantity", itemDetails.getReceivedQuantity());
-						jsonObject.add("serialNumber", serialData);
-						JsonCommand jsonCommand = new JsonCommand(null,jsonObject.toString(), element, fromJsonHelper, null, null,
-								null, null, null, null, null, null, null, null, null, null);
-						this.inventoryItemDetailsWritePlatformService.allocateHardware(jsonCommand);
-					}else if(UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits()) || 
-										UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())){
-						
-						final Collection<InventoryGrnData> grnDatas = this.grnReadPlatformService.retriveGrnIdswithItemId(itemId);
-						for(InventoryGrnData grnData : grnDatas){
-							InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(grnData.getId());
-							if(inventoryGrn.getReceivedQuantity() > 0 && inventoryGrn.getStockQuantity() > 0){
-								inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity()-quantity);
-								this.inventoryGrnRepository.save(inventoryGrn);
-								break;
-							}
-						}
-						//InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(command.longValueOfParameterNamed("grnId"));
-						
-					}else{
-						throw new PlatformDataIntegrityException("error.msg.invalid.unit",
-								"Unknown unit is mentioned");
-					}
-					
-				}
-			}
-			
-			
-			//final Long orderId = element.longValueOfParameterNamed("orderId");
-			//Order order = this.orderRepository.findOne(orderId);
-
-			// Check for Custome_Validation
-			this.eventValidationReadPlatformService.checkForCustomValidations(clientId, "Rental",command.json(),getUserId());
-
-			final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command,item);
-			this.oneTimeSaleRepository.saveAndFlush(oneTimeSale);
-			final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
-			
-
-			//Order order = this.orderRepository.findOne(orderId);
-			this.oneTimeSaleRepository.saveAndFlush(oneTimeSale);
-			final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService.retrieveOnetimeSalesForInvoice(clientId);
-			
-			
-			JsonObject jsonObject = new JsonObject();
-			final String saleType = command.stringValueOfParameterNamed("saleType");
-			if (saleType.equalsIgnoreCase("NEWSALE")) {
-				for (OneTimeSaleData oneTimeSaleData : oneTimeSaleDatas) {
-					CommandProcessingResult invoice=this.invoiceOneTimeSale.invoiceOneTimeSale(clientId,oneTimeSaleData,false);
-					updateOneTimeSale(oneTimeSaleData,invoice);
-				}
-			}
-			
-			if(UnitEnumType.PIECES.toString().equalsIgnoreCase(item.getUnits())){
-				
-				JsonArray serialData = fromJsonHelper.extractJsonArrayNamed("serialNumber", element);
-				for (JsonElement je : serialData) {
-					JsonObject serialNumber = je.getAsJsonObject();
-					serialNumber.addProperty("clientId", order.getClientId());
-					serialNumber.addProperty("orderId", order.getId());break;
-				}
-				jsonObject.addProperty("itemId", item.getId());
-				//jsonObject.addProperty("quantity", order.getQuantity());
-				jsonObject.add("serialNumber", serialData);
-				JsonCommand jsonCommand = new JsonCommand(null,jsonObject.toString(), element, fromJsonHelper, null, null,
-						null, null, null, null, null, null, null, null, null, null);
-				this.inventoryItemDetailsWritePlatformService.allocateHardware(jsonCommand);
-			}else if(UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits()) || 
-								UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())){
-				
-				final Collection<InventoryGrnData> grnDatas = this.grnReadPlatformService.retriveGrnIdswithItemId(itemId);
-				for(InventoryGrnData grnData : grnDatas){
-					InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(grnData.getId());
-					if(inventoryGrn.getReceivedQuantity() > 0 && inventoryGrn.getStockQuantity() > 0){
-						inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity()-quantity);
-						this.inventoryGrnRepository.save(inventoryGrn);
-						break;
-					}
-				}
-				//InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(command.longValueOfParameterNamed("grnId"));
-				
-			}else{
-				throw new PlatformDataIntegrityException("error.msg.invalid.unit",
-						"Unknown unit is mentioned");
-			}
-			
-			return new CommandProcessingResult(Long.valueOf(order.getId()), clientId);
-		} catch (final DataIntegrityViolationException dve) {
-			handleCodeDataIntegrityIssues(command, dve);
-			return new CommandProcessingResult(Long.valueOf(-1));
-		}
-	}*/
-
-	
-	
-	
 }
