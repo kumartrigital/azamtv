@@ -54,6 +54,7 @@ public class GrnDetailsWritePlatformServiceImpl implements GrnDetailsWritePlatfo
 			if (itemMaster.getUnits().equalsIgnoreCase("Accessories")) {
 				inventoryGrn.setReceivedQuantity(inventoryGrn.getOrderdQuantity());
 			}
+
 			this.inventoryGrnRepository.save(inventoryGrn);
 		} catch (DataIntegrityViolationException dve) {
 			// logger.error(dve.getMessage(), dve);

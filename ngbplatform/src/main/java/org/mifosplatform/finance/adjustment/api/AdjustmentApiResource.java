@@ -93,5 +93,25 @@ public class AdjustmentApiResource {
         return this.toApiJsonSerializer.serialize(settings, datas, RESPONSE_DATA_PARAMETERS);
     }
     
+    
+    /**
+     * this method is used for creating adjustment
+     * @param clientId
+     * @param apiRequestBodyAsJson
+     * @return
+     */
+    @POST
+    @Path("jvtransaction")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
+	public String addNewAdjustment( final String apiRequestBodyAsJson) {
+    	
+    	final CommandWrapper commandRequest = new CommandWrapperBuilder().createAdjustmentjvTransaction().withJson(apiRequestBodyAsJson).build();
+
+        final CommandProcessingResult result = this.commandsSourceWritePlatformService.logCommandSource(commandRequest);
+
+        return this.toApiJsonSerializer.serialize(result);
+    }
+    
 
 }

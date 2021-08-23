@@ -234,7 +234,8 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 
 				for (InventoryGrnData grnData : grnDatas) {
 					InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(grnData.getId());
-					if (inventoryGrn.getReceivedQuantity() > 0) {
+					inventoryGrn.setReceivedQuantity(inventoryGrn.getReceivedQuantity() + quantity);
+					if (inventoryGrn.getReceivedQuantity() != inventoryGrn.getOrderdQuantity()) {
 						inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity() + quantity);
 						this.inventoryGrnRepository.save(inventoryGrn);
 						break;

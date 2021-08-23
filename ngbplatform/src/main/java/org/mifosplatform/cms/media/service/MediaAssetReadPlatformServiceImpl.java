@@ -1,10 +1,10 @@
+ 
 package org.mifosplatform.cms.media.service;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -263,13 +263,12 @@ public class MediaAssetReadPlatformServiceImpl implements MediaAssetReadPlatform
 
 		public String mediaAssestDataSchema() {
 
-			return " m.id AS id,m.title AS mediaTitle,m.status AS status,"
-					+ "(select code_value from m_code_value v where v.id=m.type) as EventCategory,"
-					+ "(select code_value from m_code_value v where v.id=m.category_id) as mediaCategory,"
-					+ "(select code_value from m_code_value v where v.id=m.content_provider) as contentProviderValue,"
-					+ "(select price from b_mod_pricing mp where mp.event_id=bm.id) as price,"
-					+ "m.cp_share as share,m.release_date as releaseDate FROM b_media_asset m, b_mod_master bm "
-					+ " where m.title=bm.event_description ";
+			return " m.id AS id,m.title AS mediaTitle,m.status AS status," + 
+					"(select code_value from m_code_value v where v.id=m.type) as EventCategory, " + 
+					"(select code_value from m_code_value v where v.id=m.category_id) as mediaCategory, " + 
+					"(select code_value from m_code_value v where v.id=m.content_provider) as contentProviderValue, " + 
+					"m.cp_share as share,m.release_date as releaseDate FROM b_media_asset m";
+
 		}
 	}
 

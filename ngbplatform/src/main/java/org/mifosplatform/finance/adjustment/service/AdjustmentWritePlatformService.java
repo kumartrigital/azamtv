@@ -9,4 +9,8 @@ public interface AdjustmentWritePlatformService {
 
 	CommandProcessingResult createAdjustment(JsonCommand command);
 	
+
+	CommandProcessingResult createjvAdjustment(JsonCommand command);
+
+	
 }
