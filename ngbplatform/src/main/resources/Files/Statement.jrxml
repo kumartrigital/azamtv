@@ -540,7 +540,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 					</graphicElement>
 				</line>
 				<staticText>
-					<reportElement x="24" y="103" width="74" height="20" uuid="3bd451c6-102d-4a47-b276-0d20de2a9997"/>
+					<reportElement x="24" y="103" width="56" height="20" uuid="3bd451c6-102d-4a47-b276-0d20de2a9997"/>
 					<textElement>
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
