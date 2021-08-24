@@ -191,7 +191,7 @@
         
          CONCAT(DATEDIFF(bc.charge_end_date, bc.charge_start_date) + 1,
                 ' days')
-                ELSE '-'
+                ELSE '1'
     END) AS days,
      bi.netcharge_amount as chargeAmount,
        bi.tax_amount as taxAmount,
