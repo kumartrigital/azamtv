@@ -735,7 +735,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 									<textElement textAlignment="Center">
 										<font fontName="DejaVu Sans" size="10" isBold="true"/>
 									</textElement>
-									<text><![CDATA[Item]]></text>
+									<text><![CDATA[Period]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="20" rowSpan="1">
@@ -755,7 +755,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 									<textElement textAlignment="Center">
 										<font fontName="DejaVu Sans" size="10" isBold="true"/>
 									</textElement>
-									<text><![CDATA[Package]]></text>
+									<text><![CDATA[Item]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="20" rowSpan="1">
