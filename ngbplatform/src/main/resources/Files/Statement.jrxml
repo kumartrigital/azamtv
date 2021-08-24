@@ -171,9 +171,29 @@
 			<![CDATA[SELECT  bm.id as billId,
         bc.id AS chargeId,
         bc.order_id as orderId,
-         'charging OTC' AS package,
-      'one time ' AS period,
-      '1' as days,
+         (CASE
+        WHEN btm.item_description IS NULL THEN pm.plan_description
+        ELSE btm.item_description
+    END) AS package,
+    (CASE
+        WHEN
+            btm.item_description IS NULL
+        THEN
+            CONCAT(DATE_FORMAT(bc.charge_start_date, '%d/%m/%y'),
+                    ' - ',
+                    DATE_FORMAT(bc.charge_end_date, '%d/%m/%y'))
+        ELSE 'OTC'
+    END) AS period,
+    
+    (CASE
+        WHEN
+         btm.item_description IS NULL
+        THEN
+        
+         CONCAT(DATEDIFF(bc.charge_end_date, bc.charge_start_date) + 1,
+                ' days')
+                ELSE '-'
+    END) AS days,
      bi.netcharge_amount as chargeAmount,
        bi.tax_amount as taxAmount,
       (bi.netcharge_amount + ifnull(bcx.tax_amount,0)) as totalChageAmount,
