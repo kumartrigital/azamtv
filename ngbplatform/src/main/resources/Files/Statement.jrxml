@@ -171,24 +171,18 @@
 			<![CDATA[SELECT  bm.id as billId,
         bc.id AS chargeId,
         bc.order_id as orderId,
-       (CASE
-        WHEN bc.priceline_id = 0 AND bc.charge_type = 'NRC' THEN btm.item_description
-        WHEN bc.priceline_id = -1 AND bc.charge_type = 'NRC' THEN concat('ST','-',ph.property_code)
-        ELSE pm.plan_description
-      END) AS package,
-      concat(DATE_FORMAT(bc.charge_start_date,'%d/%m/%y'),' - ',DATE_FORMAT(bc.charge_end_date,'%d/%m/%y')) AS period,
-       (CASE
-        WHEN bc.priceline_id = 0 AND bc.order_id=bos.id AND bc.charge_type = 'NRC' THEN bos.quantity
-        ELSE concat(DATEDIFF(bc.charge_end_date,bc.charge_start_date)+1,' days') END ) as days,
-       bc.netcharge_amount as chargeAmount,
-       bcx.tax_amount as taxAmount,
-      (bc.netcharge_amount + ifnull(bcx.tax_amount,0)) as totalChageAmount,
+         'charging OTC' AS package,
+      'one time ' AS period,
+      '1' as days,
+     bi.netcharge_amount as chargeAmount,
+       bi.tax_amount as taxAmount,
+      (bi.netcharge_amount + ifnull(bcx.tax_amount,0)) as totalChageAmount,
        m.account_no as accountNo,
        m.display_name as displayName,
        m.email as email
-FROM  b_bill_master bm  JOIN
+       FROM  b_bill_master bm  JOIN
        b_charge bc ON bm.id = bc.bill_id AND bm.client_id = bc.client_id
-       JOIN b_bill_item bi ON bm.id=bi.bill_id and bi.id=bc.billitem_id
+       JOIN b_bill_item bi ON bm.id=bi.bill_id and bi.bill_id=bc.bill_id
        JOIN m_client m ON m.id=bi.client_id AND bm.client_id=m.id AND m.id=bc.client_id
        LEFT JOIN b_charge_tax bcx ON bm.id=bcx.bill_id AND bcx.charge_id=bc.id
        LEFT JOIN b_onetime_sale bos  ON bc.order_id = bos.id
