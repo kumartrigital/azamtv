@@ -591,7 +591,7 @@ from bmaster_vw bv ,b_office_address oa,b_client_address bc  where  bv.billId=$P
 					<textFieldExpression><![CDATA[$F{cdistrict}+","+$F{ccity}+","+$F{cstate}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="141" y="76" width="226" height="22" uuid="6b912da1-2826-488b-ac87-9da411a8d2a5"/>
+					<reportElement x="141" y="76" width="203" height="22" uuid="6b912da1-2826-488b-ac87-9da411a8d2a5"/>
 					<textFieldExpression><![CDATA[$F{ccountry}+","+$F{czip}]]></textFieldExpression>
 				</textField>
 				<subreport>
