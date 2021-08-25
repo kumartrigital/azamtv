@@ -198,10 +198,12 @@
       (bi.netcharge_amount + ifnull(bi.tax_amount,0)) as totalChageAmount,
        m.account_no as accountNo,
        m.display_name as displayName,
-      m.email as email
+      m.email as email,
+      mi.code as currency
      FROM  b_bill_master bm  JOIN
        b_charge bc ON bm.id = bc.bill_id AND bm.client_id = bc.client_id
-       JOIN b_bill_item bi ON bm.id=bi.bill_id and bi.bill_id=bc.bill_id
+       JOIN b_bill_item bi ON bm.id=bi.bill_id and bi.bill_id=bc.bill_id 
+        JOIN m_currency mi on mi.id = bi.currency_id
        JOIN m_client m ON m.id=bi.client_id AND bm.client_id=m.id AND m.id=bc.client_id
        LEFT JOIN b_charge_tax bcx ON bm.id=bcx.bill_id AND bcx.charge_id=bc.id
        LEFT JOIN b_onetime_sale bos  ON bi.id = bos.invoice_id
@@ -230,6 +232,7 @@
 		<field name="email" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
+		<field name="currency" class="java.lang.String"/>
 		<variable name="totalInvoice" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{totalChageAmount}]]></variableExpression>
 			<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
@@ -387,38 +390,38 @@ from
 	</parameter>
 	<parameter name="realPath" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select billId as billId,
-billNo as billNo,
-clientId as clientId,
-billDate as billDate,
-dueDate as dueDate,
-previousBalance as previousBalance,
-chargesAmount as chargesAmount,
-adjustmentAmount as adjustmentAmount,
-taxAmount as taxAmount,
-paidAmount as paidAmount,
-depositRefundAmount as depositRefundAmount,
-dueAmount as dueAmount,
-Description as Description,
-discountAmount as discountAmount,
-addressId as addressId,
-addressKey as addressKey,
-addressNo as addressNo,
-street as street,
-address as address,
-accountNo as accountNo,
-externalId as externalId,
-status as status,
-activationDate as activationDate,
-officeId as officeId,
-firstname as firstname,
-middlename as middlename,
-lastname as lastname,
-displayName as displayName,
-emailId as emailId,
-imageKey as imageKey,
-categoryType as categoryType,
-officeName as officeName,
+		<![CDATA[select bv.billId as billId,
+bv.billNo as billNo,
+bv.clientId as clientId,
+bv.billDate as billDate,
+bv.dueDate as dueDate,
+bv.previousBalance as previousBalance,
+bv.chargesAmount as chargesAmount,
+bv.adjustmentAmount as adjustmentAmount,
+bv.taxAmount as taxAmount,
+bv.paidAmount as paidAmount,
+bv.depositRefundAmount as depositRefundAmount,
+bv.dueAmount as dueAmount,
+bv.Description as Description,
+bv.discountAmount as discountAmount,
+bv.addressId as addressId,
+bv.addressKey as addressKey,
+bv.addressNo as addressNo,
+bv.street as street,
+bv.address as address,
+bv.accountNo as accountNo,
+bv.externalId as externalId,
+bv.status as status,
+bv.activationDate as activationDate,
+bv.officeId as officeId,
+bv.firstname as firstname,
+bv.middlename as middlename,
+bv.lastname as lastname,
+bv.displayName as displayName,
+bv.emailId as emailId,
+bv.imageKey as imageKey,
+bv.categoryType as categoryType,
+bv.officeName as officeName,
 oa.contact_person as line_1,
 oa.address_name as line_2,
 oa.city as officeCity,
@@ -426,8 +429,8 @@ oa.state as officeState,
 oa.country as officeCountry,
 oa.zip as officeZip,
 oa.phone_number as phoneNumber,
-email_id as officeEmail
-from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]]>
+email_id as officeEmail,bc.address_no as caddress,bc.city as city,bc.state as state,bc.country as country,bc.district as district,bc.zip as zip 
+from bmaster_vw bv ,b_office_address oa,b_client_address bc  where  bv.billId=$P{param1} and oa.id=1 and bc.address_id=bv.addressId]]>
 	</queryString>
 	<field name="billId" class="java.lang.Integer"/>
 	<field name="billNo" class="java.lang.String"/>
@@ -489,6 +492,12 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 	<field name="officeZip" class="java.lang.String"/>
 	<field name="phoneNumber" class="java.lang.String"/>
 	<field name="officeEmail" class="java.lang.String"/>
+	<field name="caddress" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="country" class="java.lang.String"/>
+	<field name="district" class="java.lang.String"/>
+	<field name="zip" class="java.lang.String"/>
 	<background>
 		<band height="555">
 			<rectangle>
@@ -525,32 +534,32 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 			<frame>
 				<reportElement x="0" y="0" width="802" height="124" uuid="2bd58ac0-e3ef-4ddc-946f-e4443561fd3a"/>
 				<textField>
-					<reportElement x="98" y="31" width="182" height="59" uuid="d081b944-525f-41a9-9b96-ba1d2f07e840"/>
+					<reportElement x="142" y="31" width="182" height="20" uuid="d081b944-525f-41a9-9b96-ba1d2f07e840"/>
 					<textElement>
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{caddress}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="98" y="11" width="171" height="20" uuid="326e56bb-50a9-468f-a392-9cc55b1d278e"/>
+					<reportElement x="142" y="11" width="171" height="20" uuid="326e56bb-50a9-468f-a392-9cc55b1d278e"/>
 					<textElement>
 						<font fontName="DejaVu Sans"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{displayName}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="24" y="11" width="74" height="20" uuid="1c9e7c5d-ea23-4756-9d69-13a5a836b10a"/>
+					<reportElement x="11" y="11" width="122" height="20" uuid="1c9e7c5d-ea23-4756-9d69-13a5a836b10a"/>
 					<textElement>
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Name      :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="24" y="31" width="74" height="20" uuid="7380ea96-fe8c-4c13-bfc7-533fcb683a94"/>
+					<reportElement x="11" y="31" width="126" height="20" uuid="7380ea96-fe8c-4c13-bfc7-533fcb683a94"/>
 					<textElement>
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Address  :]]></text>
+					<text><![CDATA[Customer Address  :]]></text>
 				</staticText>
 				<line>
 					<reportElement x="0" y="0" width="802" height="1" uuid="2c0a7cb1-7447-4c64-ae6d-72d8b6dd854a"/>
@@ -559,7 +568,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 					</graphicElement>
 				</line>
 				<staticText>
-					<reportElement x="24" y="103" width="74" height="20" uuid="3bd451c6-102d-4a47-b276-0d20de2a9997"/>
+					<reportElement x="11" y="103" width="87" height="20" uuid="3bd451c6-102d-4a47-b276-0d20de2a9997"/>
 					<textElement>
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
@@ -573,43 +582,27 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 					<textFieldExpression><![CDATA[$F{officeName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="595" y="11" width="207" height="20" uuid="002fefcb-90e0-45f1-8745-c47f28165125"/>
+					<reportElement x="570" y="11" width="232" height="20" uuid="002fefcb-90e0-45f1-8745-c47f28165125"/>
 					<textElement>
 						<font fontName="DejaVu Sans" size="13" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{line_1}]]></textFieldExpression>
 				</textField>
+				<subreport>
+					<reportElement x="573" y="36" width="229" height="67" uuid="893890fa-5136-494b-97b8-301122d4f34e"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"/MsoAddress.jasper"]]></subreportExpression>
+				</subreport>
 				<textField>
-					<reportElement x="595" y="31" width="207" height="18" uuid="ac95592d-fa6f-41bb-9d65-3635125c4cd4"/>
+					<reportElement x="142" y="53" width="204" height="25" uuid="1e1abfae-c4e9-4478-bbcd-81ce997734dc"/>
 					<textElement>
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{line_2} +"," +$F{officeCity}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="595" y="49" width="207" height="19" uuid="8b6233ba-7091-4de4-a5a4-4a5efac0402f"/>
-					<textElement>
-						<font fontName="DejaVu Sans"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{officeState}+"," +$F{officeCountry}+" "+$F{officeZip}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="595" y="68" width="144" height="18" uuid="d8dd2784-5050-4acd-8ba5-cd34a42168c4"/>
-					<textElement>
-						<font fontName="DejaVu Sans"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Tel: "+$F{phoneNumber}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="595" y="86" width="157" height="17" uuid="7e21488d-0921-4e5f-9d3d-d1b097389470"/>
-					<textElement>
-						<font fontName="DejaVu Sans"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{officeEmail}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{city}+ "," +$F{state}+ "," + $F{country} +" "+$F{zip}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<image>
-				<reportElement x="379" y="14" width="187" height="37" uuid="60d559cf-e32a-44b1-b30c-bb8afb8cdcf0"/>
+				<reportElement x="341" y="14" width="159" height="37" uuid="60d559cf-e32a-44b1-b30c-bb8afb8cdcf0"/>
 				<imageExpression><![CDATA[$P{realPath}+"/companyLogo.jpg"]]></imageExpression>
 			</image>
 			<textField pattern="dd-MMM-yy">
@@ -684,54 +677,78 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:columnGroup width="347" uuid="cb226591-94d1-4745-80f4-b82ce7afac35">
+					<jr:column width="80" uuid="072fdd0d-eca1-4287-9a25-1ffe94e07c72">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="table" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="80" height="20" uuid="123ce560-3ed6-4c2f-9de3-8d6e8f6eaf4e"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Sans" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Txn. No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="80" height="20" uuid="e1d3eb2a-de86-471e-92ba-b573ad26390c"/>
+								<textElement>
+									<font fontName="DejaVu Sans"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{chargeId}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="321" uuid="cb226591-94d1-4745-80f4-b82ce7afac35">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [3]"/>
 						<jr:tableHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="137" y="0" width="89" height="30" uuid="d84a51d2-77a4-44aa-b8ba-aaa479a6e114"/>
+								<reportElement x="0" y="0" width="321" height="10" uuid="d84a51d2-77a4-44aa-b8ba-aaa479a6e114"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="11" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Account No  :]]></text>
 							</staticText>
 							<textField>
-								<reportElement x="226" y="0" width="121" height="30" uuid="922aafc8-c190-4711-aa45-83c3c7439f1d"/>
+								<reportElement x="0" y="10" width="321" height="10" uuid="922aafc8-c190-4711-aa45-83c3c7439f1d"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="11"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{accountNo}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="10" y="0" width="104" height="30" uuid="6abdd3e4-e0d1-4101-bcc6-acaeb24246d4"/>
+								<reportElement x="0" y="20" width="321" height="10" uuid="6abdd3e4-e0d1-4101-bcc6-acaeb24246d4"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="11" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Invoice Charges ]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:column width="69" uuid="2df615dc-d5da-4543-be4e-8c16375190f3">
+						<jr:column width="80" uuid="2df615dc-d5da-4543-be4e-8c16375190f3">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 							<jr:columnHeader style="table" height="20" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="69" height="20" uuid="2204118f-c8f7-4c4b-8ec7-2ad52172958b"/>
+									<reportElement x="0" y="0" width="80" height="20" uuid="2204118f-c8f7-4c4b-8ec7-2ad52172958b"/>
 									<textElement textAlignment="Center">
 										<font fontName="DejaVu Sans" size="10" isBold="true"/>
 									</textElement>
-									<text><![CDATA[Txn. No.]]></text>
+									<text><![CDATA[Currency]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="20" rowSpan="1">
 								<textField>
-									<reportElement x="10" y="0" width="59" height="20" uuid="e1d3eb2a-de86-471e-92ba-b573ad26390c"/>
+									<reportElement x="0" y="0" width="80" height="20" uuid="c661d618-f697-43bf-a43d-f13cfe416bef"/>
 									<textElement>
 										<font fontName="DejaVu Sans"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$F{chargeId}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="145" uuid="e108deb0-c910-4c86-a47f-ae6b44c31c01">
+						<jr:column width="121" uuid="e108deb0-c910-4c86-a47f-ae6b44c31c01">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 							<jr:columnHeader style="table" height="20" rowSpan="1">
 								<staticText>
-									<reportElement x="12" y="1" width="101" height="19" uuid="a387a24c-75b6-46dd-8e33-ebb2c452ec25"/>
+									<reportElement x="0" y="0" width="121" height="20" uuid="a387a24c-75b6-46dd-8e33-ebb2c452ec25"/>
 									<textElement textAlignment="Center">
 										<font fontName="DejaVu Sans" size="10" isBold="true"/>
 									</textElement>
@@ -740,7 +757,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="20" rowSpan="1">
 								<textField pattern="dd/MM/yyyy">
-									<reportElement x="12" y="0" width="133" height="20" uuid="100a9690-7299-4264-9603-8ae2511e4b26"/>
+									<reportElement x="0" y="0" width="121" height="20" uuid="100a9690-7299-4264-9603-8ae2511e4b26"/>
 									<textElement>
 										<font fontName="DejaVu Sans"/>
 									</textElement>
@@ -748,10 +765,11 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="133" uuid="a4aac604-5c42-40f5-b759-ed0cec3ba09e">
+						<jr:column width="120" uuid="a4aac604-5c42-40f5-b759-ed0cec3ba09e">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 							<jr:columnHeader style="table" height="20" rowSpan="1">
 								<staticText>
-									<reportElement x="15" y="0" width="95" height="20" uuid="13dd74b3-3a1e-4dc5-a1df-f081aa8ea47f"/>
+									<reportElement x="0" y="0" width="120" height="20" uuid="13dd74b3-3a1e-4dc5-a1df-f081aa8ea47f"/>
 									<textElement textAlignment="Center">
 										<font fontName="DejaVu Sans" size="10" isBold="true"/>
 									</textElement>
@@ -760,7 +778,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="20" rowSpan="1">
 								<textField>
-									<reportElement x="12" y="0" width="121" height="20" uuid="58ecdcdb-34ee-4673-a207-38e2c62161f1"/>
+									<reportElement x="0" y="0" width="120" height="20" uuid="58ecdcdb-34ee-4673-a207-38e2c62161f1"/>
 									<textElement>
 										<font fontName="DejaVu Sans"/>
 									</textElement>
@@ -769,10 +787,11 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 							</jr:detailCell>
 						</jr:column>
 					</jr:columnGroup>
-					<jr:column width="106" uuid="fde5683f-29a7-48b4-9679-f8fea27aa3be">
+					<jr:column width="90" uuid="fde5683f-29a7-48b4-9679-f8fea27aa3be">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="table" height="20" rowSpan="1">
 							<staticText>
-								<reportElement x="15" y="0" width="70" height="20" uuid="e70d8b78-50f9-4ecf-a25b-c6245c56aebf"/>
+								<reportElement x="0" y="0" width="90" height="20" uuid="e70d8b78-50f9-4ecf-a25b-c6245c56aebf"/>
 								<textElement textAlignment="Center">
 									<font fontName="DejaVu Sans" size="10" isBold="true"/>
 								</textElement>
@@ -781,7 +800,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="15" y="0" width="91" height="20" uuid="ec6e7aba-871e-4a08-8d09-ef2f3f1ee1ec"/>
+								<reportElement x="0" y="0" width="90" height="20" uuid="ec6e7aba-871e-4a08-8d09-ef2f3f1ee1ec"/>
 								<textElement>
 									<font fontName="DejaVu Sans"/>
 								</textElement>
@@ -789,44 +808,47 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:columnGroup width="348" uuid="53a21167-ce79-4829-b816-e7d29ff3dfbe">
+					<jr:columnGroup width="332" uuid="53a21167-ce79-4829-b816-e7d29ff3dfbe">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [3]"/>
 						<jr:tableHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="30" y="0" width="87" height="30" uuid="cd2deb87-38ad-44c2-8e4b-5f2c2031f330"/>
+								<reportElement x="0" y="0" width="332" height="15" uuid="cd2deb87-38ad-44c2-8e4b-5f2c2031f330"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="11" isBold="true"/>
 								</textElement>
 								<text><![CDATA[User Name  :]]></text>
 							</staticText>
 							<textField>
-								<reportElement x="117" y="0" width="230" height="30" uuid="682ed916-db9d-4a31-a128-b1d047333322"/>
+								<reportElement x="0" y="15" width="332" height="15" uuid="682ed916-db9d-4a31-a128-b1d047333322"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="11" isBold="false"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($F{email} !=null) ? $F{email} : $F{displayName}]]></textFieldExpression>
 							</textField>
 						</jr:tableHeader>
-						<jr:columnGroup width="348" uuid="5149f831-6887-481f-91f8-8269b87143b4">
+						<jr:columnGroup width="332" uuid="5149f831-6887-481f-91f8-8269b87143b4">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [3]"/>
 							<jr:tableFooter height="23" rowSpan="1">
 								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-									<reportElement x="214" y="8" width="127" height="15" uuid="1016c9c0-1b87-4092-8261-8ad949f85a23"/>
+									<reportElement x="0" y="0" width="332" height="12" uuid="1016c9c0-1b87-4092-8261-8ad949f85a23"/>
 									<textElement>
 										<font fontName="DejaVu Sans" isBold="false"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$V{totalInvoice}]]></textFieldExpression>
 								</textField>
 								<staticText>
-									<reportElement x="117" y="8" width="97" height="15" uuid="20007390-7ba6-4886-be28-d5a4fd776d7a"/>
+									<reportElement x="0" y="12" width="332" height="11" uuid="20007390-7ba6-4886-be28-d5a4fd776d7a"/>
 									<textElement>
 										<font fontName="DejaVu Sans" isBold="true"/>
 									</textElement>
 									<text><![CDATA[Total Invoices   :]]></text>
 								</staticText>
 							</jr:tableFooter>
-							<jr:column width="107" uuid="b9f9b67b-116f-4391-bdec-492c7a87f16b">
+							<jr:column width="100" uuid="b9f9b67b-116f-4391-bdec-492c7a87f16b">
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 								<jr:columnHeader style="table" height="20" rowSpan="1">
 									<staticText>
-										<reportElement x="16" y="1" width="71" height="19" uuid="3a83df84-3443-4fc4-8b11-39787e66e992"/>
+										<reportElement x="0" y="0" width="100" height="20" uuid="3a83df84-3443-4fc4-8b11-39787e66e992"/>
 										<textElement textAlignment="Center">
 											<font fontName="DejaVu Sans" size="10" isBold="true"/>
 										</textElement>
@@ -835,7 +857,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 								</jr:columnHeader>
 								<jr:detailCell style="table_TD" height="20" rowSpan="1">
 									<textField isBlankWhenNull="true">
-										<reportElement x="16" y="0" width="91" height="20" uuid="e11cec7b-7bf8-4c3f-a0e5-32673f7d7039"/>
+										<reportElement x="0" y="0" width="100" height="20" uuid="e11cec7b-7bf8-4c3f-a0e5-32673f7d7039"/>
 										<textElement>
 											<font fontName="DejaVu Sans"/>
 										</textElement>
@@ -843,10 +865,11 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 									</textField>
 								</jr:detailCell>
 							</jr:column>
-							<jr:column width="125" uuid="fd9b1ec8-033e-439a-9565-9e6cad94e147">
+							<jr:column width="110" uuid="fd9b1ec8-033e-439a-9565-9e6cad94e147">
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 								<jr:columnHeader style="table" height="20" rowSpan="1">
 									<staticText>
-										<reportElement x="25" y="0" width="72" height="20" uuid="e493f649-18c0-4535-81c7-8505e8c6d725"/>
+										<reportElement x="0" y="0" width="110" height="20" uuid="e493f649-18c0-4535-81c7-8505e8c6d725"/>
 										<textElement textAlignment="Center">
 											<font fontName="DejaVu Sans" size="10" isBold="true"/>
 										</textElement>
@@ -855,7 +878,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 								</jr:columnHeader>
 								<jr:detailCell style="table_TD" height="20" rowSpan="1">
 									<textField isBlankWhenNull="true">
-										<reportElement x="25" y="0" width="100" height="20" uuid="1e457f45-3203-4d69-a921-015d5bfd6607"/>
+										<reportElement x="0" y="0" width="110" height="20" uuid="1e457f45-3203-4d69-a921-015d5bfd6607"/>
 										<textElement>
 											<font fontName="DejaVu Sans"/>
 										</textElement>
@@ -863,10 +886,11 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 									</textField>
 								</jr:detailCell>
 							</jr:column>
-							<jr:column width="116" uuid="d4ade6d9-148e-4845-88ad-206c02b19088">
+							<jr:column width="122" uuid="d4ade6d9-148e-4845-88ad-206c02b19088">
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
 								<jr:columnHeader style="table" height="20" rowSpan="1">
 									<staticText>
-										<reportElement x="16" y="1" width="75" height="19" uuid="8b60f860-15e1-4fda-b089-3554fb523f51"/>
+										<reportElement x="0" y="0" width="122" height="20" uuid="8b60f860-15e1-4fda-b089-3554fb523f51"/>
 										<textElement textAlignment="Center">
 											<font fontName="DejaVu Sans" size="10" isBold="true"/>
 										</textElement>
@@ -875,7 +899,7 @@ from bmaster_vw bv ,b_office_address oa where  bv.billId=$P{param1} and oa.id=1]
 								</jr:columnHeader>
 								<jr:detailCell style="table_TD" height="20" rowSpan="1">
 									<textField>
-										<reportElement x="12" y="0" width="97" height="20" uuid="61fc6573-f341-4900-ae1e-21f99280306d"/>
+										<reportElement x="0" y="0" width="122" height="20" uuid="61fc6573-f341-4900-ae1e-21f99280306d"/>
 										<textElement>
 											<font fontName="DejaVu Sans"/>
 										</textElement>
