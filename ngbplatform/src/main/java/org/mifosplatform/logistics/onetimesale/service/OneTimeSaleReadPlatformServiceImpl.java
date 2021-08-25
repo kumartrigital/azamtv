@@ -53,7 +53,7 @@ public class OneTimeSaleReadPlatformServiceImpl implements	OneTimeSaleReadPlatfo
 
 		public String schema() {
 			
-			return "i.id AS id,i.item_code AS itemCode,i.units AS units,i.unit_price AS unitPrice,(select enum_value from r_enum_value where enum_name = 'item_class' and enum_id = i.item_class) as itemClassName " +
+			return "i.id AS id,i.item_code AS itemCode,i.units AS units,i.charge_code as chargeCode,i.unit_price AS unitPrice,(select enum_value from r_enum_value where enum_name = 'item_class' and enum_id = i.item_class) as itemClassName " +
 					" FROM b_item_master i  where i.is_deleted='N'";
 		}
 
@@ -65,7 +65,8 @@ public class OneTimeSaleReadPlatformServiceImpl implements	OneTimeSaleReadPlatfo
 			final String units = rs.getString("units");
 			final BigDecimal unitPrice = rs.getBigDecimal("unitPrice");
 			final String itemClassName = rs.getString("itemClassName");
-			return new ItemData(id, itemCode,units,unitPrice,itemClassName);
+			final String chargecode  = rs.getString("chargeCode");
+			return new ItemData(id, itemCode,units,unitPrice,itemClassName,chargecode);
 		}
 	}
 

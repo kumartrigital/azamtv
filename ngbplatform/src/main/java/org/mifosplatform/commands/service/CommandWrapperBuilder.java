@@ -1143,7 +1143,7 @@ public class CommandWrapperBuilder {
 		return this;
 	}
 	public CommandWrapperBuilder createAdjustmentjvTransaction() {
-		this.actionName = "CREATE";
+		this.actionName = "TRANSFER";
 		this.entityName = "ADJUSTMENT";
 		this.entityId = clientId;
 		this.href = "/adjustments/jvtransaction";

@@ -1,6 +1,8 @@
 package org.mifosplatform.finance.adjustment.service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -187,17 +189,22 @@ public class AdjustmentWritePlatformServiceImpl implements AdjustmentWritePlatfo
 		String toClient = command.stringValueOfParameterName("toClient");
 		String amount = command.stringValueOfParameterName("amount");
 		Long currencyId = command.longValueOfParameterNamed("currencyId");
+		String dateFormat = "dd MMMM yyyy";
+		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 
 		net.sf.json.JSONObject debitAdjustment = new net.sf.json.JSONObject();
 		debitAdjustment.put("adjustment_type", "DEBIT");
 		debitAdjustment.put("withtax", false);
 		debitAdjustment.put("locale", "en");
-		debitAdjustment.put("dateFormat", "dd MMMM yyyy");
+		debitAdjustment.put("dateFormat",dateFormat);
 		debitAdjustment.put("billpoId", null);
 		debitAdjustment.put("amount_paid", amount);
 		debitAdjustment.put("Remarks", "jv transaction from client :" + fromClient + "to :" + toClient);
 		debitAdjustment.put("currencyId", currencyId);
 		debitAdjustment.put("adjustment_code", 28);
+		debitAdjustment.put("adjustment_date", formatter.format(new Date()));
+
+		
 
 		adjustmentApiResource.addNewAdjustment(Long.parseLong(fromClient), debitAdjustment.toString());
 
@@ -211,6 +218,7 @@ public class AdjustmentWritePlatformServiceImpl implements AdjustmentWritePlatfo
 		creditAdjustment.put("Remarks", "jv transaction from client :" + fromClient + "to :" + toClient);
 		creditAdjustment.put("currencyId", currencyId);
 		creditAdjustment.put("adjustment_code", 28);
+		creditAdjustment.put("adjustment_date", formatter.format(new Date()));
 
 		adjustmentApiResource.addNewAdjustment(Long.parseLong(toClient), creditAdjustment.toString());
 

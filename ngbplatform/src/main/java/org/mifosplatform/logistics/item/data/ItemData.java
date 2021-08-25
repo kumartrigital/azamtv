@@ -94,6 +94,16 @@ public class ItemData {
 		this.unitPrice = unitPrice;
 		this.itemClassName = itemClassName;
 	}
+	
+	public ItemData(Long id, String itemCode, String units, BigDecimal unitPrice,final String itemClassName ,String chargeCode) {
+		this.id = id;
+		this.itemCode = itemCode;
+		this.units = units;
+		this.unitPrice = unitPrice;
+		this.itemClassName = itemClassName;
+		this.chargeCode = chargeCode;
+	}
+	
 	public ItemData(Long id, String serialNo, BigDecimal unitPrice, Long officeId){
 		this.id=id;
 		this.serialNo=serialNo;

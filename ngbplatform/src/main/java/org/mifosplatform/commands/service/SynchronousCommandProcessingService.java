@@ -722,6 +722,8 @@ public class SynchronousCommandProcessingService implements CommandProcessingSer
 
 			if (wrapper.isCreate()) {
 				handler = applicationContext.getBean("createAdjustmentCommandHandler", NewCommandSourceHandler.class);
+			} else if (wrapper.isTransfer()) {
+				handler = applicationContext.getBean("createjvTransactionAdjustmentCommandHandler", NewCommandSourceHandler.class);
 			} else if (wrapper.isUpdate()) {
 				handler = applicationContext.getBean("updateAdjustmentCommandHandler", NewCommandSourceHandler.class);
 			} else if (wrapper.isDelete()) {
