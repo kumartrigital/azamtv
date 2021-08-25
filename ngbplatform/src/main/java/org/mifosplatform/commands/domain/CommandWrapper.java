@@ -110,6 +110,10 @@ public class CommandWrapper {
 	public boolean isCreate() {
 		return this.actionName.equalsIgnoreCase("CREATE");
 	}
+	
+	public boolean isTransfer() {
+		return this.actionName.equalsIgnoreCase("Transfer");
+	}
 
 	public boolean isOwnUpdate() {
 		return this.actionName.equalsIgnoreCase("UPDATE");
