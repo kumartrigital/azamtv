@@ -41,6 +41,8 @@ import org.mifosplatform.logistics.itemdetails.data.InventoryGrnData;
 import org.mifosplatform.logistics.itemdetails.domain.InventoryGrn;
 import org.mifosplatform.logistics.itemdetails.domain.InventoryGrnRepository;
 import org.mifosplatform.logistics.itemdetails.domain.ItemDetails;
+import org.mifosplatform.logistics.itemdetails.domain.ItemDetailsAllocation;
+import org.mifosplatform.logistics.itemdetails.domain.ItemDetailsAllocationRepository;
 import org.mifosplatform.logistics.itemdetails.domain.ItemDetailsRepository;
 import org.mifosplatform.logistics.itemdetails.service.ItemDetailsWritePlatformService;
 import org.mifosplatform.logistics.onetimesale.data.OneTimeSaleData;
@@ -57,6 +59,8 @@ import org.mifosplatform.organisation.office.service.OfficeReadPlatformService;
 import org.mifosplatform.portfolio.client.data.ClientBillInfoData;
 import org.mifosplatform.portfolio.client.service.ClientBillInfoReadPlatformService;
 import org.mifosplatform.portfolio.client.service.ClientReadPlatformService;
+import org.mifosplatform.portfolio.clientservice.data.ClientServiceData;
+import org.mifosplatform.portfolio.clientservice.service.ClientServiceReadPlatformService;
 import org.mifosplatform.portfolio.order.domain.Order;
 import org.mifosplatform.portfolio.order.domain.OrderRepository;
 import org.mifosplatform.portfolio.slabRate.service.SlabRateWritePlatformService;
@@ -74,6 +78,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import net.sf.json.JSONArray;
 
 /**
  * @author hugo
@@ -109,6 +115,8 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 	private final SlabRateWritePlatformService slabRateWritePlatformService;
 	private final ClientBillInfoReadPlatformService clientBillInfoReadPlatformService;
 	private final ClientBalanceWritePlatformService clientBalanceWritePlatformService;
+	private final ItemDetailsAllocationRepository itemDetailsAllocationRepository;
+	private final ClientServiceReadPlatformService clientServiceReadPlatformService;
 
 	@Autowired
 	public OneTimeSaleWritePlatformServiceImpl(final PlatformSecurityContext context,
@@ -129,7 +137,9 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 			final ClientReadPlatformService clientReadPlatformService,
 			final SlabRateWritePlatformService slabRateWritePlatformService,
 			final ClientBillInfoReadPlatformService clientBillInfoReadPlatformService,
-			final ClientBalanceWritePlatformService clientBalanceWritePlatformService) {
+			final ClientBalanceWritePlatformService clientBalanceWritePlatformService,
+			final ItemDetailsAllocationRepository itemDetailsAllocationRepository,
+			final ClientServiceReadPlatformService clientServiceReadPlatformService) {
 
 		this.context = context;
 		this.fromJsonHelper = fromJsonHelper;
@@ -157,6 +167,8 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 		this.slabRateWritePlatformService = slabRateWritePlatformService;
 		this.clientBillInfoReadPlatformService = clientBillInfoReadPlatformService;
 		this.clientBalanceWritePlatformService = clientBalanceWritePlatformService;
+		this.itemDetailsAllocationRepository = itemDetailsAllocationRepository;
+		this.clientServiceReadPlatformService = clientServiceReadPlatformService;
 	}
 
 	/*
@@ -197,7 +209,9 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 
 			final OneTimeSale oneTimeSale = OneTimeSale.fromJson(clientId, command, item, conversionPrice,
 					clientBillInfoData.getBillCurrency());
+
 			this.oneTimeSaleRepository.saveAndFlush(oneTimeSale);
+
 			final List<OneTimeSaleData> oneTimeSaleDatas = this.oneTimeSaleReadPlatformService
 					.retrieveOnetimeSalesForInvoice(clientId);
 
@@ -238,6 +252,18 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 					if (inventoryGrn.getReceivedQuantity() != inventoryGrn.getOrderdQuantity()) {
 						inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity() + quantity);
 						this.inventoryGrnRepository.save(inventoryGrn);
+
+						List<ClientServiceData> clientService = clientServiceReadPlatformService.retriveClientServices(clientId);
+
+						ItemDetailsAllocation allocation = new ItemDetailsAllocation();
+						allocation.setClientId(clientId);
+						allocation.setItemMasterId(itemId);
+						allocation.setSerialNumber("non-serialized");
+						allocation.setAllocationDate(new Date());
+						allocation.setClientServiceId(clientService.get(0).getServiceId());
+						allocation.setOrderType("NEWSALE");
+						allocation.setStatus("allocated");
+
 						break;
 					} else {
 						throw new StockNotFoundException();
