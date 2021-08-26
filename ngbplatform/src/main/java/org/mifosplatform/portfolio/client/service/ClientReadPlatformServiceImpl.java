@@ -1169,6 +1169,8 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
 				sqlQuery.append(" where c." + columnName + " = '" + columnValue + "' and ");
 			}
 			sqlQuery.append("o.hierarchy like '" + hierarchySearchString + "'");
+			
+			System.out.println("ClientReadPlatformServiceImpl.retrieveSearchClientId(): "+sqlQuery);
 			return this.jdbcTemplate.queryForObject(sqlQuery.toString(), mapper, new Object[] {});
 
 		} catch (EmptyResultDataAccessException e) {
@@ -1176,6 +1178,44 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
 		}
 	}
 
+
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public List<ClientData> retrieveTypeSearchClientId(final String columnName, final String columnValue) {
+		Configuration restrictToHierarchy = configurationRepository.findOneByName(ConfigurationConstants.Restrict_To_Hierarchy);
+
+		try {
+			StringBuilder sqlQuery = new StringBuilder(200);
+			typeSearchMapper mapper = new typeSearchMapper();
+			final AppUser currentUser = context.authenticatedUser();
+			final String hierarchy = currentUser.getOffice().getHierarchy();
+			String hierarchySearchString;
+
+			// Change here..based on global configuration of restrictToHierarchy
+			if (restrictToHierarchy.isEnabled()) {
+				hierarchySearchString = hierarchy + "%";
+			} else
+
+			{
+				hierarchySearchString = "%";
+			}
+			// end of change
+
+			sqlQuery.append("Select ");
+			sqlQuery.append(mapper.typeschema());
+		
+				sqlQuery.append(" where c." + columnName + " like '" +"%"+ columnValue + "% limit 14");
+			
+				System.out.println("ClientReadPlatformServiceImpl.retrieveTypeSearchClientId() :" +sqlQuery.toString() );
+			return this.jdbcTemplate.query(sqlQuery.toString(), mapper, new Object[] {});
+
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	
 	private static final class SearchMapper implements RowMapper<ClientData> {
 
 		@Override
@@ -1196,7 +1236,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
 			clientData.setclientPoId(clientPoId);
 			return clientData;
 		}
-
+		
 		public String schema() {
 			StringBuilder stringBuilder = new StringBuilder(
 					"c.id as id , c.account_no as accountNo,c.status_enum as status, c.phone as phone, o.name as office,c.po_id as clientPoId,");
@@ -1208,7 +1248,35 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
 					" from m_client c join m_office o on c.office_id =o.id LEFT OUTER JOIN b_client_balance b ON b.client_id = c.id ");
 			return stringBuilder.toString();
 		}
+		
+	
 	}
+	
+	
+
+	private static final class typeSearchMapper implements RowMapper<ClientData> {
+
+		@Override
+		public ClientData mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+			final Long id = rs.getLong("id");
+			final String accountNo = rs.getString("accountNo");
+			final String phone = rs.getString("phone");
+			final String name = rs.getString("customerName");
+			final Integer statusEnum = JdbcSupport.getInteger(rs, "status");
+			final EnumOptionData status = ClientEnumerations.status(statusEnum);
+			final String serailNo = rs.getString("serialNo");
+
+			ClientData clientData =ClientData.advancedSearchClient(id, name, accountNo, phone, status, null,
+					serailNo, null);
+			return clientData;
+		}
+			
+			public String typeschema() {
+				String query = " c.id AS id,c.account_no AS accountNo,c.status_enum AS status,c.phone AS phone,c.display_name AS customerName From m_client ";
+				return query;
+				}
+		}
+
 
 	@Override
 	public ClientData retrieveOne(String columnName, String columnValue) {

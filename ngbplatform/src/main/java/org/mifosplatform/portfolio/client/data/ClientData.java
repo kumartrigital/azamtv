@@ -342,6 +342,7 @@ final public class ClientData implements Comparable<ClientData> {
 				null, null, null, null, null, null);
 
 	}
+	
 
 	public static ClientData lcoClient(final Long id, final String accountNo, final String displayName,
 			final String phone, final BigDecimal clientBalance, final Long orderId, final String stbId,
@@ -588,6 +589,8 @@ final public class ClientData implements Comparable<ClientData> {
 		}
 
 	}
+
+
 
 	public Long getCurrencyId() {
 		return currencyId;

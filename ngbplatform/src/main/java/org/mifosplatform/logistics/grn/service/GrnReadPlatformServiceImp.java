@@ -207,10 +207,26 @@ public class GrnReadPlatformServiceImp implements GrnReadPlatformService {
 
 	@Override
 	public Collection<InventoryGrnData> retriveGrnIdswithItemId(final Long itemId) {
-		GrnIdswithItemMapper rowMapper = new GrnIdswithItemMapper();
-		String sql = "SELECT bg.id as id,bm.id as itemId," + "bm.item_description as itemDescription "
-				+ " FROM b_grn bg,b_item_master bm WHERE bg.item_master_id = bm.id and bm.id = " + itemId;
-		return jdbcTemplate.query(sql, rowMapper);
+		try {
+			GrnIdswithItemMapper rowMapper = new GrnIdswithItemMapper();
+			String sql = "SELECT bg.id as id,bm.id as itemId,bm.item_description as itemDescription "
+					+ " FROM b_grn bg,b_item_master bm WHERE bg.item_master_id = bm.id and bm.id = " + itemId;
+			return jdbcTemplate.query(sql, rowMapper);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<InventoryGrnData> retriveGrnIdsByItemId(final Long itemId) {
+		try {
+			GrnIdswithItemMapper rowMapper = new GrnIdswithItemMapper();
+			String sql = "SELECT bg.id as id,bm.id as itemId,bm.item_description as itemDescription "
+					+ " FROM b_grn bg,b_item_master bm WHERE bg.item_master_id = bm.id and bm.id = " + itemId;
+			return jdbcTemplate.query(sql, rowMapper);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	private class GrnIdswithItemMapper implements RowMapper<InventoryGrnData> {
@@ -354,15 +370,15 @@ public class GrnReadPlatformServiceImp implements GrnReadPlatformService {
 		// TODO Auto-generated method stub
 		PoNoListMapper rowMapper = new PoNoListMapper();
 
-		String sql = "SELECT bg.po_no as purchaseNo from b_grn bg where bg.po_no like '%"+purchaseNo+"%'";
+		String sql = "SELECT bg.po_no as purchaseNo from b_grn bg where bg.po_no like '%" + purchaseNo + "%'";
 		return jdbcTemplate.query(sql, rowMapper);
 	}
+
 	private class PoNoListMapper implements RowMapper<String> {
 
 		@Override
 		public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-		
 			String purchaseNo = rs.getString("purchaseNo");
 			return purchaseNo;
 		}

@@ -49,12 +49,12 @@ public class GrnDetailsWritePlatformServiceImpl implements GrnDetailsWritePlatfo
 			context.authenticatedUser();
 			inventoryGrnCommandFromApiJsonDeserializer.validateForCreate(command.json());
 			inventoryGrn = InventoryGrn.fromJson(command);
-			ItemMaster itemMaster = itemRepository.findOne(inventoryGrn.getItemMasterId());
+			//ItemMaster itemMaster = itemRepository.findOne(inventoryGrn.getItemMasterId());
 
-			if (itemMaster.getUnits().equalsIgnoreCase("Accessories")) {
-				inventoryGrn.setReceivedQuantity(inventoryGrn.getOrderdQuantity());
-			}
-
+			/*
+			 * if (itemMaster.getUnits().equalsIgnoreCase("Accessories")) {
+			 * inventoryGrn.setReceivedQuantity(inventoryGrn.getOrderdQuantity()); }
+			 */
 			this.inventoryGrnRepository.save(inventoryGrn);
 		} catch (DataIntegrityViolationException dve) {
 			// logger.error(dve.getMessage(), dve);

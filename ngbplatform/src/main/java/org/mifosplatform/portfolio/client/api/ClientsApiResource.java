@@ -468,6 +468,22 @@ public class ClientsApiResource {
 	}
 
 	@GET
+	@Path("typesearch/{columnName}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String retriveSearchClienttypesearch(@Context final UriInfo uriInfo, @PathParam("columnName") final String columnName,
+			@QueryParam("columnValue") final String columnValue) {
+
+		this.context.authenticatedUser().validateHasReadPermission(ClientApiConstants.CLIENT_RESOURCE_NAME);
+	
+		List<ClientData> clientdata = this.clientReadPlatformService.retrieveTypeSearchClientId(columnName, columnValue);
+		final ApiRequestJsonSerializationSettings settings = apiRequestParameterHelper
+				.process(uriInfo.getQueryParameters());
+		return this.toApiJsonSerializer.serialize(settings, clientdata,
+				ClientApiConstants.CLIENT_RESPONSE_DATA_PARAMETERS);
+
+	}
+	@GET
 	@Path("searching/{officeId}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })

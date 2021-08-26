@@ -377,6 +377,20 @@ public class InventoryGrnData {
 	public void setItemcode(String itemcode) {
 		this.itemcode = itemcode;
 	}
+
+	@Override
+	public String toString() {
+		return "InventoryGrnData [id=" + id + ", purchaseDate=" + purchaseDate + ", supplierId=" + supplierId
+				+ ", itemMasterId=" + itemMasterId + ", orderdQuantity=" + orderdQuantity + ", receivedQuantity="
+				+ receivedQuantity + ", createdById=" + createdById + ", createdDate=" + createdDate
+				+ ", lastModifiedDate=" + lastModifiedDate + ", lastModifiedById=" + lastModifiedById + ", testId="
+				+ testId + ", balanceQuantity=" + balanceQuantity + ", oficeId=" + oficeId + ", itemData=" + itemData
+				+ ", officeData=" + officeData + ", supplierData=" + supplierData + ", itemDescription="
+				+ itemDescription + ", supplierName=" + supplierName + ", officeName=" + officeName + ", purchaseNo="
+				+ purchaseNo + ", officeId=" + officeId + ", availableQuantity=" + availableQuantity + ", units="
+				+ units + ", itemcode=" + itemcode + ", itemAmount=" + itemAmount + ", orderStatus=" + orderStatus
+				+ ", itemType=" + itemType + "]";
+	}
 	
 	
 }

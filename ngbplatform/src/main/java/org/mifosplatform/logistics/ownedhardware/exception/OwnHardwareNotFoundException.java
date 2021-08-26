@@ -13,7 +13,7 @@ import org.mifosplatform.infrastructure.core.exception.AbstractPlatformResourceN
 public class OwnHardwareNotFoundException extends AbstractPlatformResourceNotFoundException {
 
     public OwnHardwareNotFoundException(final String id) {
-        super("error.msg.ownhardware.not.found", "Ownhardware with this id"+id+"not exist",id);
+        super("error.msg.ownhardware.not.found", "Ownhardware with this id :"+id+"not exist :",id);
         
     }
 

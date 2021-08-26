@@ -53,6 +53,7 @@ import org.mifosplatform.logistics.onetimesale.domain.OneTimeSaleRepository;
 import org.mifosplatform.logistics.onetimesale.exception.DeviceSaleNotFoundException;
 import org.mifosplatform.logistics.onetimesale.exception.StockNotFoundException;
 import org.mifosplatform.logistics.onetimesale.serialization.OneTimesaleCommandFromApiJsonDeserializer;
+import org.mifosplatform.logistics.ownedhardware.exception.OwnHardwareNotFoundException;
 import org.mifosplatform.organisation.mcodevalues.api.CodeNameConstants;
 import org.mifosplatform.organisation.office.data.OfficeData;
 import org.mifosplatform.organisation.office.service.OfficeReadPlatformService;
@@ -240,29 +241,38 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 				JsonCommand jsonCommand = new JsonCommand(null, jsonObject.toString(), element, fromJsonHelper, null,
 						null, null, null, null, null, null, null, null, null, null, null);
 				this.inventoryItemDetailsWritePlatformService.allocateHardware(jsonCommand);
-			} else if (UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits())
+			}else if (UnitEnumType.ACCESSORIES.toString().equalsIgnoreCase(item.getUnits())
 					|| UnitEnumType.METERS.toString().equalsIgnoreCase(item.getUnits())) {
+				// need to change logic
 
-				final Collection<InventoryGrnData> grnDatas = this.grnReadPlatformService
-						.retriveGrnIdswithItemId(itemId);
+				final List<InventoryGrnData> grnDatas = this.grnReadPlatformService.retriveGrnIdsByItemId(itemId);
+
+				if (grnDatas.isEmpty()) {
+					throw new OwnHardwareNotFoundException(itemId.toString());
+				}
 
 				for (InventoryGrnData grnData : grnDatas) {
+
 					InventoryGrn inventoryGrn = inventoryGrnRepository.findOne(grnData.getId());
+
 					inventoryGrn.setReceivedQuantity(inventoryGrn.getReceivedQuantity() + quantity);
-					if (inventoryGrn.getReceivedQuantity() != inventoryGrn.getOrderdQuantity()) {
+
+					if (inventoryGrn.getReceivedQuantity() < inventoryGrn.getOrderdQuantity()) {
+
 						inventoryGrn.setStockQuantity(inventoryGrn.getStockQuantity() + quantity);
 						this.inventoryGrnRepository.save(inventoryGrn);
-
-						List<ClientServiceData> clientService = clientServiceReadPlatformService.retriveClientServices(clientId);
 
 						ItemDetailsAllocation allocation = new ItemDetailsAllocation();
 						allocation.setClientId(clientId);
 						allocation.setItemMasterId(itemId);
 						allocation.setSerialNumber("non-serialized");
 						allocation.setAllocationDate(new Date());
-						allocation.setClientServiceId(clientService.get(0).getServiceId());
+						allocation.setClientServiceId(
+								Long.parseLong(command.stringValueOfParameterName("clientServiceId")));
 						allocation.setOrderType("NEWSALE");
 						allocation.setStatus("allocated");
+						allocation.setOrderId(oneTimeSale.getId());
+						itemDetailsAllocationRepository.save(allocation);
 
 						break;
 					} else {
@@ -668,5 +678,19 @@ public class OneTimeSaleWritePlatformServiceImpl implements OneTimeSaleWritePlat
 	 * handleCodeDataIntegrityIssues(command, dve); return new
 	 * CommandProcessingResult(Long.valueOf(-1)); } }
 	 */
+
+	public static void main(String args[]) {
+
+		int recivedQuantity = 101;
+		int orderedQuantity = 100;
+
+		if (recivedQuantity < orderedQuantity) {
+			recivedQuantity++;
+			System.out.println("OneTimeSaleWritePlatformServiceImpl.main()" + recivedQuantity);
+		} else {
+			System.out.println("OneTimeSaleWritePlatformServiceImpl.main() else");
+		}
+
+	}
 
 }

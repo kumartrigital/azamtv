@@ -21,6 +21,9 @@ public interface GrnReadPlatformService {
 	
 	public Collection<InventoryGrnData> retriveGrnIdswithItemId(final Long itemMasterId);
 	
+	public List<InventoryGrnData> retriveGrnIdsByItemId(final Long itemMasterId);
+
+	
 	public List<InventoryGrnData> retriveGrnDetailsByofficeIdAndOrderStatus(final Long officeId,final Integer orderStatus);
 
 	public List<InventoryGrnData> retriveGrnDetailsByofficeIdAndItemType(Long officeId, Long itemType);
@@ -30,6 +33,7 @@ public interface GrnReadPlatformService {
 	InventoryGrnData retriveGrnIdByPoNo(String poNo);
 
 	public List<String> getPoNoListOnKeyStroke(String purchaseNo);
+
 	
 	
 }
