@@ -27,7 +27,9 @@ import org.mifosplatform.finance.adjustment.exception.AdjustmentCodeNotFoundExce
 import org.mifosplatform.finance.adjustment.service.AdjustmentReadPlatformService;
 import org.mifosplatform.finance.payments.data.McodeData;
 import org.mifosplatform.finance.payments.data.PaymentData;
+import org.mifosplatform.finance.payments.domain.Payment;
 import org.mifosplatform.finance.payments.exception.PaymentCodeNotFoundException;
+import org.mifosplatform.finance.payments.exception.PaymentDetailsNotFoundException;
 import org.mifosplatform.finance.payments.service.PaymentReadPlatformService;
 import org.mifosplatform.infrastructure.codes.data.CodeData;
 import org.mifosplatform.infrastructure.codes.domain.CodeValue;
@@ -91,6 +93,8 @@ import org.mifosplatform.useradministration.domain.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.mifosplatform.finance.payments.domain.Payment;
+import org.mifosplatform.finance.payments.domain.PaymentRepository;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -102,6 +106,7 @@ import net.sf.json.*;
 public class DataUploadHelper {
 
 	private final DataUploadRepository dataUploadRepository;
+	private final PaymentRepository paymentRepository;
 	private final AdjustmentReadPlatformService adjustmentReadPlatformService;
 	private final PaymentReadPlatformService paymodeReadPlatformService;
 	private final MCodeReadPlatformService mCodeReadPlatformService;
@@ -135,6 +140,7 @@ public class DataUploadHelper {
 
 	@Autowired
 	public DataUploadHelper(final DataUploadRepository dataUploadRepository,
+			final PaymentRepository paymentRepository,
 			final PaymentReadPlatformService paymodeReadPlatformService,
 			final AdjustmentReadPlatformService adjustmentReadPlatformService,
 			final MCodeReadPlatformService mCodeReadPlatformService,
@@ -155,6 +161,7 @@ public class DataUploadHelper {
 			final ItemDetailsReadPlatformService itemDetailsReadPlatformService) {
 
 		this.dataUploadRepository = dataUploadRepository;
+		this.paymentRepository=paymentRepository;
 		this.paymodeReadPlatformService = paymodeReadPlatformService;
 		this.adjustmentReadPlatformService = adjustmentReadPlatformService;
 		this.mCodeReadPlatformService = mCodeReadPlatformService;
@@ -568,6 +575,7 @@ public class DataUploadHelper {
 				map.put("amountPaid", currentLineData[2]);
 				map.put("receiptNo", currentLineData[3]);
 				map.put("remarks", currentLineData[4]);
+				map.put("currencyCode", "ZWD");
 				map.put("locale", "en");
 				map.put("dateFormat", "dd MMMM yyyy");
 				map.put("isSubscriptionPayment", "false");
@@ -588,6 +596,32 @@ public class DataUploadHelper {
 		}
 	}
 
+	public String buildjsonForPaymentscancel(String[] currentLineData, ArrayList<MRNErrorData> errorData, int i)
+			throws ParseException {
+		final HashMap<String, String> map = new HashMap<>();
+		if (currentLineData.length >= 2) {
+			Client client = this.clientRepository.findOne(Long.parseLong(currentLineData[0]));
+			map.put("clientPoId", client.getPoid());
+			SimpleDateFormat formatter1 = new SimpleDateFormat("dd MMMM yyyy");
+			map.put("clientid", currentLineData[1]);
+			map.put("receiptNo", currentLineData[2]);
+			map.put("cancelRemark", currentLineData[3]);
+			map.put("currencyCode", "ZWD");
+			map.put("locale", "en");
+			map.put("dateFormat", "dd MMMM yyyy");
+			map.put("isSubscriptionPayment", "false");
+			map.put("paymentSource", "null");
+			map.put("dateFormat", "dd MMMM yyyy");
+			Date date = new Date();
+			map.put("paymentDate", formatter1.format(date));
+			
+			return new Gson().toJson(map);
+		} else {
+			errorData.add(new MRNErrorData((long) i, "Improper Data in this line"));
+			return null;
+		}
+	}
+	
 	public String buildForMediaAsset(Row mediaRow, Row mediaAttributeRow, Row mediaLocationRow) {
 		final HashMap<String, String> map = new HashMap<>();
 		map.put("mediaTitle", mediaRow.getCell(0).getStringCellValue());// -

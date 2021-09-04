@@ -313,7 +313,37 @@ public class DataUploadWritePlatformServiceImp implements DataUploadWritePlatfor
 					i++;
 				}
 
-			} else if (uploadProcess.equalsIgnoreCase("MediaAssets")) {
+			} else if (uploadProcess.equalsIgnoreCase("Cancel Payments")
+					&& new File(fileLocation).getName().contains(".csv")) {
+				while (true) {
+					try {
+						line = csvFileBufferedReader.readLine();
+						if (line == null) {
+							return this.dataUploadHelper.updateFile(uploadStatus, totalRecordCount, processRecordCount,
+									errorData);
+						}
+						line = line.replace(";", "");
+						final String[] currentLineData = line.split(splitLineRegX);
+						jsonString = this.dataUploadHelper.buildjsonForPaymentscancel(currentLineData, errorData, i);
+						if (jsonString != null) {
+							final CommandWrapper commandRequest = new CommandWrapperBuilder()
+									.createPayment(Long.valueOf(currentLineData[0])).withJson(jsonString).build();
+							final CommandProcessingResult result = this.commandsSourceWritePlatformService
+									.logCommandSource(commandRequest);
+							if (result != null) {
+								processRecordCount++;
+								errorData.add(new MRNErrorData((long) i, "Success."));
+							}
+						}
+
+					} catch (Exception e) {
+						handleDataIntegrityIssues(i, errorData, e);
+					}
+					totalRecordCount++;
+					i++;
+				}
+
+			}else if (uploadProcess.equalsIgnoreCase("MediaAssets")) {
 				DataUpload uploadStatusForMediaAsset = this.uploadStatusRepository.findOne(fileId);
 				Workbook wb = null;
 				processRecordCount = 0L;
