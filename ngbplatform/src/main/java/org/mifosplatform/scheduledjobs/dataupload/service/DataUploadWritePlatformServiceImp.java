@@ -188,7 +188,7 @@ public class DataUploadWritePlatformServiceImp implements DataUploadWritePlatfor
 				}
 				// writeToFile(fileLocation,errorData);
 
-			} else if (uploadProcess.equalsIgnoreCase("Move Itemsale")
+			} else if (uploadProcess.equalsIgnoreCase("MoveItemsale")
 					&& new File(fileLocation).getName().contains(".csv")) {
 				while (true) {
 					try {
@@ -609,7 +609,7 @@ public class DataUploadWritePlatformServiceImp implements DataUploadWritePlatfor
 				}
 				// writeToFile(fileLocation,errorData);
 //cancel plan		   
-			} else if (uploadProcess.equalsIgnoreCase("Cancel Plan")
+			} else if (uploadProcess.equalsIgnoreCase("CancelPlan")
 					&& new File(fileLocation).getName().contains(".csv")) {
 
 				while (true) {
