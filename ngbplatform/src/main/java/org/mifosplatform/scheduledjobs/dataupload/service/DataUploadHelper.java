@@ -596,16 +596,43 @@ public class DataUploadHelper {
 		}
 	}
 
-	public String buildjsonForPaymentscancel(String[] currentLineData, ArrayList<MRNErrorData> errorData, int i)
-			throws ParseException {
+
+  public String buildjsonForPaymentscancel(String[] currentLineData, ArrayList<MRNErrorData> errorData, int i)
+  {
+  if (currentLineData.length <= 9) {
 		final HashMap<String, String> map = new HashMap<>();
-		if (currentLineData.length >= 2) {
-			Client client = this.clientRepository.findOne(Long.parseLong(currentLineData[0]));
+		Collection<McodeData> paymodeDataList = this.paymodeReadPlatformService
+				.retrievemCodeDetails("Payment Mode");
+		if (!paymodeDataList.isEmpty()) {
+			for (McodeData paymodeData : paymodeDataList) {
+				if (paymodeData.getPaymodeCode().equalsIgnoreCase(currentLineData[2])) {
+					map.put("paymentCode", paymodeData.getId().toString());
+					break;
+				} else {
+					map.put("paymentCode", "-1");
+				}
+			}
+			Payment payment = this.paymentRepository.findOne(Long.parseLong(currentLineData[0]));
+			Client client = this.clientRepository.findOne(Long.parseLong(currentLineData[1]));
 			map.put("clientPoId", client.getPoid());
+			String paymentCode = map.get("paymentCode");
+			if (paymentCode != null && Long.valueOf(paymentCode) <= 0) {
+				throw new PaymentCodeNotFoundException(currentLineData[2].toString());
+			}
 			SimpleDateFormat formatter1 = new SimpleDateFormat("dd MMMM yyyy");
-			map.put("clientid", currentLineData[1]);
-			map.put("receiptNo", currentLineData[2]);
-			map.put("cancelRemark", currentLineData[3]);
+			map.put("paymentType", currentLineData[2]);
+			if (currentLineData[1].equalsIgnoreCase("Cheque")) {
+				map.put("chequeNo", currentLineData[6]);
+				Date chequeDate = new Date(currentLineData[7]);
+				map.put("chequeDate", formatter1.format(chequeDate));
+				map.put("bankName", currentLineData[8]);
+				map.put("branchName", currentLineData[9]);
+				map.put("isChequeSelected", "yes");
+			}
+
+			map.put("amountPaid", currentLineData[3]);
+			map.put("receiptNo", currentLineData[4]);
+			map.put("cancelRemark", currentLineData[5]);
 			map.put("currencyCode", "ZWD");
 			map.put("locale", "en");
 			map.put("dateFormat", "dd MMMM yyyy");
@@ -614,15 +641,20 @@ public class DataUploadHelper {
 			map.put("dateFormat", "dd MMMM yyyy");
 			Date date = new Date();
 			map.put("paymentDate", formatter1.format(date));
-			
+
 			return new Gson().toJson(map);
 		} else {
-			errorData.add(new MRNErrorData((long) i, "Improper Data in this line"));
+			errorData.add(new MRNErrorData((long) i, "Paymode type list empty"));
 			return null;
 		}
+
+	} else {
+		errorData.add(new MRNErrorData((long) i, "Improper Data in this line"));
+		return null;
 	}
-	
-	public String buildForMediaAsset(Row mediaRow, Row mediaAttributeRow, Row mediaLocationRow) {
+}
+
+public String buildForMediaAsset(Row mediaRow, Row mediaAttributeRow, Row mediaLocationRow) {
 		final HashMap<String, String> map = new HashMap<>();
 		map.put("mediaTitle", mediaRow.getCell(0).getStringCellValue());// -
 		map.put("mediaType", mediaRow.getCell(1).getStringCellValue());// -

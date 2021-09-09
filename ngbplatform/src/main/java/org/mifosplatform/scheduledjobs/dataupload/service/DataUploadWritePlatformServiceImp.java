@@ -327,7 +327,7 @@ public class DataUploadWritePlatformServiceImp implements DataUploadWritePlatfor
 						jsonString = this.dataUploadHelper.buildjsonForPaymentscancel(currentLineData, errorData, i);
 						if (jsonString != null) {
 							final CommandWrapper commandRequest = new CommandWrapperBuilder()
-									.createPayment(Long.valueOf(currentLineData[0])).withJson(jsonString).build();
+									.cancelPayment(Long.valueOf(currentLineData[0])).withJson(jsonString).build();
 							final CommandProcessingResult result = this.commandsSourceWritePlatformService
 									.logCommandSource(commandRequest);
 							if (result != null) {
