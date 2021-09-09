@@ -541,7 +541,7 @@ public class OrderWritePlatformServiceImpl implements OrderWritePlatformService 
 			} else {
 				clientService = this.clientServiceRepository.findOne(order.getClientServiceId());
 
-				clientService.setStatus("PROCESSING");
+				clientService.setStatus("Active");
 				clientService = this.clientServiceRepository.saveAndFlush(clientService);
 
 			}

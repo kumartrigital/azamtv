@@ -1205,7 +1205,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
 			sqlQuery.append("Select ");
 			sqlQuery.append(mapper.typeschema());
 		
-				sqlQuery.append(" where c." + columnName + " like '" +"%"+ columnValue + "% limit 14");
+				sqlQuery.append(" where c." + columnName + " like '" +"%"+ columnValue + "%' limit 14");
 			
 				System.out.println("ClientReadPlatformServiceImpl.retrieveTypeSearchClientId() :" +sqlQuery.toString() );
 			return this.jdbcTemplate.query(sqlQuery.toString(), mapper, new Object[] {});
@@ -1272,7 +1272,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
 		}
 			
 			public String typeschema() {
-				String query = " c.id AS id,c.account_no AS accountNo,c.status_enum AS status,c.phone AS phone,c.display_name AS customerName From m_client ";
+				String query = " c.id AS id,c.account_no AS accountNo,c.status_enum AS status,c.phone AS phone,c.display_name AS customerName From m_client c";
 				return query;
 				}
 		}
