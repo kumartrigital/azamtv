@@ -539,10 +539,13 @@ public class OrderWritePlatformServiceImpl implements OrderWritePlatformService 
 			if (!plan.getProvisionSystem().equalsIgnoreCase("None") && plan.getPlanType() != 211) {
 				this.provisioningRequesting(order, oldOrder, plan.isPrepaid());
 			} else {
-				clientService = this.clientServiceRepository.findOne(order.getClientServiceId());
-
-				clientService.setStatus("Active");
-				clientService = this.clientServiceRepository.saveAndFlush(clientService);
+				System.out.println("non provisining plan executing :" + plan.getDescription());
+				// clientService =
+				// this.clientServiceRepository.findOne(order.getClientServiceId());
+				/*
+				 * clientService.setStatus("Active");
+				 */
+				// clientService = this.clientServiceRepository.saveAndFlush(clientService);
 
 			}
 
